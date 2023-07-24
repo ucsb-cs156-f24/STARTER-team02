@@ -24,4 +24,4 @@ COPY pom.xml /home/app
 
 RUN mvn -B -Pproduction -Ph2 -DskipTests -f /home/app/pom.xml clean package
 
-ENTRYPOINT ["java","-jar","/home/app/target/team02-1.0.0.jar"]
+ENTRYPOINT ["java","-jar","/home/app/target/team03-1.0.0.jar"]

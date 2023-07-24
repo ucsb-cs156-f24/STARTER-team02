@@ -1,0 +1,435 @@
+name: 99 - Create Issues for team03
+
+env:
+  ASN_LINK: https://ucsb-cs156.github.io/m23/lab/team03
+
+on:
+  workflow_dispatch:
+jobs:
+
+  createOneOffIssues:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      
+      - name: Add table to README.md
+        uses: dacbd/create-issue-action@main
+        with:
+          token: ${{ github.token }}
+          title: Add table to README.md
+          body: |
+            # Acceptance Criteria:
+            - [ ] The README.md has a table at the top like the one shown below
+                  indicating which team member is initially taking on
+                  which database table, and which is unassigned.
+
+                  Note that each team member should take on a *different* table
+                  from the one they took on for team02.
+                  
+                  ```
+                  | Table                       | Team Member  | Github Id     |
+                  |-----------------------------|--------------|---------------|
+                  | `UCSBDiningCommonsMenuItem` | Alice        | alice33       |
+                  | `UCSBOrganization`          | (unassigned) |               |
+                  | `RecommendationRequest`     | Bob          | robertg       |
+                  | `MenuItemReview`            | Charlie      | gauchocharlie |
+                  | `HelpRequest`               | Danielle     | danielle      |
+                  | `Articles`                  | Eddie        | eddydp        |
+                  ```
+            - [ ] The cards on the Kanban board for the unassigned db table(s) have
+                  been dragged to done.
+
+      - name: Set up GitHub Pages
+        uses: dacbd/create-issue-action@main
+        with:
+          token: ${{ github.token }}
+          title: Set up Github Pages
+          body: |
+            # Acceptance Criteria:
+            - [ ] Github Pages is active, using the `gh-pages` branch and the root directory
+            - [ ] The main page of the repo has a link to the Github Pages site in the right side bar
+            - [ ] The links on the Github Pages site work properly.
+
+            # Details
+
+            See the file /docs/github-pages.md in the repo for details
+      
+      - name: Set up Team prod deployment
+        uses: dacbd/create-issue-action@main
+        with:
+          token: ${{ github.token }}
+          title: Set up Team prod deployment
+          body: |
+            # Acceptance Criteria:
+            - [ ] An app named `team03` is created on this team's dokku server.
+            - [ ] An database is configured for that app (see: <https://ucsb-cs156.github.io/topics/dokku/postgres_database.html>)
+            - [ ] HTTPS is configured for that app (see: <https://ucsb-cs156.github.io/topics/dokku/enabling_https.html>)
+            - [ ] The ADMIN_EMAILS are configured for that app.
+                  * You should find the ones you need in a pinned post on your team's Slack channel.
+                  * Instructions for configuring the variable are here: <https://ucsb-cs156.github.io/topics/dokku/environment_variables.html>
+            - [ ] Google OAuth is configured for that app.
+                  * Instructions for configuring OAuth credentials are here: <https://ucsb-cs156.github.io/topics/oauth/oauth_google_setup.html>
+                  * Then you need to use the instructions here to configure the environment variables `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`: <https://ucsb-cs156.github.io/topics/dokku/environment_variables.html>
+            - [ ] The main branch is deployed on Dokku at, for example,
+                  <https://team03.dokku-xx.cs.ucsb.edu> (substituting your
+                  own Dokku instances for xx).
+            - [ ] Everyone on the team, and the instructor and TAs, 
+                  are all able to login with OAuth and see that they have
+                  admin privileges.
+
+            # Details
+
+            See the file /docs/dokku.md in the repo for details.
+
+      - name: Set up Team qa deployment
+        uses: dacbd/create-issue-action@main
+        with:
+          token: ${{ github.token }}
+          title: Set up Team qa deployment
+          body: |
+            # Acceptance Criteria:
+
+            - [ ] An app named `team03-qa` is created on this team's dokku server.
+            - [ ] An database is configured for that app (see: <https://ucsb-cs156.github.io/topics/dokku/postgres_database.html>)
+            - [ ] HTTPS is configured for that app (see: <https://ucsb-cs156.github.io/topics/dokku/enabling_https.html>)
+            - [ ] The ADMIN_EMAILS are configured for that app.
+                  * You should find the ones you need in a pinned post on your team's Slack channel.
+                  * Instructions for configuring the variable are here: <https://ucsb-cs156.github.io/topics/dokku/environment_variables.html>
+            - [ ] Google OAuth is configured for that app.
+                  * Instructions for configuring OAuth credentials are here: <https://ucsb-cs156.github.io/topics/oauth/oauth_google_setup.html>
+                  * Then you need to use the instructions here to configure the environment variables `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`: <https://ucsb-cs156.github.io/topics/dokku/environment_variables.html>
+            - [ ] The main branch is deployed on Dokku at, for example,
+                  <https://team03-qa.dokku-xx.cs.ucsb.edu> (substituting your
+                  own Dokku instances for xx).
+            - [ ] Everyone on the team, and the instructor and TAs, 
+                  are all able to login with OAuth and see that they have
+                  admin privileges.
+                  
+           
+            # Details
+
+            Set up a separate Dokku instance for QA.  Adapt the instructions from 
+            the file /docs/dokku.md in the repo.  The QA (quality assurance) instance
+            starts with the main branch, but later on, you will be able to deploy
+            any branch to this instance. You typically do this when you have a PR
+            that is being code reviewed.  You can use the your team's Slack channel
+            to coordinate who is deploying what to QA at any given time.
+
+
+      - name: Adjust links in README.md
+        uses: dacbd/create-issue-action@main
+        with:
+          token: ${{ github.token }}
+          title: Adjust title and links in README.md
+          body: |
+            ## Acceptance criteria
+            - [ ] The title of the README.md file is changed from `STARTER-team03` to the name of the app (e.g. `team03-m23-9am-4`)
+            - [ ] The README.md file is updated with links to the prod and qa instances on dokku.
+            - [ ] The README.md file is updated with any other links as specified in the instructions.
+            
+            ## Details
+            
+            See the README.md file in the repo for details.
+  
+   
+      - name: Submit for Grading
+        uses: dacbd/create-issue-action@main
+        with:
+          token: ${{ github.token }}
+          title:  Submit for Grading
+          body: |
+            ## Acceptance criteria
+            
+            - [ ] The assignment has been submitted on Canvas
+            
+            ## Details
+            
+            See the assignment description at ${{env.ASN_LINK}} for details.
+          
+  createIssues:
+    needs: [ createOneOffIssues ]
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
+      matrix:
+        api: [ "UCSBDiningCommonsMenuItem", "UCSBOrganization", "RecommendationRequest", "MenuItemReview", "HelpRequest" , "Articles"]
+      
+    steps:
+    
+      - uses: actions/checkout@v3
+
+      - name: Fixtures
+        uses: dacbd/create-issue-action@main
+        env:
+          name: ${{ matrix.api }}
+        with:
+          token: ${{ github.token }}
+          title: Create fixtures for ${{env.name}}
+          body: |
+
+            # Acceptance Criteria:
+            
+            - [ ] In the frontend directory `/frontend/src/main/fixtures` there is a
+                  file called `${{env.name}}Fixtures.js` that contains Javascript fixtures
+                  for the database table that is similar to the `restaurantFixtures.js` 
+                  file in the example.
+            - [ ] Each example should correspond to the JSON format
+                  of an object returned by the GET API endpoint from team02 for that
+                  database table object.          
+
+      - name: Form Component
+        uses: dacbd/create-issue-action@main
+        env:
+          name: ${{ matrix.api }}
+        with:
+          token: ${{ github.token }}
+          title: Form Component for `${{env.name}}` plus tests
+          
+          body: |
+           
+
+              # Acceptance Criteria:
+
+              - [ ] Under `/frontend/src/main/components/${{env.name}}/` there is a file
+                    called `${{env.name}}Form` modelled after 
+                    the file `frontend/src/main/components/Restaurants/RestaurantForm.js`
+
+              - [ ] The form has all the fields that are in the database table 
+                    the form fields are labelled with user-friendly names corresponding
+                    to the database table column names.
+
+              - [ ] The form has suitable validations for all fields, indicating which fields
+                    are required to be non-blank, and any validation that should be performed
+                    (e.g. on dates, time values, numeric values with restricted ranges etc.).
+                    You can use regular expressions for this, or any of the other validations
+                    features of `react-query-form`, using the `register` feature, documented here:
+
+                    * <https://www.react-hook-form.com/api/useform/register/>
+      
+              - [ ] The form takes a prop called `initialContents` which is either 
+                    undefined, or an object that has the same fields as the database table.
+                    When passed, it indicates that the form is being used to edit an existing
+                    object.  The `id` field should be displayed as a read-only field,
+                    and the other fields are pre-populated with the values from the object.
+
+              - [ ] When the `initialContents` is undefined, it indicates that the form is
+                    being used to create a new object.  Therefore, if the id field is autogenerated,
+                    it should not be displayed on the form, and other form values should 
+                    be either empty, or populated with default or example values (as appropriate).
+                    
+              - [ ] The form should take prop called `submitAction` which is passed to the
+                    `handleSubmit` function returned by `useForm`, as in the example
+                    `frontend/src/main/components/Restaurants/RestaurantForm.js`.
+
+              - [ ] The form should take a prop called `buttonLabel` with a default value
+                    of `Create`.  The value of this prop is used as the label for the button
+                    as shown in `frontend/src/main/components/Restaurants/RestaurantForm.js`.            
+   
+              - [ ] Under `/frontend/src/test/components/${{env.name}}/` there is a file
+                    called `${{env.name}}Form.tests.js` modelled after 
+                    the file `frontend/src/test/components/Restaurants/RestaurantForm.tests.js`
+
+              - [ ] Under `/frontend/src/stories/components/${{env.name}}/` there is a file
+                    called `${{env.name}}Form.stories.js` modelled after 
+                    the file `frontend/src/stories/components/Restaurants/RestaurantForm.stories.js`
+              
+              - [ ] The `${{env.name}}Form.stories.js` file should have at least one story 
+                    for a create scenario, and another for an update scenario.
+                    
+              - [ ] The PR description where the code addressing this issue is submitted contains
+                    a screenshot of the new form (since this is a frontend change).
+
+              - [ ] The PR description where the code addressing this issue is submitted contains
+                    a link to the published storybook for the PR.
+
+              Notes
+              
+              * It is not necessary, for *this* issue, that the form be linked to a
+                page that connects it to the backend; that will be done in a later issue.
+
+              * This issue illustrates how it is possible to create at least part of the frontend
+                for a feature even if/when the backend is not yet complete.
+
+              * It also illustrates how we can create a component that can be reused, in this
+                case for both creating and editing a database record.
+                    
+      - name: Table Component
+        uses: dacbd/create-issue-action@main
+        env:
+          name: ${{ matrix.api }}
+        with:
+          token: ${{ github.token }}
+          title: Table Component for `${{env.name}}` plus tests
+          
+          body: |
+          
+                  # Acceptance Criteria:
+    
+                  - [ ] Under `/frontend/src/main/components/${{env.name}}/` there is a file
+                        called `${{env.name}}Table` modelled after 
+                        the file `frontend/src/main/components/Restaurants/RestaurantTable.js`
+        
+                  - [ ] Under `/frontend/src/test/components/${{env.name}}/` there is a file
+                        called `${{env.name}}Table.tests.js` modelled after 
+                        the file `frontend/src/test/components/Restaurants/RestaurantTable.tests.js`
+    
+                  - [ ] Under `/frontend/src/stories/components/${{env.name}}/` there is a file
+                        called `${{env.name}}Table.stories.js` modelled after 
+                        the file `frontend/src/stories/components/Restaurants/RestaurantTable.stories.js`
+                          
+                  - [ ] The PR description where the code addressing this issue is submitted contains
+                        a screenshot of the new table (since this is a frontend change).
+    
+                  - [ ] The PR description where the code addressing this issue is submitted contains
+                        a link to the published storybook for the PR, linking directly to the story 
+                        for the new `${{env.name}}Table` component.
+    
+                  Notes
+                  
+                  * It is not necessary, for *this* issue, that the table be linked to a
+                    page that connects it to the backend; that will be done in a later issue.
+
+                  * This issue illustrates how it is possible to create at least part of the frontend
+                    for a feature even if/when the backend is not yet complete.
+    
+                  * It also illustrates how we can create a component that can be reused, in this
+                    case for both an index page (list of all objects) and a show page (read only 
+                    display of a single object).
+
+                        
+      - name: Create Page 
+        uses: dacbd/create-issue-action@main
+        env:
+          name: ${{ matrix.api }}
+        with:
+          token: ${{ github.token }}
+          title: Create Page for `${{env.name}}` plus tests and stories
+          
+          body: |
+            
+    
+              # Acceptance Criteria:
+
+              - [ ] Under `/frontend/src/main/pages/${{env.name}}/` there is a file
+                    called `${{env.name}}CreatePage` modelled after 
+                    the file `frontend/src/main/pages/Restaurants/RestaurantCreatePage.js`
+    
+              - [ ] Under `/frontend/src/test/pages/${{env.name}}/` there is a file
+                    called `${{env.name}}CreatePage.tests.js` modelled after 
+                    the file `frontend/src/test/pages/Restaurants/RestaurantCreatePage.tests.js`
+
+              - [ ] Under `/frontend/src/stories/pages/${{env.name}}/` there is a file
+                    called `${{env.name}}CreatePage.stories.js` modelled after 
+                    the file `frontend/src/stories/pages/Restaurants/RestaurantCreatePage.stories.js`
+                      
+              - [ ] The PR description where the code addressing this issue is submitted contains
+                    a screenshot of the new page (since this is a frontend change).
+
+              - [ ] The PR description where the code addressing this issue is submitted contains
+                    a link to the published storybook for the PR, linking directly to the story 
+                    for the new `${{env.name}}CreatePage` component.
+
+              - [ ] When you submit valid data to the page and click submit, a new valid database
+                    entry is stored in the database.  (You can verify this by using the swagger
+                    endpoint to view the current data in the table.)
+
+              - [ ] When invalid data is entered, or if/when required fields are left blank,
+                    the page displays an error message.
+
+              - [ ] The page is added to `frontend/src/main/App.js` so that the page can be 
+                    accessed via the appropriate path (e.g. `/${{env.name}}/create`)
+
+              - [ ] The PR description has step-by-step descriptions for testing the new page, along
+                    with screenshots, so that someone reviewing the PR will know what to do to test
+                    it, and what it is supposed to look like when it functions correctly.
+
+              # Notes
+
+              * It is not necessary, for this issue, to add the new features into the Navbar.
+                We'll add all of the features to the Navbar in a separate issue, to avoid having
+                to come back to the Navbar over and over again as we add new features.
+
+              * It is not uncommon to add a new feature to the app that is not yet available
+                in the navbar if the intention is to roll the feature out to users at a later 
+                date, *provided that* the feature is fully functional and tested.  
+                
+              * This doesn't apply here, but for future reference: in cases where a new page
+                is
+                only *partiallly* functional, it should be merged into the `main` branch
+                only with a configurable [feature toggle](https://en.wikipedia.org/wiki/Feature_toggle).
+                A feature toggle can be used to "turn off" the feature in the production *deployment*,
+                even though the code to implement it has been integrated into the main branch already. 
+                This is a common practice in software development, and is also sometimes referred to as
+                a *feature flag*.
+
+      - name: Edit Page 
+        uses: dacbd/create-issue-action@main
+        env:
+          name: ${{ matrix.api }}
+        with:
+          token: ${{ github.token }}
+          title: Edit Page for `${{env.name}}` plus tests and stories
+          
+          body: |
+            
+              # Acceptance Criteria:
+
+              - [ ] Under `/frontend/src/main/pages/${{env.name}}/` there is a file
+                    called `${{env.name}}EditPage` modelled after 
+                    the file `frontend/src/main/pages/Restaurants/RestaurantEditPage.js`
+    
+              - [ ] Under `/frontend/src/test/pages/${{env.name}}/` there is a file
+                    called `${{env.name}}EditPage.tests.js` modelled after 
+                    the file `frontend/src/test/pages/Restaurants/RestaurantEditPage.tests.js`
+
+              - [ ] Under `/frontend/src/stories/pages/${{env.name}}/` there is a file
+                    called `${{env.name}}EditPage.stories.js` modelled after 
+                    the file `frontend/src/stories/pages/Restaurants/RestaurantEditPage.stories.js`
+                      
+              - [ ] The PR description where the code addressing this issue is submitted contains
+                    a screenshot of the new page (since this is a frontend change).
+
+              - [ ] The PR description where the code addressing this issue is submitted contains
+                    a link to the published storybook for the PR, linking directly to the story 
+                    for the new `${{env.name}}EditPage` component.
+
+              - [ ] The page is added to `frontend/src/main/App.js` so that the page can be 
+                    accessed via the appropriate path (e.g. `/${{env.name}}/edit/{{id}}`)
+
+              - [ ] When the user navigates to `/${{env.name}}/edit/{{id}}` where `{{id}}` 
+                    is the `id` field of a valid record in the table, the page will be populated
+                    with data from that row of the database, and will be able to edit fields
+                    from that database record.
+
+              - [ ] Valid changes made on the page are saved to the database when the user clicks
+                    the submit button.
+              - [ ] Changes made on the page are NOT saved when the page contains invalid data; instead,
+                    appropriate error messages are shown.
+              - [ ] Changes made on the page are NOT saved when the user clicks the cancel button.      
+
+              # Notes
+
+              * It is not necessary, for this issue, to add the new page into the Navbar.
+                We'll add all of the features to the Navbar in a separate issue, to avoid having
+                to come back to the Navbar over and over again as we add new features.
+
+              * It is not uncommon to add a new feature to the app that is not yet available
+                in the navbar if the intention is to roll the feature out to users at a later 
+                date, *provided that* the feature is fully functional and tested.  
+                
+              * This doesn't apply here, but for future reference: in cases where a new page
+                is
+                only *partiallly* functional, it should be merged into the `main` branch
+                only with a configurable [feature toggle](https://en.wikipedia.org/wiki/Feature_toggle).
+                A feature toggle can be used to "turn off" the feature in the production *deployment*,
+                even though the code to implement it has been integrated into the main branch already. 
+                This is a common practice in software development, and is also sometimes referred to as
+                a *feature flag*.
+
+
+
+
+
+
