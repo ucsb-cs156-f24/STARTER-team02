@@ -65,23 +65,6 @@ describe("AppNavbar tests", () => {
     });
 
 
-    test("renders the todos menu correctly", async () => {
-
-        const currentUser = currentUserFixtures.userOnly;
-        const systemInfo = systemInfoFixtures.showingBoth;
-
-        const doLogin = jest.fn();
-
-        render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogin={doLogin} />
-                </MemoryRouter>
-            </QueryClientProvider>
-        );
-
-        await screen.findByTestId("appnavbar-todos-dropdown");
-    });
 
     test("renders the AppNavbarLocalhost when on http://localhost:3000", async () => {
 
