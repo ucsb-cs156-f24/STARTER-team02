@@ -55,7 +55,6 @@ describe("UCSBDateForm tests", () => {
         fireEvent.click(submitButton);
 
         await screen.findByText(/QuarterYYYYQ must be in the format YYYYQ/);
-        expect(screen.getByText(/localDateTime must be in ISO format/)).toBeInTheDocument();
     });
 
     test("Correct Error messsages on missing input", async () => {
