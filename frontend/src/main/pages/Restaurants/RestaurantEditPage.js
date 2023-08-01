@@ -58,9 +58,8 @@ export default function RestaurantEditPage() {
         <BasicLayout>
             <div className="pt-2">
                 <h1>Edit Restaurant</h1>
-                {restaurant ?
-                    <RestaurantForm submitAction={onSubmit} buttonLabel={"Update"} initialContents={restaurant} />
-                    : <p>Loading...</p>
+                {
+                    restaurant && <RestaurantForm submitAction={onSubmit} buttonLabel={"Update"} initialContents={restaurant} />
                 }
             </div>
         </BasicLayout>
