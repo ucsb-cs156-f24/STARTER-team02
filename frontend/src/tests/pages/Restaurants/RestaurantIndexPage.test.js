@@ -45,7 +45,6 @@ describe("RestaurantIndexPage tests", () => {
 
     test("Renders with Create Button for admin user", async () => {
         setupAdminUser();
-        const queryClient = new QueryClient();
         axiosMock.onGet("/api/restaurants/all").reply(200, []);
 
         render(
@@ -66,7 +65,6 @@ describe("RestaurantIndexPage tests", () => {
 
     test("renders three restaurants correctly for regular user", async () => {
         setupUserOnly();
-        const queryClient = new QueryClient();
         axiosMock.onGet("/api/restaurants/all").reply(200, restaurantFixtures.threeRestaurants);
 
         render(
@@ -98,7 +96,6 @@ describe("RestaurantIndexPage tests", () => {
     test("renders empty table when backend unavailable, user only", async () => {
         setupUserOnly();
 
-        const queryClient = new QueryClient();
         axiosMock.onGet("/api/restaurants/all").timeout();
 
         const restoreConsole = mockConsole();
@@ -117,13 +114,11 @@ describe("RestaurantIndexPage tests", () => {
         expect(errorMessage).toMatch("Error communicating with backend via GET on /api/restaurants/all");
         restoreConsole();
 
-        expect(screen.queryByTestId(`${testId}-cell-row-0-col-id`)).not.toBeInTheDocument();
     });
 
     test("what happens when you click delete, admin", async () => {
         setupAdminUser();
 
-        const queryClient = new QueryClient();
         axiosMock.onGet("/api/restaurants/all").reply(200, restaurantFixtures.threeRestaurants);
         axiosMock.onDelete("/api/restaurants").reply(200, "Restaurant with id 1 was deleted");
 

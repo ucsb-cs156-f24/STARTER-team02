@@ -8,7 +8,6 @@ import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 import mockConsole from "jest-mock-console";
-import { getByText } from "@testing-library/dom";
 
 const mockToast = jest.fn();
 jest.mock('react-toastify', () => {
@@ -108,6 +107,29 @@ describe("RestaurantEditPage tests", () => {
             expect(idField).toBeInTheDocument();
             expect(idField).toHaveValue("17");
             expect( nameField).toBeInTheDocument();
+            expect(nameField).toHaveValue("Freebirds");
+            expect(descriptionField).toBeInTheDocument();
+            expect(descriptionField).toHaveValue("Burritos");
+
+            expect(submitButton).toHaveTextContent("Update");
+
+            fireEvent.change(nameField, { target: { value: 'Freebirds World Burrito' } });
+            fireEvent.change(descriptionField, { target: { value: 'Totally Giant Burritos' } });
+            fireEvent.click(submitButton);
+
+            await waitFor(() => expect(mockToast).toBeCalled());
+            expect(mockToast).toBeCalledWith("Restaurant Updated - id: 17 name: Freebirds World Burrito");
+            
+            expect(mockNavigate).toBeCalledWith({ "to": "/restaurants" });
+
+            expect(axiosMock.history.put.length).toBe(1); // times called
+            expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
+            expect(axiosMock.history.put[0].data).toBe(JSON.stringify({
+                name: 'Freebirds World Burrito',
+                description: 'Totally Giant Burritos'
+            })); // posted object
+
+
         });
 
         test("Changes when you click Update", async () => {
