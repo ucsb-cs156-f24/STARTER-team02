@@ -42,8 +42,8 @@ describe("UCSBDatesIndexPage tests", () => {
         axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
     };
 
-    test("renders without crashing for regular user", () => {
-        setupUserOnly();
+    test("Renders with Create Button for admin user", async () => {
+        setupAdminUser();
         const queryClient = new QueryClient();
         axiosMock.onGet("/api/ucsbdates/all").reply(200, []);
 
@@ -55,7 +55,12 @@ describe("UCSBDatesIndexPage tests", () => {
             </QueryClientProvider>
         );
 
-
+        await waitFor( ()=>{
+            expect(screen.getByText(/Create UCSBDate/)).toBeInTheDocument();
+        });
+        const button = screen.getByText(/Create UCSBDate/);
+        expect(button).toHaveAttribute("href", "/ucsbdates/create");
+        expect(button).toHaveAttribute("style", "float: right;");
     });
 
     test("renders without crashing for admin user", () => {
