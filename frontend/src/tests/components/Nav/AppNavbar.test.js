@@ -1,4 +1,4 @@
-import { render, screen} from "@testing-library/react";
+import { fireEvent, render, screen} from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
@@ -127,7 +127,8 @@ describe("AppNavbar tests", () => {
         expect(screen.queryByTestId(/AppNavbarLocalhost/i)).toBeNull();
     });
 
-    test("renders the ucsbdates menu correctly for a user", async () => {
+
+    test("renders the ucsbdates link correctly", async () => {
 
         const currentUser = currentUserFixtures.userOnly;
         const systemInfo = systemInfoFixtures.showingBoth;
@@ -142,18 +143,15 @@ describe("AppNavbar tests", () => {
             </QueryClientProvider>
         );
 
-        await screen.findByTestId("appnavbar-ucsbdates-dropdown");
-        const dropdown = screen.getByTestId("appnavbar-ucsbdates-dropdown");
-        const aElement = dropdown.querySelector("a");
-        expect(aElement).toBeInTheDocument();
-        aElement?.click();
-        await screen.findByTestId("appnavbar-ucsbdates-list");
-
+        await screen.findByText("UCSB Dates");
+        const link = screen.getByText("UCSB Dates");
+        expect(link).toBeInTheDocument();
+        expect(link.getAttribute("href")).toBe("/ucsbdates");
     });
 
-    test("renders the ucsbdates menu correctly for an admin", async () => {
+    test("renders the restaurants link correctly", async () => {
 
-        const currentUser = currentUserFixtures.adminUser;
+        const currentUser = currentUserFixtures.userOnly;
         const systemInfo = systemInfoFixtures.showingBoth;
 
         const doLogin = jest.fn();
@@ -166,13 +164,10 @@ describe("AppNavbar tests", () => {
             </QueryClientProvider>
         );
 
-        await screen.findByTestId("appnavbar-ucsbdates-dropdown");
-        const dropdown = screen.getByTestId("appnavbar-ucsbdates-dropdown");
-        const aElement = dropdown.querySelector("a");
-        expect(aElement).toBeInTheDocument();
-        aElement?.click();
-        await screen.findByTestId(/appnavbar-ucsbdates-create/);
-
+        await screen.findByText("Restaurants");
+        const link = screen.getByText("Restaurants");
+        expect(link).toBeInTheDocument();
+        expect(link.getAttribute("href")).toBe("/restaurants");
     });
 });
 
