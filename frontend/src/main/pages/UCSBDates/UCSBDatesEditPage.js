@@ -53,7 +53,7 @@ export default function UCSBDatesEditPage() {
   }
 
   if (isSuccess) {
-    return <Navigate to="/ucsbdates/list" />
+    return <Navigate to="/ucsbdates" />
   }
 
   return (

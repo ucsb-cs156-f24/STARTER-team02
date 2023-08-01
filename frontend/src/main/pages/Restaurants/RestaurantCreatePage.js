@@ -1,30 +1,29 @@
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import UCSBDateForm from "main/components/UCSBDates/UCSBDateForm";
+import RestaurantForm from "main/components/Restaurants/RestaurantForm";
 import { Navigate } from 'react-router-dom'
 import { useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
-export default function UCSBDatesCreatePage() {
+export default function RestaurantCreatePage() {
 
-  const objectToAxiosParams = (ucsbDate) => ({
-    url: "/api/ucsbdates/post",
+  const objectToAxiosParams = (restaurant) => ({
+    url: "/api/restaurants/post",
     method: "POST",
     params: {
-      quarterYYYYQ: ucsbDate.quarterYYYYQ,
-      name: ucsbDate.name,
-      localDateTime: ucsbDate.localDateTime
+     name: restaurant.name,
+     description: restaurant.description
     }
   });
 
-  const onSuccess = (ucsbDate) => {
-    toast(`New ucsbDate Created - id: ${ucsbDate.id} name: ${ucsbDate.name}`);
+  const onSuccess = (restaurant) => {
+    toast(`New restaurant Created - id: ${restaurant.id} name: ${restaurant.name}`);
   }
 
   const mutation = useBackendMutation(
     objectToAxiosParams,
      { onSuccess }, 
      // Stryker disable next-line all : hard to set up test for caching
-     ["/api/ucsbdates/all"]
+     ["/api/restaurants/all"] // mutation makes this key stale so that pages relying on it reload
      );
 
   const { isSuccess } = mutation
@@ -34,16 +33,14 @@ export default function UCSBDatesCreatePage() {
   }
 
   if (isSuccess) {
-    return <Navigate to="/ucsbdates" />
+    return <Navigate to="/restaurants" />
   }
 
   return (
     <BasicLayout>
       <div className="pt-2">
-        <h1>Create New UCSBDate</h1>
-
-        <UCSBDateForm submitAction={onSubmit} />
-
+        <h1>Create New Restaurant</h1>
+        <RestaurantForm submitAction={onSubmit} />
       </div>
     </BasicLayout>
   )

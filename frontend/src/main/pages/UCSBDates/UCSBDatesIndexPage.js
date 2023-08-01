@@ -21,6 +21,7 @@ export default function UCSBDatesIndexPage() {
   return (
     <BasicLayout>
       <div className="pt-2">
+        ( hasRole(currentUser, "ROLE_ADMIN") ??
         <Button
           variant="primary"
           href="/ucsbdates/create"
@@ -28,6 +29,7 @@ export default function UCSBDatesIndexPage() {
         >
           Create UCSBDate
         </Button>
+        )
         <h1>UCSBDates</h1>
         <UCSBDatesTable dates={dates} currentUser={currentUser} />
       </div>

@@ -28,7 +28,7 @@ function App() {
         {
           hasRole(currentUser, "ROLE_USER") && (
             <>
-              <Route exact path="/ucsbdates/list" element={<UCSBDatesIndexPage />} />
+              <Route exact path="/ucsbdates" element={<UCSBDatesIndexPage />} />
             </>
           )
         }
