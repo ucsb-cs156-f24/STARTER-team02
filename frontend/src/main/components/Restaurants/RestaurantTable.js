@@ -17,10 +17,6 @@ export default function RestaurantTable({
         navigate(`/restaurants/edit/${cell.row.values.id}`)
     }
 
-    const detailsCallback = (cell) => {
-        navigate(`/restaurants/details/${cell.row.values.id}`)
-    }
-
     // Stryker disable all : hard to test for query caching
 
     const deleteMutation = useBackendMutation(
@@ -48,10 +44,6 @@ export default function RestaurantTable({
             accessor: 'description',
         }
     ];
-
-    columns.push(
-        ButtonColumn("Details", "primary", detailsCallback, testIdPrefix),
-    );
 
     if (hasRole(currentUser, "ROLE_ADMIN")) {
         columns.push(ButtonColumn("Edit", "primary", editCallback, testIdPrefix));

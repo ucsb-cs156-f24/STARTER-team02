@@ -76,10 +76,6 @@ describe("RestaurantTable tests", () => {
     expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
     expect(screen.getByTestId(`${testId}-cell-row-1-col-name`)).toHaveTextContent("Freebirds");
 
-    const detailsButton = screen.getByTestId(`${testId}-cell-row-0-col-Details-button`);
-    expect(detailsButton).toBeInTheDocument();
-    expect(detailsButton).toHaveClass("btn-primary");
-
     const editButton = screen.getByTestId(`${testId}-cell-row-0-col-Edit-button`);
     expect(editButton).toBeInTheDocument();
     expect(editButton).toHaveClass("btn-primary");
@@ -122,7 +118,6 @@ describe("RestaurantTable tests", () => {
 
     expect(screen.queryByText("Delete")).not.toBeInTheDocument();
     expect(screen.queryByText("Edit")).not.toBeInTheDocument();
-    expect(screen.getByTestId("RestaurantTable-cell-row-2-col-Details-button")).toBeInTheDocument();
   });
 
 
@@ -152,33 +147,6 @@ describe("RestaurantTable tests", () => {
     // assert - check that the navigate function was called with the expected path
     await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/restaurants/edit/2'));
 
-  });
-
-  test("Details button navigates to the details page", async () => {
-    // arrange
-    const currentUser = currentUserFixtures.userOnly;
-
-    // act - render the component
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <RestaurantTable restaurants={restaurantFixtures.threeRestaurants} currentUser={currentUser} />
-        </MemoryRouter>
-      </QueryClientProvider>
-    );
-
-    // assert - check that the expected content is rendered
-    expect(await screen.findByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-name`)).toHaveTextContent("Cristino's Bakery");
-
-    const detailsButton = screen.getByTestId(`${testId}-cell-row-0-col-Details-button`);
-    expect(detailsButton).toBeInTheDocument();
-
-    // act - click the details button
-    fireEvent.click(detailsButton);
-
-    // assert - check that the navigate function was called with the expected path
-    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/restaurants/details/2'));
   });
 
   test("Delete button calls delete callback", async () => {

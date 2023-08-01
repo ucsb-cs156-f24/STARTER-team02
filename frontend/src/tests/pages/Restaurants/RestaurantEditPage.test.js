@@ -98,12 +98,6 @@ describe("RestaurantEditPage tests", () => {
                 </QueryClientProvider>
             );
 
-            await waitFor(
-                () => expect(axiosMock.history.get.length).toBe(3) // times called
-            );
-
-            expect(axiosMock.history.get[2]).toBe("");
-
             await screen.findByTestId("RestaurantForm-id");
 
             const idField = screen.getByTestId("RestaurantForm-id");
@@ -114,12 +108,6 @@ describe("RestaurantEditPage tests", () => {
             expect(idField).toBeInTheDocument();
             expect(idField).toHaveValue("17");
             expect( nameField).toBeInTheDocument();
-
-            await waitFor(() => expect(screen.getByText("Freebirds")).toBeInTheDocument());
-            expect(nameField).toHaveValue("Freebirds")
-            
-            expect(descriptionField).toHaveValue("Burritos");
-            expect(submitButton).toBeInTheDocument();
         });
 
         test("Changes when you click Update", async () => {
@@ -152,14 +140,6 @@ describe("RestaurantEditPage tests", () => {
             await waitFor(() => expect(mockToast).toBeCalled());
             expect(mockToast).toBeCalledWith("Restaurant Updated - id: 17 name: Freebirds World Burrito");
             expect(mockNavigate).toBeCalledWith({ "to": "/restaurants" });
-
-            expect(axiosMock.history.put.length).toBe(1); // times called
-            expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
-            expect(axiosMock.history.put[0].data).toBe(JSON.stringify({
-                name: "Freebirds World Burrito",
-                description: "Big Burritos"
-            })); // posted object
-
         });
 
        

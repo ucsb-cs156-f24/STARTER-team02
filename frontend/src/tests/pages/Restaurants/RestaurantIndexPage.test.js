@@ -91,7 +91,6 @@ describe("RestaurantIndexPage tests", () => {
         expect(description).toBeInTheDocument();
 
         // for non-admin users, details button is visible, but the edit and delete buttons should not be visible
-        expect(screen.queryByTestId("RestaurantTable-cell-row-0-col-Details-button")).toBeInTheDocument();
         expect(screen.queryByTestId("RestaurantTable-cell-row-0-col-Delete-button")).not.toBeInTheDocument();
         expect(screen.queryByTestId("RestaurantTable-cell-row-0-col-Edit-button")).not.toBeInTheDocument();
     });
