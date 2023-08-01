@@ -307,11 +307,6 @@ jobs:
 
             * This issue illustrates how it is possible to create at least part of the frontend
               for a feature even if/when the backend is not yet complete.
-
-            * It also illustrates how we can create a component that can be reused, in this
-              case for both an index page (list of all objects) and a show page (read only 
-              display of a single object).
-
                         
       - name: Create Page 
         uses: dacbd/create-issue-action@main
