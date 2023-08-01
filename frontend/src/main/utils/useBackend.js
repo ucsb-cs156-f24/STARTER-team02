@@ -73,7 +73,7 @@ export function useBackendMutation(objectToAxiosParams, useMutationParams, query
             if (queryKey!==null)
              queryClient.invalidateQueries(queryKey);
         },
-        // Stryker enable all
+        // Stryker restore all
         retry: false,
         ...useMutationParams
     })

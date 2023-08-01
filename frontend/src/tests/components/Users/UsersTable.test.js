@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import usersFixtures from "fixtures/usersFixtures";
 import UsersTable from "main/components/Users/UsersTable"
 
@@ -18,7 +18,7 @@ describe("UserTable tests", () => {
     });
 
     test("Has the expected colum headers and content", () => {
-        const { getByText, getByTestId } = render(
+        render(
           <UsersTable users={usersFixtures.threeUsers}/>
         );
     
@@ -27,19 +27,19 @@ describe("UserTable tests", () => {
         const testId = "UsersTable";
 
         expectedHeaders.forEach( (headerText)=> {
-            const header = getByText(headerText);
+            const header = screen.getByText(headerText);
             expect(header).toBeInTheDocument();
         });
 
         expectedFields.forEach( (field)=> {
-          const header = getByTestId(`${testId}-cell-row-0-col-${field}`);
+          const header = screen.getByTestId(`${testId}-cell-row-0-col-${field}`);
           expect(header).toBeInTheDocument();
         });
 
-        expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
-        expect(getByTestId(`${testId}-cell-row-0-col-admin`)).toHaveTextContent("true");
-        expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
-        expect(getByTestId(`${testId}-cell-row-1-col-admin`)).toHaveTextContent("false");
+        expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
+        expect(screen.getByTestId(`${testId}-cell-row-0-col-admin`)).toHaveTextContent("true");
+        expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
+        expect(screen.getByTestId(`${testId}-cell-row-1-col-admin`)).toHaveTextContent("false");
 
       });
 });

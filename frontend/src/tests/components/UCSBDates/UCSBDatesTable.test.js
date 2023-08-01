@@ -1,4 +1,4 @@
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { fireEvent, render, waitFor, screen } from "@testing-library/react";
 import { ucsbDatesFixtures } from "fixtures/ucsbDatesFixtures";
 import UCSBDatesTable from "main/components/UCSBDates/UCSBDatesTable"
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -16,50 +16,11 @@ jest.mock('react-router-dom', () => ({
 describe("UserTable tests", () => {
   const queryClient = new QueryClient();
 
+  test("Has the expected column headers and content for ordinary user", () => {
 
-  test("renders without crashing for empty table with user not logged in", () => {
-    const currentUser = null;
-
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <UCSBDatesTable dates={[]} currentUser={currentUser} />
-        </MemoryRouter>
-      </QueryClientProvider>
-
-    );
-  });
-  test("renders without crashing for empty table for ordinary user", () => {
     const currentUser = currentUserFixtures.userOnly;
 
     render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <UCSBDatesTable dates={[]} currentUser={currentUser} />
-        </MemoryRouter>
-      </QueryClientProvider>
-
-    );
-  });
-
-  test("renders without crashing for empty table for admin", () => {
-    const currentUser = currentUserFixtures.adminUser;
-
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <UCSBDatesTable dates={[]} currentUser={currentUser} />
-        </MemoryRouter>
-      </QueryClientProvider>
-
-    );
-  });
-
-  test("Has the expected colum headers and content for adminUser", () => {
-
-    const currentUser = currentUserFixtures.adminUser;
-
-    const { getByText, getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBDatesTable dates={ucsbDatesFixtures.threeDates} currentUser={currentUser} />
@@ -73,23 +34,61 @@ describe("UserTable tests", () => {
     const testId = "UCSBDatesTable";
 
     expectedHeaders.forEach((headerText) => {
-      const header = getByText(headerText);
+      const header = screen.getByText(headerText);
       expect(header).toBeInTheDocument();
     });
 
     expectedFields.forEach((field) => {
-      const header = getByTestId(`${testId}-cell-row-0-col-${field}`);
+      const header = screen.getByTestId(`${testId}-cell-row-0-col-${field}`);
       expect(header).toBeInTheDocument();
     });
 
-    expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
-    expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
 
-    const editButton = getByTestId(`${testId}-cell-row-0-col-Edit-button`);
+    const editButton = screen.queryByTestId(`${testId}-cell-row-0-col-Edit-button`);
+    expect(editButton).not.toBeInTheDocument();
+
+    const deleteButton = screen.queryByTestId(`${testId}-cell-row-0-col-Delete-button`);
+    expect(deleteButton).not.toBeInTheDocument();
+
+  });
+
+  test("Has the expected colum headers and content for adminUser", () => {
+
+    const currentUser = currentUserFixtures.adminUser;
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <UCSBDatesTable dates={ucsbDatesFixtures.threeDates} currentUser={currentUser} />
+        </MemoryRouter>
+      </QueryClientProvider>
+
+    );
+
+    const expectedHeaders = ["id", "QuarterYYYYQ", "Name", "Date"];
+    const expectedFields = ["id", "quarterYYYYQ", "name", "localDateTime"];
+    const testId = "UCSBDatesTable";
+
+    expectedHeaders.forEach((headerText) => {
+      const header = screen.getByText(headerText);
+      expect(header).toBeInTheDocument();
+    });
+
+    expectedFields.forEach((field) => {
+      const header = screen.getByTestId(`${testId}-cell-row-0-col-${field}`);
+      expect(header).toBeInTheDocument();
+    });
+
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
+
+    const editButton = screen.getByTestId(`${testId}-cell-row-0-col-Edit-button`);
     expect(editButton).toBeInTheDocument();
     expect(editButton).toHaveClass("btn-primary");
 
-    const deleteButton = getByTestId(`${testId}-cell-row-0-col-Delete-button`);
+    const deleteButton = screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`);
     expect(deleteButton).toBeInTheDocument();
     expect(deleteButton).toHaveClass("btn-danger");
 
@@ -99,7 +98,7 @@ describe("UserTable tests", () => {
 
     const currentUser = currentUserFixtures.adminUser;
 
-    const { getByText, getByTestId } = render(
+    render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBDatesTable dates={ucsbDatesFixtures.threeDates} currentUser={currentUser} />
@@ -108,9 +107,9 @@ describe("UserTable tests", () => {
 
     );
 
-    await waitFor(() => { expect(getByTestId(`UCSBDatesTable-cell-row-0-col-id`)).toHaveTextContent("1"); });
+    await waitFor(() => { expect(screen.getByTestId(`UCSBDatesTable-cell-row-0-col-id`)).toHaveTextContent("1"); });
 
-    const editButton = getByTestId(`UCSBDatesTable-cell-row-0-col-Edit-button`);
+    const editButton = screen.getByTestId(`UCSBDatesTable-cell-row-0-col-Edit-button`);
     expect(editButton).toBeInTheDocument();
     
     fireEvent.click(editButton);

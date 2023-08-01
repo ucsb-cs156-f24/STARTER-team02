@@ -21,7 +21,7 @@ export default function UCSBDatesTable({ dates, currentUser }) {
         { onSuccess: onDeleteSuccess },
         ["/api/ucsbdates/all"]
     );
-    // Stryker enable all 
+    // Stryker restore all 
 
     // Stryker disable next-line all : TODO try to make a good test for this
     const deleteCallback = async (cell) => { deleteMutation.mutate(cell); }
@@ -51,13 +51,9 @@ export default function UCSBDatesTable({ dates, currentUser }) {
         columns.push(ButtonColumn("Delete", "danger", deleteCallback, "UCSBDatesTable"));
     } 
 
-    // Stryker disable next-line ArrayDeclaration : [columns] is a performance optimization
-    const memoizedColumns = React.useMemo(() => columns, [columns]);
-    const memoizedDates = React.useMemo(() => dates, [dates]);
-
     return <OurTable
-        data={memoizedDates}
-        columns={memoizedColumns}
+        data={dates}
+        columns={columns}
         testid={"UCSBDatesTable"}
     />;
 };

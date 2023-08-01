@@ -1,4 +1,4 @@
-import { render, waitFor, fireEvent } from "@testing-library/react";
+import { render, waitFor, fireEvent, screen } from "@testing-library/react";
 import UCSBDatesCreatePage from "main/pages/UCSBDates/UCSBDatesCreatePage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
@@ -62,7 +62,7 @@ describe("UCSBDatesCreatePage tests", () => {
 
         axiosMock.onPost("/api/ucsbdates/post").reply( 202, ucsbDate );
 
-        const { getByTestId } = render(
+        render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <UCSBDatesCreatePage />
@@ -71,13 +71,13 @@ describe("UCSBDatesCreatePage tests", () => {
         );
 
         await waitFor(() => {
-            expect(getByTestId("UCSBDateForm-quarterYYYYQ")).toBeInTheDocument();
+            expect(screen.getByTestId("UCSBDateForm-quarterYYYYQ")).toBeInTheDocument();
         });
 
-        const quarterYYYYQField = getByTestId("UCSBDateForm-quarterYYYYQ");
-        const nameField = getByTestId("UCSBDateForm-name");
-        const localDateTimeField = getByTestId("UCSBDateForm-localDateTime");
-        const submitButton = getByTestId("UCSBDateForm-submit");
+        const quarterYYYYQField = screen.getByTestId("UCSBDateForm-quarterYYYYQ");
+        const nameField = screen.getByTestId("UCSBDateForm-name");
+        const localDateTimeField = screen.getByTestId("UCSBDateForm-localDateTime");
+        const submitButton = screen.getByTestId("UCSBDateForm-submit");
 
         fireEvent.change(quarterYYYYQField, { target: { value: '20221' } });
         fireEvent.change(nameField, { target: { value: 'Groundhog Day' } });

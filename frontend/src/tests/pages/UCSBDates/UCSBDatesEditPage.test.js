@@ -1,4 +1,4 @@
-import { fireEvent, queryByTestId, render, waitFor } from "@testing-library/react";
+import { fireEvent, render, waitFor, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import UCSBDatesEditPage from "main/pages/UCSBDates/UCSBDatesEditPage";
@@ -52,15 +52,15 @@ describe("UCSBDatesEditPage tests", () => {
 
             const restoreConsole = mockConsole();
 
-            const {getByText, queryByTestId} = render(
+            render(
                 <QueryClientProvider client={queryClient}>
                     <MemoryRouter>
                         <UCSBDatesEditPage />
                     </MemoryRouter>
                 </QueryClientProvider>
             );
-            await waitFor(() => expect(getByText("Edit UCSBDate")).toBeInTheDocument());
-            expect(queryByTestId("UCSBDateForm-quarterYYYYQ")).not.toBeInTheDocument();
+            await screen.findByText("Edit UCSBDate");
+            expect(screen.queryByTestId("UCSBDateForm-quarterYYYYQ")).not.toBeInTheDocument();
             restoreConsole();
         });
     });
@@ -101,7 +101,7 @@ describe("UCSBDatesEditPage tests", () => {
 
         test("Is populated with the data provided", async () => {
 
-            const { getByTestId } = render(
+            render(
                 <QueryClientProvider client={queryClient}>
                     <MemoryRouter>
                         <UCSBDatesEditPage />
@@ -109,25 +109,24 @@ describe("UCSBDatesEditPage tests", () => {
                 </QueryClientProvider>
             );
 
-            await waitFor(() => expect(getByTestId("UCSBDateForm-quarterYYYYQ")).toBeInTheDocument());
+            await screen.findByTestId("UCSBDateForm-quarterYYYYQ");
 
-            const idField = getByTestId("UCSBDateForm-id");
-            const quarterYYYYQField = getByTestId("UCSBDateForm-quarterYYYYQ");
-            const nameField = getByTestId("UCSBDateForm-name");
-            const localDateTimeField = getByTestId("UCSBDateForm-localDateTime");
-            const submitButton = getByTestId("UCSBDateForm-submit");
+            const idField = screen.getByTestId("UCSBDateForm-id");
+            const quarterYYYYQField = screen.getByTestId("UCSBDateForm-quarterYYYYQ");
+            const nameField = screen.getByTestId("UCSBDateForm-name");
+            const localDateTimeField = screen.getByTestId("UCSBDateForm-localDateTime");
+            const submitButton = screen.getByTestId("UCSBDateForm-submit");
 
             expect(idField).toHaveValue("17");
             expect(quarterYYYYQField).toHaveValue("20221");
             expect(nameField).toHaveValue("Pi Day");
             expect(localDateTimeField).toHaveValue("2022-03-14T15:00");
+            expect(submitButton).toBeInTheDocument();
         });
 
         test("Changes when you click Update", async () => {
 
-
-
-            const { getByTestId } = render(
+            render(
                 <QueryClientProvider client={queryClient}>
                     <MemoryRouter>
                         <UCSBDatesEditPage />
@@ -135,13 +134,13 @@ describe("UCSBDatesEditPage tests", () => {
                 </QueryClientProvider>
             );
 
-            await waitFor(() => expect(getByTestId("UCSBDateForm-quarterYYYYQ")).toBeInTheDocument());
+            await screen.findByTestId("UCSBDateForm-quarterYYYYQ");
 
-            const idField = getByTestId("UCSBDateForm-id");
-            const quarterYYYYQField = getByTestId("UCSBDateForm-quarterYYYYQ");
-            const nameField = getByTestId("UCSBDateForm-name");
-            const localDateTimeField = getByTestId("UCSBDateForm-localDateTime");
-            const submitButton = getByTestId("UCSBDateForm-submit");
+            const idField = screen.getByTestId("UCSBDateForm-id");
+            const quarterYYYYQField = screen.getByTestId("UCSBDateForm-quarterYYYYQ");
+            const nameField = screen.getByTestId("UCSBDateForm-name");
+            const localDateTimeField = screen.getByTestId("UCSBDateForm-localDateTime");
+            const submitButton = screen.getByTestId("UCSBDateForm-submit");
 
             expect(idField).toHaveValue("17");
             expect(quarterYYYYQField).toHaveValue("20221");
@@ -156,7 +155,7 @@ describe("UCSBDatesEditPage tests", () => {
 
             fireEvent.click(submitButton);
 
-            await waitFor(() => expect(mockToast).toBeCalled);
+            await waitFor(() => expect(mockToast).toBeCalled());
             expect(mockToast).toBeCalledWith("UCSBDate Updated - id: 17 name: Christmas Morning");
             expect(mockNavigate).toBeCalledWith({ "to": "/ucsbdates/list" });
 
