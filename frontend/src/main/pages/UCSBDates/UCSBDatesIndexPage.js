@@ -4,6 +4,7 @@ import { useBackend } from 'main/utils/useBackend';
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import UCSBDatesTable from 'main/components/UCSBDates/UCSBDatesTable';
 import { useCurrentUser } from 'main/utils/currentUser'
+import { Button } from 'react-bootstrap';
 
 export default function UCSBDatesIndexPage() {
 
@@ -21,6 +22,13 @@ export default function UCSBDatesIndexPage() {
     <BasicLayout>
       <div className="pt-2">
         <h1>UCSBDates</h1>
+        <Button
+          variant="primary"
+          href="/ucsbdates/create"
+          style={{ float: "right" }}
+        >
+          Create UCSBDate
+        </Button>
         <UCSBDatesTable dates={dates} currentUser={currentUser} />
       </div>
     </BasicLayout>
