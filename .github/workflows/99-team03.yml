@@ -175,6 +175,11 @@ jobs:
                   ${{env.name}} table
 
                   # Acceptance Criteria:
+
+                  - [ ] Backend API routes for CRUD operations for `${{env.name}} are
+                        available in Swagger (following the criteria from team02)
+
+                  # Implementation Details:
                   
                   - [ ] In the backend directory `src/main/java/edu/ucsb/cs156/example/controllers` 
                         there is a
@@ -227,14 +232,13 @@ jobs:
 
             Complete the following issues first:
             * Create fixtures for ${{env.name}}
+            * Set up GitHub Pages (for Storybook)
 
             # Acceptance Criteria:
 
-            - [ ] Under `/frontend/src/main/components/${{env.name}}/` there is a file
-                  called `${{env.name}}Form` modelled after 
-                  the files `frontend/src/main/components/Restaurants/RestaurantForm.js`
-                  and `frontend/src/main/components/UCSBDates/UCSBDatesForm.js`
-
+            - [ ] A form called `${{env.name}}Form` is visible in the storybook
+                  accessible on the Github Pages link.
+            
             - [ ] The form has all the fields that are in the database table 
                   the form fields are labelled with user-friendly names corresponding
                   to the database table column names.
@@ -247,7 +251,42 @@ jobs:
 
                   * <https://www.react-hook-form.com/api/useform/register/>
     
-            - [ ] The form takes a prop called `initialContents` which is either 
+            - [ ] If there are date/time fields, use a date/time picker similar
+                  to the one in the `UCSBDatesForm` component.  (If this is
+                  not applicable to your table, then you can skip this step.)
+    
+            - [ ] The `${{env.name}}Form.stories.js` file should have at least one story 
+                  for a create scenario, and another for an update scenario.
+                  
+            - [ ] The PR description where the code addressing this issue is submitted contains
+                  a screenshot of the new form (since this is a frontend change).
+
+            - [ ] The PR description where the code addressing this issue is submitted contains
+                  a link to the published storybook for the PR.
+
+            # Implementation Details:
+
+            - [ ] Under `/frontend/src/main/components/${{env.name}}/` there is a file
+                  called `${{env.name}}Form` modelled after 
+                  the files `frontend/src/main/components/Restaurants/RestaurantForm.js`
+                  and `frontend/src/main/components/UCSBDates/UCSBDatesForm.js`
+
+            - [ ] Change the form fields so that they correspond to 
+                  the form fields of your database record.  If there are 
+                  are labelled with user-friendly names corresponding
+                  to the database table column names.
+
+            - [ ] Add suitable validations for all of your fields indicating which fields
+                  are required to be non-blank, and any validation that should be performed
+                  (e.g. on dates, time values, numeric values with restricted ranges etc.).
+                  You can use regular expressions for this, or any of the other validations
+                  features of `react-query-form`, using the `register` feature, documented here:
+
+                  * <https://www.react-hook-form.com/api/useform/register/>
+
+                  Consult both the `Restaurant` and `UCSBDates` examples for guidance.
+    
+            - [ ] The form should take a prop called `initialContents` which is either 
                   undefined, or an object that has the same fields as the database table.
                   When passed, it indicates that the form is being used to edit an existing
                   object.  The `id` field should be displayed as a read-only field,
@@ -266,27 +305,19 @@ jobs:
                   of `Create`.  The value of this prop is used as the label for the button
                   as shown in  `RestaurantForm.js` and `UCSBDatesForm.js`.            
   
-            - [ ] Under `/frontend/src/test/components/${{env.name}}/` there is a file
+            - [ ] Under `/frontend/src/test/components/${{env.name}}/` create a file
                   called `${{env.name}}Form.tests.js` modelled after 
                   the files 
                   `frontend/src/test/components/Restaurants/RestaurantForm.tests.js` and
                   `frontend/src/test/components/UCSBDates/UCSBDatesForm.tests.js`.
 
-            - [ ] Under `/frontend/src/stories/components/${{env.name}}/` there is a file
+            - [ ] Under `/frontend/src/stories/components/${{env.name}}/` create a file
                   called `${{env.name}}Form.stories.js` modelled after 
                   the files 
                   `frontend/src/stories/components/Restaurants/RestaurantForm.stories.js`
                   and `frontend/src/stories/components/UCSBDates/UCSBDatesForm.stories.js`.
             
-            - [ ] The `${{env.name}}Form.stories.js` file should have at least one story 
-                  for a create scenario, and another for an update scenario.
-                  
-            - [ ] The PR description where the code addressing this issue is submitted contains
-                  a screenshot of the new form (since this is a frontend change).
-
-            - [ ] The PR description where the code addressing this issue is submitted contains
-                  a link to the published storybook for the PR.
-
+         
             Notes
             
             * It is not necessary, for *this* issue, that the form be linked to a
@@ -312,24 +343,17 @@ jobs:
 
             Complete the following issues first:
             * Create fixtures for ${{env.name}}
+            * Set up GitHub Pages (for Storybook)
 
             # Acceptance Criteria:
 
-            - [ ] Under `/frontend/src/main/components/${{env.name}}/` there is a file
-                  called `${{env.name}}Table` modelled after 
-                  the files `frontend/src/main/components/Restaurants/RestaurantTable.js`
-                  and `frontend/src/main/components/UCSBDates/UCSBDatesTable.js`
-  
-            - [ ] Under `/frontend/src/test/components/${{env.name}}/` there is a file
-                  called `${{env.name}}Table.tests.js` modelled after 
-                  the files `frontend/src/test/components/Restaurants/RestaurantTable.tests.js`
-                  and `frontend/src/test/components/UCSBDates/UCSBDatesTable.tests.js`.
+            - [ ] A table called `${{env.name}}Table` is visible in the storybook
+                  accessible on the Github Pages link.
+                  
+            - [ ] The table has all the fields that are in the database table 
+                  abelled with user-friendly names corresponding
+                  to the database table column names.
 
-            - [ ] Under `/frontend/src/stories/components/${{env.name}}/` there is a file
-                  called `${{env.name}}Table.stories.js` modelled after 
-                  the files `frontend/src/stories/components/Restaurants/RestaurantTable.stories.js`
-                  and `frontend/src/stories/components/UCSBDates/UCSBDatesTable.stories.js`.
-                    
             - [ ] The PR description where the code addressing this issue is submitted contains
                   a screenshot of the new table (since this is a frontend change).
 
@@ -337,6 +361,23 @@ jobs:
                   a link to the published storybook for the PR, linking directly to the story 
                   for the new `${{env.name}}Table` component.
 
+            # Implementation Details
+
+            - [ ] Under `/frontend/src/main/components/${{env.name}}/` create a file
+                  called `${{env.name}}Table` modelled after 
+                  the files `frontend/src/main/components/Restaurants/RestaurantTable.js`
+                  and `frontend/src/main/components/UCSBDates/UCSBDatesTable.js`
+  
+            - [ ] Under `/frontend/src/test/components/${{env.name}}/` create a file
+                  called `${{env.name}}Table.tests.js` modelled after 
+                  the files `frontend/src/test/components/Restaurants/RestaurantTable.tests.js`
+                  and `frontend/src/test/components/UCSBDates/UCSBDatesTable.tests.js`.
+
+            - [ ] Under `/frontend/src/stories/components/${{env.name}}/` create a file
+                  called `${{env.name}}Table.stories.js` modelled after 
+                  the files `frontend/src/stories/components/Restaurants/RestaurantTable.stories.js`
+                  and `frontend/src/stories/components/UCSBDates/UCSBDatesTable.stories.js`.
+                    
             Notes
             
             * It is not necessary, for *this* issue, that the table be linked to a
@@ -344,7 +385,128 @@ jobs:
 
             * This issue illustrates how it is possible to create at least part of the frontend
               for a feature even if/when the backend is not yet complete.
-                        
+        
+      - name: Copy Placeholder pages; add to App.js/AppNavbar.js
+        uses: dacbd/create-issue-action@main
+        env:
+          name: ${{ matrix.api }}
+        with:
+          token: ${{ github.token }}
+          title: Copy Placeholders for `${{env.name}}` pages; add to App.js/AppNavbar.js
+
+            # Dependencies
+
+            None: can be done in parallel with other issues
+
+            # Discussion
+
+                  In this issue, you'll set up placeholders for the three pages
+                  you are adding to the app.  These placeholder components
+                  are temporary, but they are necessary so that you can 
+                  add routes to the pages in `frontend/src/App.js` and add
+                  a link to the `/${{env.name}}` name in to the navbar in
+                  in `frontend/src/components/AppNavbar.js`.
+
+                  Note that the contents of the placeholder pages and tests
+                  are temporary, and will be replaced in a later issue, the 
+                  changes you make to these files are the "real code".  The reason
+                  for the placeholder code is that we can't really test the
+                  changes to `App.js` and `AppNavbar.js` unless we have the pages
+                  in place first; that's the reason for the placeholders.
+
+            # Acceptance Criteria:
+            - [ ] On the main navigation bar, there is a link to `${{env.name}}`
+                  that takes the user to the `${{env.name}}IndexPage` page (a placeholder for
+                  now).
+            - [ ] The `${{env.name}}IndexPage` page (a placeholder for now) has a link to
+                  the `${{env.name}}CreatePage` page and the `${{env.name}}EditPage` page
+                  (also both placeholders for now).
+
+            # Implementation Steps    
+             
+            - [ ] Under `/frontend/src/main/pages/${{env.name}}/` create three files
+                  called 
+                  * `${{env.name}}CreatePage.js` 
+                  * `${{env.name}}EditPage.js` 
+                  * `${{env.name}}IndexPage.js` 
+                  
+                  modelled after 
+
+                  * `PlaceholderCreatePage.js` 
+                  * `PlaceholderEditPage.js` 
+                  * `PlaceholderIndexPage.js` 
+
+                  Literally, the only line you need to change in those three
+                  files is this line (or the corresponding one in each file),
+                  changing `Placeholder` to `${{env.name}}`:
+
+                  ```js
+                  export default function PlaceholderCreatePage() {
+                  ```
+
+            - [ ] Under `/frontend/src/tests/pages/${{env.name}}/` create three files
+                  called 
+                  * `${{env.name}}CreatePage.test.js` 
+                  * `${{env.name}}EditPage.test.js` 
+                  * `${{env.name}}IndexPage.test.js` 
+                  
+                  modelled after 
+
+                  * `PlaceholderCreatePage.test.js` 
+                  * `PlaceholderEditPage.test.js` 
+                  * `PlaceholderIndexPage.test.js` 
+
+                  The only change that should be needed is the 
+                  name of the component being imported.
+            
+            - [ ] In `frontend/src/App.js`, there is a section of code that
+                  establishes the routes to the pages for the `${{env.name}}` 
+                  components that looks similar to the ones for `Restaurants`
+                  `UCSBDates`, and the `Placeholder`.   
+                  
+                  Copy/paste this code,
+                  changing `restaurants` to  `${{env.name}}` wherever it appears
+                  (but using lowercase when appropriate).
+
+                  ```js
+                  {
+                        hasRole(currentUser, "ROLE_USER") && (
+                          <>
+                            <Route exact path="/restaurants" element={<RestaurantIndexPage />} />
+                          </>
+                        )
+                  }
+                  {
+                        hasRole(currentUser, "ROLE_ADMIN") && (
+                          <>
+                            <Route exact path="/restaurants/edit/:id" element={<RestaurantEditPage />} />
+                            <Route exact path="/restaurants/create" element={<RestaurantCreatePage />} />
+                          </>
+                        )
+                  }
+                  ```
+            - [ ] In `frontend/src/main/components/Nav/AppNavbar.js`,add a section of code that
+                  establishes the navbar link for `${{env.name}}`.  It should
+                  look similar to this code that establishes the link for `Restaurants`.
+
+                  Copy/paste this code,
+                  changing `restaurants` to  `${{env.name}}` wherever it appears
+                  (but using lowercase when appropriate).
+
+                  ```js
+                  {
+                        hasRole(currentUser, "ROLE_USER") && (
+                          <>
+                            <Nav.Link as={NavLink} to="/restaurants">Restaurants</Nav.Link>
+                          </>
+                        )
+                  }
+                  ```
+            - [ ] Fire up the app on localhost and make sure that you can navigate
+                  to the pages for ${{env.name}}.  You should see pages
+                  similar to the ones at the `Placeholder` link on the navbar.
+
+  
       - name: Create Page 
         uses: dacbd/create-issue-action@main
         env:
@@ -359,64 +521,57 @@ jobs:
             Complete the following issues first:
             * Create fixtures for ${{env.name}}
             * Form Component for ${{env.name}}
+            * Copy Placeholders for `${{env.name}}` pages; add to App.js/AppNavbar.js
 
             # Acceptance Criteria:
 
-            - [ ] Under `/frontend/src/main/pages/${{env.name}}/` there is a file
-                  called `${{env.name}}CreatePage` modelled after 
-                  the files `frontend/src/main/pages/Restaurants/RestaurantCreatePage.js`
-                  and `frontend/src/main/pages/UCSBDates/UCSBDatesCreatePage.js`
-  
-            - [ ] Under `/frontend/src/test/pages/${{env.name}}/` there is a file
-                  called `${{env.name}}CreatePage.tests.js` modelled after 
-                  the files `frontend/src/test/pages/Restaurants/RestaurantCreatePage.tests.js`
-                  and `frontend/src/test/pages/UCSBDates/UCSBDatesCreatePage.tests.js`.
+            - [ ] When you navigate to `${{env.name}}/create` in the URL bar, 
+                  there is page that allows the user to create a new ${{env.name}} record.
 
-            - [ ] Under `/frontend/src/stories/pages/${{env.name}}/` there is a file
-                  called `${{env.name}}CreatePage.stories.js` modelled after 
-                  the files `frontend/src/stories/pages/Restaurants/RestaurantCreatePage.stories.js`
-                  and `frontend/src/stories/pages/UCSBDates/UCSBDatesCreatePage.stories.js`.
-                    
-            - [ ] The PR description where the code addressing this issue is submitted contains
-                  a screenshot of the new page (since this is a frontend change).
+            - [ ] When you enter data into the form and click the submit button,
+                  if the data is valid,
+                  the data is sent to the server, a new ${{env.name}} record is created,
+                  and the user is routed to the `/${{env.name}}` route for the 
+                  `${{env.name}}IndexPage` page.
 
-            - [ ] The PR description where the code addressing this issue is submitted contains
-                  a link to the published storybook for the PR, linking directly to the story 
-                  for the new `${{env.name}}CreatePage` component.
-
-            - [ ] When you submit valid data to the page and click submit, a new valid database
+            - [ ] When you enter data into the form and click the submit button,
+                  if the data is not valid,
+                  appropriate error messages are displayed,
+                  
+                  the data is NOT sent to the server, a new ${{env.name}} record is NOT
+                  created,
+                  and the user remains on the `${{env.name}}/create` page.
+            
+                  - [ ] When you submit valid data to the page and click submit, a new valid database
                   entry is stored in the database.  (You can verify this by using the swagger
                   endpoint to view the current data in the table.)
-
-            - [ ] When invalid data is entered, or if/when required fields are left blank,
-                  the page displays an error message.
-
-            - [ ] The page is added to `frontend/src/main/App.js` so that the page can be 
-                  accessed via the appropriate path (e.g. `/${{env.name}}/create`)
 
             - [ ] The PR description has step-by-step descriptions for testing the new page, along
                   with screenshots, so that someone reviewing the PR will know what to do to test
                   it, and what it is supposed to look like when it functions correctly.
 
-            # Notes
+            - [ ] The PR description has a link to the storybook entry for the new page.
 
-            * It is not necessary, for this issue, to add the new features into the Navbar.
-              We'll add all of the features to the Navbar in a separate issue, to avoid having
-              to come back to the Navbar over and over again as we add new features.
+            # Implementation Details
 
-            * It is not uncommon to add a new feature to the app that is not yet available
-              in the navbar if the intention is to roll the feature out to users at a later 
-              date, *provided that* the feature is fully functional and tested.  
-              
-            * This doesn't apply here, but for future reference: in cases where a new page
-              is
-              only *partiallly* functional, it should be merged into the `main` branch
-              only with a configurable [feature toggle](https://en.wikipedia.org/wiki/Feature_toggle).
-              A feature toggle can be used to "turn off" the feature in the production *deployment*,
-              even though the code to implement it has been integrated into the main branch already. 
-              This is a common practice in software development, and is also sometimes referred to as
-              a *feature flag*.
+            - [ ] In `${{env.name}}CreatePage.js`, replace the code from 
+                  `PlaceholderCreatePage.js` with code modelled after 
+                  the files `frontend/src/main/pages/Restaurants/RestaurantCreatePage.js`
+                  and/or `frontend/src/main/pages/UCSBDates/UCSBDatesCreatePage.js`
+                  that is appropriate to your `${{env.name}}` table.
+  
+            - [ ] In `${{env.name}}CreatePage.test.js`, replace the code from 
+                  `PlaceholderCreatePage.test.js` with code modelled after 
+                  the files `RestaurantCreatePage.test.js`
+                  and/or `UCSBDatesCreatePage.test.js`
+                  appropriate to your `${{env.name}}` table.
 
+            - [ ] Under `/frontend/src/stories/pages/${{env.name}}/` create a file
+                  called `${{env.name}}CreatePage.stories.js` modelled after 
+                  the files `frontend/src/stories/pages/Restaurants/RestaurantCreatePage.stories.js`
+                  and/or `frontend/src/stories/pages/UCSBDates/UCSBDatesCreatePage.stories.js`.
+                    
+            
       - name: Edit Page 
         uses: dacbd/create-issue-action@main
         env:
@@ -432,8 +587,12 @@ jobs:
             Complete the following issues first:
             * Create fixtures for ${{env.name}}
             * Form Component for ${{env.name}}  
+            * Copy Placeholders for `${{env.name}}` pages; add to App.js/AppNavbar.js
+
 
             # Acceptance Criteria:
+
+            # Implementation Details
 
             - [ ] Under `/frontend/src/main/pages/${{env.name}}/` there is a file
                   called `${{env.name}}EditPage` modelled after 
@@ -504,45 +663,10 @@ jobs:
 
             Complete the following issues first:
             * Create fixtures for ${{env.name}}
-            * Table Component for ${{env.name}}  
-
-            Optional:
-
-            * Complete the Edit Page for ${{env.name}} first (if you want to be able to edit records from the index page).
-              If it is not completed first, then clicking the edit button should try to navigate to 
-              where the edit page would be, but it will not be there yet.
-
-              For a production application, if we were releasing a page in a partially 
-              completed stage like this, we might want to hide the page behind a 
-              [feature toggle](https://en.wikipedia.org/wiki/Feature_toggle), but since this is
-              just an exercise, we'll skip that step this time.
-              
+            * Table Component for ${{env.name}} 
+            * Copy Placeholders for `${{env.name}}` pages; add to App.js/AppNavbar.js
+    
             # Acceptance Criteria:
-
-            - [ ] Under `/frontend/src/main/pages/${{env.name}}/` there is a file
-                  called `${{env.name}}IndexPage` modelled after 
-                  the files `frontend/src/main/pages/Restaurants/RestaurantIndexPage.js`
-                  and `frontend/src/main/pages/UCSBDates/UCSBDatesIndexPage.js`
-  
-            - [ ] Under `/frontend/src/test/pages/${{env.name}}/` there is a file
-                  called `${{env.name}}IndexPage.tests.js` modelled after 
-                  the files `frontend/src/test/pages/Restaurants/RestaurantIndexPage.tests.js`
-                  and `frontend/src/test/pages/UCSBDates/UCSBDatesIndexPage.tests.js`.
-
-            - [ ] Under `/frontend/src/stories/pages/${{env.name}}/` there is a file
-                  called `${{env.name}}IndexPage.stories.js` modelled after 
-                  the files `frontend/src/stories/pages/Restaurants/RestaurantIndexPage.stories.js`
-                  and `frontend/src/stories/pages/UCSBDates/UCSBDatesIndexPage.stories.js`.
-                    
-            - [ ] The PR description where the code addressing this issue is submitted contains
-                  a screenshot of the new page (since this is a frontend change).
-
-            - [ ] The PR description where the code addressing this issue is submitted contains
-                  a link to the published storybook for the PR, linking directly to the story 
-                  for the new `${{env.name}}IndexPage` component.
-
-            - [ ] The page is added to `frontend/src/main/App.js` so that the page can be 
-                  accessed via the appropriate path (e.g. `/${{env.name}}`)
 
             - [ ] When the user navigates to `/${{env.name}}` the page will be populated
                   with data all rows in the database, and the user will be able to see
@@ -562,25 +686,35 @@ jobs:
                   if the issue to implement it is already completed, or a blank page with the correct
                   URL if it is not.)
             
-
             - [ ] When the index page is accessed by an admin user, the delete button will
                   call the endpoint to delete the record from the database, and then refresh
                   the page.  The refreshed page will not show the deleted record.
 
-            # Notes
+            - [ ] The PR description where the code addressing this issue is submitted contains
+                  a screenshot of the new page (since this is a frontend change).
 
-            * It is not necessary, for this issue, to add the new page into the Navbar.
-              We'll add all of the features to the Navbar in a separate issue, to avoid having
-              to come back to the Navbar over and over again as we add new features.
+            - [ ] The PR description where the code addressing this issue is submitted contains
+                  a link to the published storybook for the PR, linking directly to the story 
+                  for the new `${{env.name}}IndexPage` component.
 
-            * It is not uncommon to add a new feature to the app that is not yet available
-              in the navbar if the intention is to roll the feature out to users at a later 
-              date, *provided that* the feature is fully functional and tested so that in case
-              a user does stumble upon it, it will work correctly. 
-              
+            # Implementation Details
 
+            - [ ] Modify the `${{env.name}}IndexPage`, replacing the placeholder
+                  content with content 
+                  modelled after 
+                  the files `frontend/src/main/pages/Restaurants/RestaurantIndexPage.js`
+                  and/or `frontend/src/main/pages/UCSBDates/UCSBDatesIndexPage.js`
+  
+            - [ ] Modify `${{env.name}}IndexPage.tests.js`  replacing the placeholder
+                  content with content 
+                  modelled after 
+                  the files `frontend/src/test/pages/Restaurants/RestaurantIndexPage.tests.js`
+                  and/or `frontend/src/test/pages/UCSBDates/UCSBDatesIndexPage.tests.js`.
 
-
-
+            - [ ] Under `/frontend/src/stories/pages/${{env.name}}/` create a file
+                  called `${{env.name}}IndexPage.stories.js` modelled after 
+                  the files `frontend/src/stories/pages/Restaurants/RestaurantIndexPage.stories.js`
+                  and `frontend/src/stories/pages/UCSBDates/UCSBDatesIndexPage.stories.js`.
+                    
 
 
