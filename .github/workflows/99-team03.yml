@@ -2,18 +2,16 @@ name: 99 - Create Issues for team03
 
 env:
   ASN_LINK: https://ucsb-cs156.github.io/m23/lab/team03
-
+  MAP: "{ \"UCSBDiningCommonsMenuItem\": \"diningcommonsmenuitem\", \"UCSBOrganization\": \"ucsborganization\", \"RecommendationRequest\": \"recommendationrequest\", \"MenuItemReview\": \"menuitemreview\", \"HelpRequest\": \"helprequest\", \"Articles\": \"articles\" }"
 on:
   workflow_dispatch:
 jobs:
-
   createOneOffIssues:
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v3
-      
-      
+            
       - name: Add table to README.md
         uses: dacbd/create-issue-action@main
         with:
@@ -23,10 +21,8 @@ jobs:
             # Acceptance Criteria:
             - [ ] The README.md has a table at the top like the one shown below
                   indicating which team member is initially taking on
-                  which database table, and which is unassigned.
-
-                  Note that each team member should take on a *different* table
-                  from the one they took on for team02.
+                  which database table, and which is unassigned. Note that each team member may take on a *different* table
+                  from the one they took on for team02, or the same one.
                   
                   ```
                   | Table                       | Team Member  | Github Id     |
@@ -38,8 +34,9 @@ jobs:
                   | `HelpRequest`               | Danielle     | danielle      |
                   | `Articles`                  | Eddie        | eddydp        |
                   ```
-            - [ ] The cards on the Kanban board for the unassigned db table(s) have
-                  been dragged to done.
+
+            - [ ] The Issues for the unassigned db table(s) have been closed
+                  and removed from the project Kanban board.
 
       - name: Set up GitHub Pages
         uses: dacbd/create-issue-action@main
@@ -54,8 +51,8 @@ jobs:
 
             # Details
 
-            See the file /docs/github-pages.md in the repo for details
-      
+            See the file [/docs/github-pages.md](/docs/github-pages.md) in the repo for details
+
       - name: Set up Team prod deployment
         uses: dacbd/create-issue-action@main
         with:
@@ -107,7 +104,7 @@ jobs:
                   are all able to login with OAuth and see that they have
                   admin privileges.
                   
-           
+
             # Details
 
             Set up a separate Dokku instance for QA.  Adapt the instructions from 
@@ -116,7 +113,6 @@ jobs:
             any branch to this instance. You typically do this when you have a PR
             that is being code reviewed.  You can use the your team's Slack channel
             to coordinate who is deploying what to QA at any given time.
-
 
       - name: Adjust links in README.md
         uses: dacbd/create-issue-action@main
@@ -128,78 +124,88 @@ jobs:
             - [ ] The title of the README.md file is changed from `STARTER-team03` to the name of the app (e.g. `team03-m23-9am-4`)
             - [ ] The README.md file is updated with links to the prod and qa instances on dokku.
             - [ ] The README.md file is updated with any other links as specified in the instructions.
-            
+
             ## Details
-            
+
             See the README.md file in the repo for details.
   
+  
+   
+
    
       - name: Submit for Grading
         uses: dacbd/create-issue-action@main
         with:
           token: ${{ github.token }}
-          title:  Submit for Grading
+          title: Submit for Grading
           body: |
             ## Acceptance criteria
-            
+
             - [ ] The assignment has been submitted on Canvas
-            
+
             ## Details
-            
+
             See the assignment description at ${{env.ASN_LINK}} for details.
-          
+
   createIssues:
-    needs: [ createOneOffIssues ]
+    needs: [createOneOffIssues]
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 1
       matrix:
-        api: [ "UCSBDiningCommonsMenuItem", "UCSBOrganization", "RecommendationRequest", "MenuItemReview", "HelpRequest" , "Articles"]
-      
+        api:
+          [
+            "UCSBDiningCommonsMenuItem",
+            "UCSBOrganization",
+            "RecommendationRequest",
+            "MenuItemReview",
+            "HelpRequest",
+            "Articles",
+          ]
+
     steps:
-    
       - uses: actions/checkout@v3
 
-      - name: Backend CRUD API 
+      - name: Backend CRUD API
         uses: dacbd/create-issue-action@main
         env:
           name: ${{ matrix.api }}
         with:
-            token: ${{ github.token }}
-            title: Copy files for Backend CRUD API ${{env.name}} from team02
-            body: |
+          token: ${{ github.token }}
+          title: Copy files for Backend CRUD API ${{env.name}} from team02
+          body: |
 
-                  # Dependencies
+            # Dependencies
 
-                  None; this issue should be done first before other issues for the
-                  ${{env.name}} table
+            None; this issue should be done first before other issues for the
+            ${{env.name}} table
 
-                  # Acceptance Criteria:
+            # Acceptance Criteria:
 
-                  - [ ] Backend API routes for CRUD operations for `${{env.name}} are
-                        available in Swagger (following the criteria from team02)
+            - [ ] Backend API routes for CRUD operations for `${{env.name}}` are
+                  available in Swagger (following the criteria from team02)
 
-                  # Implementation Details:
-                  - [ ] In the backend directory `src/main/java/edu/ucsb/cs156/example/entities` 
-                        there is a
-                        file called `${{env.name}}.java` that you created
-                        in your `team02` repo.   Copy this into your team03 repo.
-                  - [ ] In the backend directory `src/main/java/edu/ucsb/cs156/example/repositorires` 
-                        there is a
-                        file called `${{env.name}}Repository.java` that you created
-                        in your `team02` repo.   Copy this into your team03 repo.
+            # Implementation Details:
+            - [ ] In the backend directory `src/main/java/edu/ucsb/cs156/example/entities` 
+                  there is a
+                  file called `${{env.name}}.java` that you created
+                  in your `team02` repo.   Copy this into your team03 repo.
+            - [ ] In the backend directory `src/main/java/edu/ucsb/cs156/example/repositorires` 
+                  there is a
+                  file called `${{env.name}}Repository.java` that you created
+                  in your `team02` repo.   Copy this into your team03 repo.
 
-                  - [ ] In the backend directory `src/main/java/edu/ucsb/cs156/example/controllers` 
-                        there is a
-                        file called `${{env.name}}Controller.java` that you copied
-                        from your `team02` repo.   This contains the API for CRUD operations on the
-                        database table.
-                  - [ ] In the backend directory  `src/test/java/edu/ucsb/cs156/example/controllers` 
-                        there is a
-                        file called `${{env.name}}ControllerTests.java` that you copied
-                        from your `team02` repo.   This file has tests for the
-                        controller.
-                  - [ ] Visit swagger and make sure everything still works.
+            - [ ] In the backend directory `src/main/java/edu/ucsb/cs156/example/controllers` 
+                  there is a
+                  file called `${{env.name}}Controller.java` that you copied
+                  from your `team02` repo.   This contains the API for CRUD operations on the
+                  database table.
+            - [ ] In the backend directory  `src/test/java/edu/ucsb/cs156/example/controllers` 
+                  there is a
+                  file called `${{env.name}}ControllerTests.java` that you copied
+                  from your `team02` repo.   This file has tests for the
+                  controller.
+            - [ ] Visit swagger and make sure everything still works.
 
       - name: Fixtures
         uses: dacbd/create-issue-action@main
@@ -216,7 +222,7 @@ jobs:
             ${{env.name}} table
 
             # Acceptance Criteria:
-            
+
             - [ ] In the frontend directory `/frontend/src/main/fixtures` there is a
                   file called `${{env.name}}Fixtures.js` that contains Javascript fixtures
                   for the database table that is similar to the `restaurantFixtures.js` 
@@ -224,7 +230,7 @@ jobs:
                   file in the example.
             - [ ] Each example should correspond to the JSON format
                   of an object returned by the GET API endpoint from team02 for that
-                  database table object.          
+                  database table object.
 
       - name: Form Component
         uses: dacbd/create-issue-action@main
@@ -233,9 +239,9 @@ jobs:
         with:
           token: ${{ github.token }}
           title: Form Component for `${{env.name}}` plus tests
-          
+
           body: |
-           
+
             # Dependencies
 
             Complete the following issues first:
@@ -246,7 +252,7 @@ jobs:
 
             - [ ] A form called `${{env.name}}Form` is visible in the storybook
                   accessible on the Github Pages link.
-            
+
             - [ ] The form has all the fields that are in the database table 
                   the form fields are labelled with user-friendly names corresponding
                   to the database table column names.
@@ -258,11 +264,11 @@ jobs:
                   features of `react-query-form`, using the `register` feature, documented here:
 
                   * <https://www.react-hook-form.com/api/useform/register/>
-    
+
             - [ ] If there are date/time fields, use a date/time picker similar
                   to the one in the `UCSBDatesForm` component.  (If this is
                   not applicable to your table, then you can skip this step.)
-    
+
             - [ ] The `${{env.name}}Form.stories.js` file should have at least one story 
                   for a create scenario, and another for an update scenario.
                   
@@ -293,7 +299,7 @@ jobs:
                   * <https://www.react-hook-form.com/api/useform/register/>
 
                   Consult both the `Restaurant` and `UCSBDates` examples for guidance.
-    
+
             - [ ] The form should take a prop called `initialContents` which is either 
                   undefined, or an object that has the same fields as the database table.
                   When passed, it indicates that the form is being used to edit an existing
@@ -312,7 +318,7 @@ jobs:
             - [ ] The form should take a prop called `buttonLabel` with a default value
                   of `Create`.  The value of this prop is used as the label for the button
                   as shown in  `RestaurantForm.js` and `UCSBDatesForm.js`.            
-  
+
             - [ ] Under `/frontend/src/test/components/${{env.name}}/` create a file
                   called `${{env.name}}Form.tests.js` modelled after 
                   the files 
@@ -324,10 +330,10 @@ jobs:
                   the files 
                   `frontend/src/stories/components/Restaurants/RestaurantForm.stories.js`
                   and `frontend/src/stories/components/UCSBDates/UCSBDatesForm.stories.js`.
-            
-         
+
+
             Notes
-            
+
             * It is not necessary, for *this* issue, that the form be linked to a
               page that connects it to the backend; that will be done in a later issue.
 
@@ -336,7 +342,7 @@ jobs:
 
             * It also illustrates how we can create a component that can be reused, in this
               case for both creating and editing a database record.
-                    
+
       - name: Table Component
         uses: dacbd/create-issue-action@main
         env:
@@ -344,7 +350,7 @@ jobs:
         with:
           token: ${{ github.token }}
           title: Table Component for `${{env.name}}` plus tests
-          
+
           body: |
 
             # Dependencies
@@ -375,7 +381,7 @@ jobs:
                   called `${{env.name}}Table` modelled after 
                   the files `frontend/src/main/components/Restaurants/RestaurantTable.js`
                   and `frontend/src/main/components/UCSBDates/UCSBDatesTable.js`
-  
+
             - [ ] Under `/frontend/src/test/components/${{env.name}}/` create a file
                   called `${{env.name}}Table.tests.js` modelled after 
                   the files `frontend/src/test/components/Restaurants/RestaurantTable.tests.js`
@@ -387,13 +393,13 @@ jobs:
                   and `frontend/src/stories/components/UCSBDates/UCSBDatesTable.stories.js`.
                     
             Notes
-            
+
             * It is not necessary, for *this* issue, that the table be linked to a
               page that connects it to the backend; that will be done in a later issue.
 
             * This issue illustrates how it is possible to create at least part of the frontend
               for a feature even if/when the backend is not yet complete.
-        
+
       - name: Copy Placeholder pages; add to App.js/AppNavbar.js
         uses: dacbd/create-issue-action@main
         env:
@@ -467,7 +473,7 @@ jobs:
 
                   The only change that should be needed is the 
                   name of the component being imported.
-            
+
             - [ ] In `frontend/src/App.js`, there is a section of code that
                   establishes the routes to the pages for the `${{env.name}}` 
                   components that looks similar to the ones for `Restaurants`
@@ -515,15 +521,14 @@ jobs:
                   to the pages for ${{env.name}}.  You should see pages
                   similar to the ones at the `Placeholder` link on the navbar.
 
-  
-      - name: Create Page 
+      - name: Create Page
         uses: dacbd/create-issue-action@main
         env:
           name: ${{ matrix.api }}
         with:
           token: ${{ github.token }}
           title: Create Page for `${{env.name}}` plus tests and stories
-          
+
           body: |
             # Dependencies
 
@@ -550,7 +555,7 @@ jobs:
                   the data is NOT sent to the server, a new ${{env.name}} record is NOT
                   created,
                   and the user remains on the `${{env.name}}/create` page.
-            
+
                   - [ ] When you submit valid data to the page and click submit, a new valid database
                   entry is stored in the database.  (You can verify this by using the swagger
                   endpoint to view the current data in the table.)
@@ -568,7 +573,7 @@ jobs:
                   the files `frontend/src/main/pages/Restaurants/RestaurantCreatePage.js`
                   and/or `frontend/src/main/pages/UCSBDates/UCSBDatesCreatePage.js`
                   that is appropriate to your `${{env.name}}` table.
-  
+
             - [ ] In `${{env.name}}CreatePage.test.js`, replace the code from 
                   `PlaceholderCreatePage.test.js` with code modelled after 
                   the files `RestaurantCreatePage.test.js`
@@ -580,15 +585,18 @@ jobs:
                   the files `frontend/src/stories/pages/Restaurants/RestaurantCreatePage.stories.js`
                   and/or `frontend/src/stories/pages/UCSBDates/UCSBDatesCreatePage.stories.js`.
                     
+                    
             
-      - name: Edit Page 
+
+            
+      - name: Edit Page
         uses: dacbd/create-issue-action@main
         env:
           name: ${{ matrix.api }}
         with:
           token: ${{ github.token }}
           title: Edit Page for `${{env.name}}` plus tests and stories
-          
+
           body: |
 
             # Dependencies
@@ -607,7 +615,7 @@ jobs:
                   called `${{env.name}}EditPage` modelled after 
                   the files `frontend/src/main/pages/Restaurants/RestaurantEditPage.js`
                   and `frontend/src/main/pages/UCSBDates/UCSBDatesEditPage.js`
-  
+
             - [ ] Under `/frontend/src/test/pages/${{env.name}}/` there is a file
                   called `${{env.name}}EditPage.tests.js` modelled after 
                   the files `frontend/src/test/pages/Restaurants/RestaurantEditPage.tests.js`
@@ -657,27 +665,27 @@ jobs:
               This is a common practice in software development, and is also sometimes referred to as
               a *feature flag*.
 
-
-      - name: Index Page 
+      - name: Index Page
         uses: dacbd/create-issue-action@main
         env:
           name: ${{ matrix.api }}
+          endpoint: ${{ fromJSON(env.MAP)[env.name] }}
         with:
           token: ${{ github.token }}
           title: Index Page for `${{env.name}}` plus tests and stories
-          
+
           body: |
-          
+
             # Dependencies
 
             Complete the following issues first:
             * Create fixtures for ${{env.name}}
             * Table Component for ${{env.name}} 
             * Copy Placeholders for `${{env.name}}` pages; add to App.js/AppNavbar.js
-    
+
             # Acceptance Criteria:
 
-            - [ ] When the user navigates to `/${{env.name}}` the page will be populated
+            - [ ] When the user navigates to `/${{env.endpoint}}` the page will be populated
                   with data all rows in the database, and the user will be able to see
                   all of the data in the table.
 
@@ -694,7 +702,7 @@ jobs:
                   navigate to the URL for the edit page for that record.  (The page should display
                   if the issue to implement it is already completed, or a blank page with the correct
                   URL if it is not.)
-            
+
             - [ ] When the index page is accessed by an admin user, the delete button will
                   call the endpoint to delete the record from the database, and then refresh
                   the page.  The refreshed page will not show the deleted record.
@@ -713,7 +721,7 @@ jobs:
                   modelled after 
                   the files `frontend/src/main/pages/Restaurants/RestaurantIndexPage.js`
                   and/or `frontend/src/main/pages/UCSBDates/UCSBDatesIndexPage.js`
-  
+
             - [ ] Modify `${{env.name}}IndexPage.tests.js`  replacing the placeholder
                   content with content 
                   modelled after 
@@ -724,6 +732,3 @@ jobs:
                   called `${{env.name}}IndexPage.stories.js` modelled after 
                   the files `frontend/src/stories/pages/Restaurants/RestaurantIndexPage.stories.js`
                   and `frontend/src/stories/pages/UCSBDates/UCSBDatesIndexPage.stories.js`.
-                    
-
-
