@@ -169,6 +169,24 @@ describe("AppNavbar tests", () => {
         expect(link).toBeInTheDocument();
         expect(link.getAttribute("href")).toBe("/restaurants");
     });
+
+    test("Restaurant and UCSBDates links do NOT show when not logged in", async () => {
+        const currentUser = null;
+        const systemInfo = systemInfoFixtures.showingBoth;
+        const doLogin = jest.fn();
+
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogin={doLogin} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        expect(screen.queryByText("Restaurants")).not.toBeInTheDocument();
+        expect(screen.queryByText("UCSBDates")).not.toBeInTheDocument();
+    });
+
 });
 
 

@@ -51,10 +51,14 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
                 )
               }
             </Nav>
-
-            <Nav.Link as={Link} to="/restaurants">Restaurants</Nav.Link>
-            <Nav.Link as={Link} to="/ucsbdates">UCSB Dates</Nav.Link>
-
+            {
+              currentUser && currentUser.loggedIn && (
+                <>
+                  <Nav.Link as={Link} to="/restaurants">Restaurants</Nav.Link>
+                  <Nav.Link as={Link} to="/ucsbdates">UCSB Dates</Nav.Link>
+                </>
+              )
+            }
             <Nav className="ml-auto">
               {
                 currentUser && currentUser.loggedIn ? (

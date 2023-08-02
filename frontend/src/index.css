@@ -12,3 +12,10 @@ body {
       monospace;
   }
   
+ .nav-link {
+    color: white;
+  }
+
+  .nav-link:hover {
+    color: rgb(174, 191, 59);
+  }
