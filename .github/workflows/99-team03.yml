@@ -223,7 +223,7 @@ jobs:
 
             # Acceptance Criteria:
 
-            - [ ] In the frontend directory `/frontend/src/main/fixtures` there is a
+            - [ ] In the frontend directory `frontend/src/main/fixtures` there is a
                   file called `${{env.fixtures}}Fixtures.js` that contains Javascript fixtures
                   for the database table that is similar to the `restaurantFixtures.js` 
                   and `ucsbDatesFixtures.js` files in the same directory.
@@ -261,9 +261,7 @@ jobs:
                   are required to be non-blank, and any validation that should be performed
                   (e.g. on dates, time values, numeric values with restricted ranges etc.).
                   You can use regular expressions for this, or any of the other validations
-                  features of `react-query-form`, using the `register` feature, documented here:
-
-                  * <https://www.react-hook-form.com/api/useform/register/>
+                  features of `react-query-form`, using the `register` feature, documented here: <https://www.react-hook-form.com/api/useform/register/>
 
             - [ ] If there are date/time fields, use a date/time picker similar
                   to the one in the `UCSBDatesForm` component.  (If this is
@@ -280,10 +278,10 @@ jobs:
 
             # Implementation Details:
 
-            - [ ] Under `/frontend/src/main/components/${{env.name}}/` there is a file
+            - [ ] Under `frontend/src/main/components/${{env.name}}/` there is a file
                   called `${{env.name}}Form` modelled after 
-                  the files `frontend/src/main/components/Restaurants/RestaurantForm.js`
-                  and `frontend/src/main/components/UCSBDates/UCSBDatesForm.js`
+                  the files `RestaurantForm.js`
+                  and `UCSBDatesForm.js`
 
             - [ ] Change the form fields so that they correspond to 
                   the form fields of your database record.  If there are 
@@ -319,17 +317,9 @@ jobs:
                   of `Create`.  The value of this prop is used as the label for the button
                   as shown in  `RestaurantForm.js` and `UCSBDatesForm.js`.            
 
-            - [ ] Under `/frontend/src/test/components/${{env.name}}/` create a file
-                  called `${{env.name}}Form.tests.js` modelled after 
-                  the files 
-                  `frontend/src/test/components/Restaurants/RestaurantForm.tests.js` and
-                  `frontend/src/test/components/UCSBDates/UCSBDatesForm.tests.js`.
+            - [ ] Under `frontend/src/test/components/${{env.name}}/` create a file called `${{env.name}}Form.tests.js` modelled after the files `RestaurantForm.tests.js` and `UCSBDatesForm.tests.js`.
 
-            - [ ] Under `/frontend/src/stories/components/${{env.name}}/` create a file
-                  called `${{env.name}}Form.stories.js` modelled after 
-                  the files 
-                  `frontend/src/stories/components/Restaurants/RestaurantForm.stories.js`
-                  and `frontend/src/stories/components/UCSBDates/UCSBDatesForm.stories.js`.
+            - [ ] Under `frontend/src/stories/components/${{env.name}}/` create a file called `${{env.name}}Form.stories.js` modelled after the files `RestaurantForm.stories.js` and `UCSBDatesForm.stories.js`.
 
             Notes
 
@@ -376,20 +366,20 @@ jobs:
 
             # Implementation Details
 
-            - [ ] Under `/frontend/src/main/components/${{env.name}}/` create a file
+            - [ ] Under `frontend/src/main/components/${{env.name}}/` create a file
                   called `${{env.name}}Table` modelled after 
-                  the files `frontend/src/main/components/Restaurants/RestaurantTable.js`
-                  and `frontend/src/main/components/UCSBDates/UCSBDatesTable.js`
+                  the files `RestaurantTable.js`
+                  and `UCSBDatesTable.js`
 
-            - [ ] Under `/frontend/src/test/components/${{env.name}}/` create a file
+            - [ ] Under `frontend/src/test/components/${{env.name}}/` create a file
                   called `${{env.name}}Table.tests.js` modelled after 
-                  the files `frontend/src/test/components/Restaurants/RestaurantTable.tests.js`
-                  and `frontend/src/test/components/UCSBDates/UCSBDatesTable.tests.js`.
+                  the files `RestaurantTable.tests.js`
+                  and `UCSBDatesTable.tests.js`.
 
-            - [ ] Under `/frontend/src/stories/components/${{env.name}}/` create a file
+            - [ ] Under `frontend/src/stories/components/${{env.name}}/` create a file
                   called `${{env.name}}Table.stories.js` modelled after 
-                  the files `frontend/src/stories/components/Restaurants/RestaurantTable.stories.js`
-                  and `frontend/src/stories/components/UCSBDates/UCSBDatesTable.stories.js`.
+                  the files `RestaurantTable.stories.js`
+                  and `UCSBDatesTable.stories.js`.
                     
             Notes
 
@@ -415,19 +405,19 @@ jobs:
 
             # Discussion
 
-                  In this issue, you'll set up placeholders for the three pages
-                  you are adding to the app.  These placeholder components
-                  are temporary, but they are necessary so that you can 
-                  add routes to the pages in `frontend/src/App.js` and add
-                  a link to the `/${{env.frontend_url}}` name in to the navbar in
-                  in `frontend/src/components/AppNavbar.js`.
+            In this issue, you'll set up placeholders for the three pages
+            you are adding to the app.  These placeholder components
+            are temporary, but they are necessary so that you can 
+            add routes to the pages in `frontend/src/App.js` and add
+            a link to the `/${{env.frontend_url}}` name in to the navbar in
+            in `frontend/src/components/AppNavbar.js`.
 
-                  Note that the contents of the placeholder pages and tests
-                  are temporary, and will be replaced in a later issue, the 
-                  changes you make to these files are the "real code".  The reason
-                  for the placeholder code is that we can't really test the
-                  changes to `App.js` and `AppNavbar.js` unless we have the pages
-                  in place first; that's the reason for the placeholders.
+            Note that the contents of the placeholder pages and tests
+            are temporary, and will be replaced in a later issue, the 
+            changes you make to these files are the "real code".  The reason
+            for the placeholder code is that we can't really test the
+            changes to `App.js` and `AppNavbar.js` unless we have the pages
+            in place first; that's the reason for the placeholders.
 
             # Acceptance Criteria:
             - [ ] On the main navigation bar, there is a link to `${{env.name}}`
@@ -442,50 +432,19 @@ jobs:
 
             # Implementation Steps    
              
-            - [ ] Under `/frontend/src/main/pages/${{env.name}}/` create three files
-                  called 
-                  * `${{env.name}}CreatePage.js` 
-                  * `${{env.name}}EditPage.js` 
-                  * `${{env.name}}IndexPage.js` 
-                  
-                  modelled after 
+            - [ ] Under `frontend/src/main/pages/${{env.name}}/` create three files
+                  called `${{env.name}}CreatePage.js`, `${{env.name}}EditPage.js`, `${{env.name}}IndexPage.js`, modelled after 
+                  `PlaceholderCreatePage.js`, `PlaceholderEditPage.js`, `PlaceholderIndexPage.js`.
 
-                  * `PlaceholderCreatePage.js` 
-                  * `PlaceholderEditPage.js` 
-                  * `PlaceholderIndexPage.js` 
-
-                  Literally, the only line you need to change in those three
-                  files is this line (or the corresponding one in each file),
-                  changing `Placeholder` to `${{env.name}}`:
+                  The only line you need to change in those three files is this line (or the corresponding one in each file), changing `Placeholder` to `${{env.name}}`:
 
                   ```js
                   export default function PlaceholderCreatePage() {
                   ```
 
-            - [ ] Under `/frontend/src/tests/pages/${{env.name}}/` create three files
-                  called 
-                  * `${{env.name}}CreatePage.test.js` 
-                  * `${{env.name}}EditPage.test.js` 
-                  * `${{env.name}}IndexPage.test.js` 
-                  
-                  modelled after 
+            - [ ] Under `frontend/src/tests/pages/${{env.name}}/` create three files called `${{env.name}}CreatePage.test.js`, `${{env.name}}EditPage.test.js`, `${{env.name}}IndexPage.test.js`  modelled after `PlaceholderCreatePage.test.js`, `PlaceholderEditPage.test.js`, `PlaceholderIndexPage.test.js`. The only change that should be needed is the name of the component being imported.
 
-                  * `PlaceholderCreatePage.test.js` 
-                  * `PlaceholderEditPage.test.js` 
-                  * `PlaceholderIndexPage.test.js` 
-
-                  The only change that should be needed is the 
-                  name of the component being imported.
-
-            - [ ] In `frontend/src/App.js`, there is a section of code that
-                  establishes the routes to the pages for the `${{env.name}}` 
-                  components that looks similar to the ones for `Restaurants`
-                  `UCSBDates`, and the `Placeholder`.   
-                  
-                  Copy/paste this code,
-                  changing:
-                  * `Restaurant` to  `${{env.name}}` 
-                  * `/restaurants` to `/${{env.frontend_url}}` 
+            - [ ] In `frontend/src/App.js`, there is a section of code that establishes the routes to the pages for the `${{env.name}}` components that looks similar to the ones for `Restaurants`, `UCSBDates`, and the `Placeholder`.  Copy/paste this code, changing, `Restaurant` to  `${{env.name}}`, and `/restaurants` to `/${{env.frontend_url}}` 
 
                   ```js
                   {
@@ -504,14 +463,8 @@ jobs:
                         )
                   }
                   ```
-            - [ ] In `frontend/src/main/components/Nav/AppNavbar.js`,add a section of code that
-                  establishes the navbar link for `${{env.name}}`.  It should
-                  look similar to this code that establishes the link for `Restaurants`.
 
-                  Copy/paste this code,
-                  changing:
-                  * `/restaurants` to  `/${{env.frontend_url}}` 
-                  * `Restaurants` to `${{env.name}}`
+            - [ ] In `frontend/src/main/components/Nav/AppNavbar.js`,add a section of code that establishes the navbar link for `${{env.name}}`.  It should look similar to this code that establishes the link for `Restaurants`. Copy/paste this code, changing `/restaurants` to  `/${{env.frontend_url}}`, and `Restaurants` to `${{env.name}}`
 
                   ```js
                   {
@@ -522,9 +475,7 @@ jobs:
                         )
                   }
                   ```
-            - [ ] Fire up the app on localhost and make sure that you can navigate
-                  to the pages for ${{env.name}}.  You should see pages
-                  similar to the ones at the `Placeholder` link on the navbar.
+            - [ ] Fire up the app on localhost and make sure that you can navigate to the pages for ${{env.name}}.  You should see pages similar to the ones at the `Placeholder` link on the navbar.
 
       - name: Create Page
         uses: dacbd/create-issue-action@main
@@ -582,8 +533,8 @@ jobs:
 
             - [ ] In `${{env.name}}CreatePage.js`, replace the code from 
                   `PlaceholderCreatePage.js` with code modelled after 
-                  the files `frontend/src/main/pages/Restaurants/RestaurantCreatePage.js`
-                  and/or `frontend/src/main/pages/UCSBDates/UCSBDatesCreatePage.js`
+                  the files `RestaurantCreatePage.js`
+                  and/or `UCSBDatesCreatePage.js`
                   that is appropriate to your `${{env.name}}` table. Be sure to get the API endpoint names correct for your `${{env.name}}` table.
 
             - [ ] In `${{env.name}}CreatePage.test.js`, replace the code from 
@@ -592,10 +543,10 @@ jobs:
                   and/or `UCSBDatesCreatePage.test.js`
                   appropriate to your `${{env.name}}` table.  Be sure to get the API endpoint names correct for your `${{env.name}}` table.
 
-            - [ ] Under `/frontend/src/stories/pages/${{env.name}}/` create a file
+            - [ ] Under `frontend/src/stories/pages/${{env.name}}/` create a file
                   called `${{env.name}}CreatePage.stories.js` modelled after 
-                  the files `frontend/src/stories/pages/Restaurants/RestaurantCreatePage.stories.js`
-                  and/or `frontend/src/stories/pages/UCSBDates/UCSBDatesCreatePage.stories.js`.
+                  the files `RestaurantCreatePage.stories.js`
+                  and/or `UCSBDatesCreatePage.stories.js`.
 
       - name: Index Page
         uses: dacbd/create-issue-action@main
@@ -658,19 +609,19 @@ jobs:
             - [ ] Modify the `${{env.name}}IndexPage`, replacing the placeholder
                   content with content 
                   modelled after 
-                  the files `frontend/src/main/pages/Restaurants/RestaurantIndexPage.js`
-                  and/or `frontend/src/main/pages/UCSBDates/UCSBDatesIndexPage.js`.  Be sure to get the API endpoint names correct for your `${{env.name}}` table.
+                  the files `RestaurantIndexPage.js`
+                  and/or `UCSBDatesIndexPage.js`.  Be sure to get the API endpoint names correct for your `${{env.name}}` table.
 
             - [ ] Modify `${{env.name}}IndexPage.tests.js`  replacing the placeholder
                   content with content 
                   modelled after 
-                  the files `frontend/src/test/pages/Restaurants/RestaurantIndexPage.tests.js`
-                  and/or `frontend/src/test/pages/UCSBDates/UCSBDatesIndexPage.tests.js`. Be sure to get the API endpoint names correct for your `${{env.name}}` table.
+                  the files `RestaurantIndexPage.tests.js`
+                  and/or `UCSBDatesIndexPage.tests.js`. Be sure to get the API endpoint names correct for your `${{env.name}}` table.
 
-            - [ ] Under `/frontend/src/stories/pages/${{env.name}}/` create a file
+            - [ ] Under `frontend/src/stories/pages/${{env.name}}/` create a file
                   called `${{env.name}}IndexPage.stories.js` modelled after 
-                  the files `frontend/src/stories/pages/Restaurants/RestaurantIndexPage.stories.js`
-                  and `frontend/src/stories/pages/UCSBDates/UCSBDatesIndexPage.stories.js`.
+                  the files `RestaurantIndexPage.stories.js`
+                  and `UCSBDatesIndexPage.stories.js`.
 
       - name: Edit Page
         uses: dacbd/create-issue-action@main
@@ -728,8 +679,8 @@ jobs:
                   with appropriate content from `RestaurantEditPage.test.js` and/or
                   `UCSBDatesEditPage.test.js`. Be sure to get the API endpoint names correct for your `${{env.name}}` table.
 
-            - [ ] Under `/frontend/src/stories/pages/${{env.name}}/` create a file
+            - [ ] Under `frontend/src/stories/pages/${{env.name}}/` create a file
                   called `${{env.name}}EditPage.stories.js` modelled after 
-                  the files `frontend/src/stories/pages/Restaurants/RestaurantEditPage.stories.js`
-                  and `frontend/src/stories/pages/UCSBDates/UCSBDatesEditPage.stories.js`.
+                  the files `RestaurantEditPage.stories.js`
+                  and `UCSBDatesEditPage.stories.js`.
                   
