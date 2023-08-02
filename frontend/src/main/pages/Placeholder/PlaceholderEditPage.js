@@ -6,7 +6,7 @@ export default function PlaceholderEditPage() {
   return (
     <BasicLayout>
       <div className="pt-2">
-        <h1>This page not yet implemented</h1>
+        <h1>Edit page not yet implemented</h1>
       </div>
     </BasicLayout>
   )

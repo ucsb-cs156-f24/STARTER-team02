@@ -9,7 +9,7 @@ describe("PlaceholderEditPage tests", () => {
     test("Renders expected content", () => {
         // arrange
 
-        const expectedText = "This page not yet implemented";
+        const expectedText = "Edit page not yet implemented";
 
         // act
         render(

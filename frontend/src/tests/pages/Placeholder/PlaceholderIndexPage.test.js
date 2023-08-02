@@ -9,7 +9,7 @@ describe("PlaceholderIndexPage tests", () => {
     test("Renders expected content", () => {
         // arrange
 
-        const expectedText = "This page not yet implemented";
+        const expectedText = "Index page not yet implemented";
 
         // act
         render(
@@ -22,6 +22,8 @@ describe("PlaceholderIndexPage tests", () => {
 
         // assert
         expect(screen.getByText(expectedText)).toBeInTheDocument();
+        expect(screen.getByText("Create")).toBeInTheDocument();
+        expect(screen.getByText("Edit")).toBeInTheDocument();
     });
 
 });

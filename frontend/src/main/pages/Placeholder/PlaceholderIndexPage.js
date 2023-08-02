@@ -6,9 +6,9 @@ export default function PlaceholderIndexPage() {
   return (
     <BasicLayout>
       <div className="pt-2">
-        <h1>This page not yet implemented</h1>
-        <a href="/placeholder/create">Create</a>
-        <a href="/placeholder/edit/1">Edit</a>
+        <h1>Index page not yet implemented</h1>
+        <p><a href="/placeholder/create">Create</a></p>
+        <p><a href="/placeholder/edit/1">Edit</a></p>
       </div>
     </BasicLayout>
   )
