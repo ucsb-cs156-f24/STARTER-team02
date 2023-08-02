@@ -207,6 +207,7 @@ jobs:
             - [ ] In the frontend directory `/frontend/src/main/fixtures` there is a
                   file called `${{env.name}}Fixtures.js` that contains Javascript fixtures
                   for the database table that is similar to the `restaurantFixtures.js` 
+                  and `ucsbDatesFixtures.js` files in the same directory.
                   file in the example.
             - [ ] Each example should correspond to the JSON format
                   of an object returned by the GET API endpoint from team02 for that
@@ -231,7 +232,8 @@ jobs:
 
             - [ ] Under `/frontend/src/main/components/${{env.name}}/` there is a file
                   called `${{env.name}}Form` modelled after 
-                  the file `frontend/src/main/components/Restaurants/RestaurantForm.js`
+                  the files `frontend/src/main/components/Restaurants/RestaurantForm.js`
+                  and `frontend/src/main/components/UCSBDates/UCSBDatesForm.js`
 
             - [ ] The form has all the fields that are in the database table 
                   the form fields are labelled with user-friendly names corresponding
@@ -257,20 +259,24 @@ jobs:
                   be either empty, or populated with default or example values (as appropriate).
                   
             - [ ] The form should take prop called `submitAction` which is passed to the
-                  `handleSubmit` function returned by `useForm`, as in the example
-                  `frontend/src/main/components/Restaurants/RestaurantForm.js`.
+                  `handleSubmit` function returned by `useForm`, as in the examples
+                  `RestaurantForm.js` and `UCSBDatesForm.js`
 
             - [ ] The form should take a prop called `buttonLabel` with a default value
                   of `Create`.  The value of this prop is used as the label for the button
-                  as shown in `frontend/src/main/components/Restaurants/RestaurantForm.js`.            
+                  as shown in  `RestaurantForm.js` and `UCSBDatesForm.js`.            
   
             - [ ] Under `/frontend/src/test/components/${{env.name}}/` there is a file
                   called `${{env.name}}Form.tests.js` modelled after 
-                  the file `frontend/src/test/components/Restaurants/RestaurantForm.tests.js`
+                  the files 
+                  `frontend/src/test/components/Restaurants/RestaurantForm.tests.js` and
+                  `frontend/src/test/components/UCSBDates/UCSBDatesForm.tests.js`.
 
             - [ ] Under `/frontend/src/stories/components/${{env.name}}/` there is a file
                   called `${{env.name}}Form.stories.js` modelled after 
-                  the file `frontend/src/stories/components/Restaurants/RestaurantForm.stories.js`
+                  the files 
+                  `frontend/src/stories/components/Restaurants/RestaurantForm.stories.js`
+                  and `frontend/src/stories/components/UCSBDates/UCSBDatesForm.stories.js`.
             
             - [ ] The `${{env.name}}Form.stories.js` file should have at least one story 
                   for a create scenario, and another for an update scenario.
@@ -311,15 +317,18 @@ jobs:
 
             - [ ] Under `/frontend/src/main/components/${{env.name}}/` there is a file
                   called `${{env.name}}Table` modelled after 
-                  the file `frontend/src/main/components/Restaurants/RestaurantTable.js`
+                  the files `frontend/src/main/components/Restaurants/RestaurantTable.js`
+                  and `frontend/src/main/components/UCSBDates/UCSBDatesTable.js`
   
             - [ ] Under `/frontend/src/test/components/${{env.name}}/` there is a file
                   called `${{env.name}}Table.tests.js` modelled after 
-                  the file `frontend/src/test/components/Restaurants/RestaurantTable.tests.js`
+                  the files `frontend/src/test/components/Restaurants/RestaurantTable.tests.js`
+                  and `frontend/src/test/components/UCSBDates/UCSBDatesTable.tests.js`.
 
             - [ ] Under `/frontend/src/stories/components/${{env.name}}/` there is a file
                   called `${{env.name}}Table.stories.js` modelled after 
-                  the file `frontend/src/stories/components/Restaurants/RestaurantTable.stories.js`
+                  the files `frontend/src/stories/components/Restaurants/RestaurantTable.stories.js`
+                  and `frontend/src/stories/components/UCSBDates/UCSBDatesTable.stories.js`.
                     
             - [ ] The PR description where the code addressing this issue is submitted contains
                   a screenshot of the new table (since this is a frontend change).
@@ -355,15 +364,18 @@ jobs:
 
             - [ ] Under `/frontend/src/main/pages/${{env.name}}/` there is a file
                   called `${{env.name}}CreatePage` modelled after 
-                  the file `frontend/src/main/pages/Restaurants/RestaurantCreatePage.js`
+                  the files `frontend/src/main/pages/Restaurants/RestaurantCreatePage.js`
+                  and `frontend/src/main/pages/UCSBDates/UCSBDatesCreatePage.js`
   
             - [ ] Under `/frontend/src/test/pages/${{env.name}}/` there is a file
                   called `${{env.name}}CreatePage.tests.js` modelled after 
-                  the file `frontend/src/test/pages/Restaurants/RestaurantCreatePage.tests.js`
+                  the files `frontend/src/test/pages/Restaurants/RestaurantCreatePage.tests.js`
+                  and `frontend/src/test/pages/UCSBDates/UCSBDatesCreatePage.tests.js`.
 
             - [ ] Under `/frontend/src/stories/pages/${{env.name}}/` there is a file
                   called `${{env.name}}CreatePage.stories.js` modelled after 
-                  the file `frontend/src/stories/pages/Restaurants/RestaurantCreatePage.stories.js`
+                  the files `frontend/src/stories/pages/Restaurants/RestaurantCreatePage.stories.js`
+                  and `frontend/src/stories/pages/UCSBDates/UCSBDatesCreatePage.stories.js`.
                     
             - [ ] The PR description where the code addressing this issue is submitted contains
                   a screenshot of the new page (since this is a frontend change).
@@ -425,15 +437,18 @@ jobs:
 
             - [ ] Under `/frontend/src/main/pages/${{env.name}}/` there is a file
                   called `${{env.name}}EditPage` modelled after 
-                  the file `frontend/src/main/pages/Restaurants/RestaurantEditPage.js`
+                  the files `frontend/src/main/pages/Restaurants/RestaurantEditPage.js`
+                  and `frontend/src/main/pages/UCSBDates/UCSBDatesEditPage.js`
   
             - [ ] Under `/frontend/src/test/pages/${{env.name}}/` there is a file
                   called `${{env.name}}EditPage.tests.js` modelled after 
-                  the file `frontend/src/test/pages/Restaurants/RestaurantEditPage.tests.js`
+                  the files `frontend/src/test/pages/Restaurants/RestaurantEditPage.tests.js`
+                  and `frontend/src/test/pages/UCSBDates/UCSBDatesEditPage.tests.js`.
 
             - [ ] Under `/frontend/src/stories/pages/${{env.name}}/` there is a file
                   called `${{env.name}}EditPage.stories.js` modelled after 
-                  the file `frontend/src/stories/pages/Restaurants/RestaurantEditPage.stories.js`
+                  the files `frontend/src/stories/pages/Restaurants/RestaurantEditPage.stories.js`
+                  and `frontend/src/stories/pages/UCSBDates/UCSBDatesEditPage.stories.js`.
                     
             - [ ] The PR description where the code addressing this issue is submitted contains
                   a screenshot of the new page (since this is a frontend change).
@@ -506,15 +521,18 @@ jobs:
 
             - [ ] Under `/frontend/src/main/pages/${{env.name}}/` there is a file
                   called `${{env.name}}IndexPage` modelled after 
-                  the file `frontend/src/main/pages/Restaurants/RestaurantIndexPage.js`
+                  the files `frontend/src/main/pages/Restaurants/RestaurantIndexPage.js`
+                  and `frontend/src/main/pages/UCSBDates/UCSBDatesIndexPage.js`
   
             - [ ] Under `/frontend/src/test/pages/${{env.name}}/` there is a file
                   called `${{env.name}}IndexPage.tests.js` modelled after 
-                  the file `frontend/src/test/pages/Restaurants/RestaurantIndexPage.tests.js`
+                  the files `frontend/src/test/pages/Restaurants/RestaurantIndexPage.tests.js`
+                  and `frontend/src/test/pages/UCSBDates/UCSBDatesIndexPage.tests.js`.
 
             - [ ] Under `/frontend/src/stories/pages/${{env.name}}/` there is a file
                   called `${{env.name}}IndexPage.stories.js` modelled after 
-                  the file `frontend/src/stories/pages/Restaurants/RestaurantIndexPage.stories.js`
+                  the files `frontend/src/stories/pages/Restaurants/RestaurantIndexPage.stories.js`
+                  and `frontend/src/stories/pages/UCSBDates/UCSBDatesIndexPage.stories.js`.
                     
             - [ ] The PR description where the code addressing this issue is submitted contains
                   a screenshot of the new page (since this is a frontend change).
