@@ -52,7 +52,7 @@ jobs:
 
             # Details
 
-            For more details, see the file [/docs/github-pages.md](${{github.repositoryUrl}}/blob/main/docs/github-pages.md) in the repo.
+            For more details, see the file <${{github.repositoryUrl}}/blob/main/docs/github-pages.md> in the repo.
 
       - name: Set up Team prod deployment
         uses: dacbd/create-issue-action@main
@@ -79,7 +79,7 @@ jobs:
 
             # Details
 
-            See the file [/docs/dokku.md](${{github.repositoryUrl}}/blob/main/docs/dokku.md) in the repo for details.
+            See the file <${{github.repositoryUrl}}/blob/main/docs/dokku.md> in the repo for details.
 
       - name: Set up Team qa deployment
         uses: dacbd/create-issue-action@main
@@ -108,7 +108,7 @@ jobs:
 
             # Details
 
-            See the file [/docs/dokku.md](${{github.repositoryUrl}}/blob/main/docs/dokku.md) in the repo for details;
+            See the file <${{github.repositoryUrl}}/blob/main/docs/dokku.md> in the repo for details;
             you'll need to adapt these for the qa instance.
             
             The QA (quality assurance) instance starts with the main branch, but later on, you will 
