@@ -160,13 +160,13 @@ jobs:
     
       - uses: actions/checkout@v3
 
-      - name: Backend Controller and Tests
+      - name: Backend CRUD API 
         uses: dacbd/create-issue-action@main
         env:
           name: ${{ matrix.api }}
         with:
             token: ${{ github.token }}
-            title: Copy backend controller and tests for ${{env.name}} from team02
+            title: Copy files for Backend CRUD API ${{env.name}} from team02
             body: |
 
                   # Dependencies
@@ -180,7 +180,15 @@ jobs:
                         available in Swagger (following the criteria from team02)
 
                   # Implementation Details:
-                  
+                  - [ ] In the backend directory `src/main/java/edu/ucsb/cs156/example/entities` 
+                        there is a
+                        file called `${{env.name}}.java` that you created
+                        in your `team02` repo.   Copy this into your team03 repo.
+                  - [ ] In the backend directory `src/main/java/edu/ucsb/cs156/example/repositorires` 
+                        there is a
+                        file called `${{env.name}}Repository.java` that you created
+                        in your `team02` repo.   Copy this into your team03 repo.
+
                   - [ ] In the backend directory `src/main/java/edu/ucsb/cs156/example/controllers` 
                         there is a
                         file called `${{env.name}}Controller.java` that you copied
@@ -191,7 +199,7 @@ jobs:
                         file called `${{env.name}}ControllerTests.java` that you copied
                         from your `team02` repo.   This file has tests for the
                         controller.
-
+                  - [ ] Visit swagger and make sure everything still works.
 
       - name: Fixtures
         uses: dacbd/create-issue-action@main
@@ -394,7 +402,7 @@ jobs:
           token: ${{ github.token }}
           title: Copy Placeholders for `${{env.name}}` pages; add to App.js/AppNavbar.js
           body: |
-          
+
             # Dependencies
 
             None: can be done in parallel with other issues
