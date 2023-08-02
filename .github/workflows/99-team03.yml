@@ -52,7 +52,7 @@ jobs:
 
             # Details
 
-            See the file [/docs/github-pages.md](/docs/github-pages.md) in the repo for details
+            See the file [/docs/github-pages.md](${{github.repositoryUrl}}/docs/github-pages.md) in the repo for details
 
       - name: Set up Team prod deployment
         uses: dacbd/create-issue-action@main
