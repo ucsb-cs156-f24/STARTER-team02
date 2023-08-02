@@ -4,6 +4,7 @@ env:
   ASN_LINK: https://ucsb-cs156.github.io/m23/lab/team03
   FRONTEND_URL: "{ \"UCSBDiningCommonsMenuItem\": \"diningcommonsmenuitem\", \"UCSBOrganization\": \"ucsborganization\", \"RecommendationRequest\": \"recommendationrequest\", \"MenuItemReview\": \"menuitemreview\", \"HelpRequest\": \"helprequest\", \"Articles\": \"articles\" }"
   FIXTURES: "{ \"UCSBDiningCommonsMenuItem\": \"ucsbDiningCommonsMenuItem\", \"UCSBOrganization\": \"ucsbOrganization\", \"RecommendationRequest\": \"recommendationRequest\", \"MenuItemReview\": \"menuItemReview\", \"HelpRequest\": \"helpRequest\", \"Articles\": \"articles\" }"
+  REPO_FILE: https://github.com/${{github.repository_owner}}/${{github.repository}}/blob/main
 on:
   workflow_dispatch:
 jobs:
@@ -52,7 +53,7 @@ jobs:
 
             # Details
 
-            For more details, see the file <${{github.repositoryUrl}}/blob/main/docs/github-pages.md> in the repo.
+            For more details, see the file <${{env.REPO_FILE}}/docs/github-pages.md> in the repo.
 
       - name: Set up Team prod deployment
         uses: dacbd/create-issue-action@main
@@ -79,7 +80,7 @@ jobs:
 
             # Details
 
-            See the file <${{github.repositoryUrl}}/blob/main/docs/dokku.md> in the repo for details.
+            See the file <${{env.REPO_FILE}}/docs/dokku.md> in the repo for details.
 
       - name: Set up Team qa deployment
         uses: dacbd/create-issue-action@main
@@ -108,7 +109,7 @@ jobs:
 
             # Details
 
-            See the file <${{github.repositoryUrl}}/blob/main/docs/dokku.md> in the repo for details;
+            See the file <${{env.REPO_FILE}}/docs/dokku.md> in the repo for details;
             you'll need to adapt these for the qa instance.
             
             The QA (quality assurance) instance starts with the main branch, but later on, you will 
@@ -130,7 +131,7 @@ jobs:
 
             ## Details
 
-            See the [README.md](${{github.repositoryUrl}}/blob/main/README.md) file in the repo for details.
+            See the [README.md](${{env.REPO_FILE}}/README.md) file in the repo for details.
    
       - name: Submit for Grading
         uses: dacbd/create-issue-action@main
