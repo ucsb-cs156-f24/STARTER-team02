@@ -35,7 +35,7 @@ jest.mock('react-router-dom', () => {
 
 describe("UCSBDatesEditPage tests", () => {
 
-    describe("when the backend doesn't return a todo", () => {
+    describe("when the backend doesn't return data", () => {
 
         const axiosMock = new AxiosMockAdapter(axios);
 
@@ -157,7 +157,7 @@ describe("UCSBDatesEditPage tests", () => {
 
             await waitFor(() => expect(mockToast).toBeCalled());
             expect(mockToast).toBeCalledWith("UCSBDate Updated - id: 17 name: Christmas Morning");
-            expect(mockNavigate).toBeCalledWith({ "to": "/ucsbdates/list" });
+            expect(mockNavigate).toBeCalledWith({ "to": "/ucsbdates" });
 
             expect(axiosMock.history.put.length).toBe(1); // times called
             expect(axiosMock.history.put[0].params).toEqual({ id: 17 });

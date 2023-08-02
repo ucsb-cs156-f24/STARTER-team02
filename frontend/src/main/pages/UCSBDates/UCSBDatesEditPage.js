@@ -53,15 +53,15 @@ export default function UCSBDatesEditPage() {
   }
 
   if (isSuccess) {
-    return <Navigate to="/ucsbdates/list" />
+    return <Navigate to="/ucsbdates" />
   }
 
   return (
     <BasicLayout>
       <div className="pt-2">
         <h1>Edit UCSBDate</h1>
-        {ucsbDate &&
-          <UCSBDateForm initialUCSBDate={ucsbDate} submitAction={onSubmit} buttonLabel="Update" />
+        {
+          ucsbDate && <UCSBDateForm initialUCSBDate={ucsbDate} submitAction={onSubmit} buttonLabel="Update" />
         }
       </div>
     </BasicLayout>
