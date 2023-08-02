@@ -52,7 +52,7 @@ jobs:
 
             # Details
 
-            See the file [/docs/github-pages.md](${{github.repositoryUrl}}/docs/github-pages.md) in the repo for details
+            See the file [/docs/github-pages.md](${{github.repositoryUrl}}/blob/main/docs/github-pages.md) in the repo for details
 
       - name: Set up Team prod deployment
         uses: dacbd/create-issue-action@main
@@ -109,11 +109,13 @@ jobs:
             # Details
 
             Set up a separate Dokku instance for QA.  Adapt the instructions from 
-            the file /docs/dokku.md in the repo.  The QA (quality assurance) instance
-            starts with the main branch, but later on, you will be able to deploy
-            any branch to this instance. You typically do this when you have a PR
-            that is being code reviewed.  You can use the your team's Slack channel
-            to coordinate who is deploying what to QA at any given time.
+            the file [/docs/dokku.md](${{github.repositoryUrl}}/blob/main/docs/dokku.md) in the repo.  
+            
+            The QA (quality assurance) instance starts with the main branch, but later on, you will 
+            be able to deploy any branch to this instance. 
+            
+            You typically do this when you have a PR that is being code reviewed.  You can use 
+            the your team's Slack channel to coordinate who is deploying what to QA at any given time.
 
       - name: Adjust links in README.md
         uses: dacbd/create-issue-action@main
@@ -128,7 +130,7 @@ jobs:
 
             ## Details
 
-            See the README.md file in the repo for details.
+            See the [README.md](${{github.repositoryUrl}}/blob/main/README.md) file in the repo for details.
    
       - name: Submit for Grading
         uses: dacbd/create-issue-action@main
@@ -555,13 +557,11 @@ jobs:
 
             - [ ] When you enter data into the form and click the submit button,
                   if the data is not valid,
-                  appropriate error messages are displayed,
-                  
-                  the data is NOT sent to the server, a new ${{env.name}} record is NOT
+                  appropriate error messages are displayed, the data is NOT sent to the server, a new ${{env.name}} record is NOT
                   created,
                   and the user remains on the `${{env.frontend_url}}/create` page.
 
-                  - [ ] When you submit valid data to the page and click submit, a new valid database
+            - [ ] When you submit valid data to the page and click submit, a new valid database
                   entry is stored in the database.  (You can verify this by using the swagger
                   endpoint to view the current data in the table.)
 
@@ -584,17 +584,13 @@ jobs:
                   `PlaceholderCreatePage.js` with code modelled after 
                   the files `frontend/src/main/pages/Restaurants/RestaurantCreatePage.js`
                   and/or `frontend/src/main/pages/UCSBDates/UCSBDatesCreatePage.js`
-                  that is appropriate to your `${{env.name}}` table.
-
-                  Be sure to get the API endpoint names correct for your `${{env.name}}` table.
+                  that is appropriate to your `${{env.name}}` table. Be sure to get the API endpoint names correct for your `${{env.name}}` table.
 
             - [ ] In `${{env.name}}CreatePage.test.js`, replace the code from 
                   `PlaceholderCreatePage.test.js` with code modelled after 
                   the files `RestaurantCreatePage.test.js`
                   and/or `UCSBDatesCreatePage.test.js`
-                  appropriate to your `${{env.name}}` table.
-
-                  Be sure to get the API endpoint names correct for your `${{env.name}}` table.
+                  appropriate to your `${{env.name}}` table.  Be sure to get the API endpoint names correct for your `${{env.name}}` table.
 
             - [ ] Under `/frontend/src/stories/pages/${{env.name}}/` create a file
                   called `${{env.name}}CreatePage.stories.js` modelled after 
@@ -663,17 +659,13 @@ jobs:
                   content with content 
                   modelled after 
                   the files `frontend/src/main/pages/Restaurants/RestaurantIndexPage.js`
-                  and/or `frontend/src/main/pages/UCSBDates/UCSBDatesIndexPage.js`
-
-                  Be sure to get the API endpoint names correct for your `${{env.name}}` table.
+                  and/or `frontend/src/main/pages/UCSBDates/UCSBDatesIndexPage.js`.  Be sure to get the API endpoint names correct for your `${{env.name}}` table.
 
             - [ ] Modify `${{env.name}}IndexPage.tests.js`  replacing the placeholder
                   content with content 
                   modelled after 
                   the files `frontend/src/test/pages/Restaurants/RestaurantIndexPage.tests.js`
-                  and/or `frontend/src/test/pages/UCSBDates/UCSBDatesIndexPage.tests.js`.
-
-                  Be sure to get the API endpoint names correct for your `${{env.name}}` table.
+                  and/or `frontend/src/test/pages/UCSBDates/UCSBDatesIndexPage.tests.js`. Be sure to get the API endpoint names correct for your `${{env.name}}` table.
 
             - [ ] Under `/frontend/src/stories/pages/${{env.name}}/` create a file
                   called `${{env.name}}IndexPage.stories.js` modelled after 
@@ -730,15 +722,11 @@ jobs:
 
             - [ ] Replace the placeholder content in `${{env.name}}EditPage.js`
                   with appropriate content from `RestaurantEditPage.js` and/or
-                  `UCSBDatesEditPage.js`
-
-                  Be sure to get the API endpoint names correct for your `${{env.name}}` table.
+                  `UCSBDatesEditPage.js`. Be sure to get the API endpoint names correct for your `${{env.name}}` table.
             
             - [ ] Replace the placeholder content in `${{env.name}}EditPage.test.js`
                   with appropriate content from `RestaurantEditPage.test.js` and/or
-                  `UCSBDatesEditPage.test.js`
-
-                  Be sure to get the API endpoint names correct for your `${{env.name}}` table.
+                  `UCSBDatesEditPage.test.js`. Be sure to get the API endpoint names correct for your `${{env.name}}` table.
 
             - [ ] Under `/frontend/src/stories/pages/${{env.name}}/` create a file
                   called `${{env.name}}EditPage.stories.js` modelled after 
