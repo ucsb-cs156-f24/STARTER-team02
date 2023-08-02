@@ -171,7 +171,7 @@ jobs:
           name: ${{ matrix.api }}
         with:
           token: ${{ github.token }}
-          title: Copy files for Backend CRUD API ${{env.name}} from team02
+          title: Copy files for Backend CRUD API `${{env.name}}` from team02
           body: |
 
             # Dependencies
@@ -213,7 +213,7 @@ jobs:
           fixtures: ${{ fromJSON(env.FIXTURES)[matrix.api] }}
         with:
           token: ${{ github.token }}
-          title: Create fixtures for ${{env.name}}
+          title: Create fixtures for `${{env.name}}`
           body: |
 
             # Dependencies
@@ -223,14 +223,12 @@ jobs:
 
             # Acceptance Criteria:
 
-            - [ ] In the frontend directory `frontend/src/main/fixtures` there is a
-                  file called `${{env.fixtures}}Fixtures.js` that contains Javascript fixtures
+            - [ ] In the frontend directory `frontend/src/main/fixtures` there is a file called 
+                  `${{env.fixtures}}Fixtures.js` that contains Javascript fixtures
                   for the database table that is similar to the `restaurantFixtures.js` 
                   and `ucsbDatesFixtures.js` files in the same directory.
-                  file in the example.
-            - [ ] Each example should correspond to the JSON format
-                  of an object returned by the GET API endpoint from team02 for that
-                  database table object.
+            - [ ] Each example should correspond to the JSON format of an object returned by 
+                  the GET API endpoint from team02 for the `${{env.name}}` database table object.
 
       - name: Form Component
         uses: dacbd/create-issue-action@main
@@ -354,8 +352,7 @@ jobs:
                   accessible on the Github Pages link.
                   
             - [ ] The table has all the fields that are in the database table 
-                  abelled with user-friendly names corresponding
-                  to the database table column names.
+                  labelled with user-friendly names corresponding to the database table column names.
 
             - [ ] The PR description where the code addressing this issue is submitted contains
                   a screenshot of the new table (since this is a frontend change).
@@ -366,20 +363,14 @@ jobs:
 
             # Implementation Details
 
-            - [ ] Under `frontend/src/main/components/${{env.name}}/` create a file
-                  called `${{env.name}}Table` modelled after 
-                  the files `RestaurantTable.js`
-                  and `UCSBDatesTable.js`
+            - [ ] Under `frontend/src/main/components/${{env.name}}/` create a file called `${{env.name}}Table`,
+                  modelled after the files `RestaurantTable.js` and `UCSBDatesTable.js`
 
-            - [ ] Under `frontend/src/test/components/${{env.name}}/` create a file
-                  called `${{env.name}}Table.tests.js` modelled after 
-                  the files `RestaurantTable.tests.js`
-                  and `UCSBDatesTable.tests.js`.
+            - [ ] Under `frontend/src/test/components/${{env.name}}/` create a file called `${{env.name}}Table.tests.js` 
+                  modelled after the files `RestaurantTable.tests.js and `UCSBDatesTable.tests.js`.
 
-            - [ ] Under `frontend/src/stories/components/${{env.name}}/` create a file
-                  called `${{env.name}}Table.stories.js` modelled after 
-                  the files `RestaurantTable.stories.js`
-                  and `UCSBDatesTable.stories.js`.
+            - [ ] Under `frontend/src/stories/components/${{env.name}}/` create a file called `${{env.name}}Table.stories.js`,
+                  modelled after the files `RestaurantTable.stories.js` and `UCSBDatesTable.stories.js`.
                     
             Notes
 
@@ -405,30 +396,30 @@ jobs:
 
             # Discussion
 
-            In this issue, you'll set up placeholders for the three pages
-            you are adding to the app.  These placeholder components
-            are temporary, but they are necessary so that you can 
-            add routes to the pages in `frontend/src/App.js` and add
-            a link to the `/${{env.frontend_url}}` name in to the navbar in
-            in `frontend/src/components/AppNavbar.js`.
+            In this issue, you'll set up placeholders for the three pages you are adding to the app.  
+            
+            These placeholder components are temporary, but they are necessary so that you can 
+            add routes to the pages in `frontend/src/App.js` and add a link to the `/${{env.frontend_url}}` 
+            name in to the Navigation Bar of the app in `frontend/src/components/AppNavbar.js`.
 
-            Note that the contents of the placeholder pages and tests
-            are temporary, and will be replaced in a later issue, the 
-            changes you make to these files are the "real code".  The reason
-            for the placeholder code is that we can't really test the
-            changes to `App.js` and `AppNavbar.js` unless we have the pages
-            in place first; that's the reason for the placeholders.
+            Note that the contents of the placeholder pages and tests are temporary, 
+            and will be replaced in a later issue.  However, the changes you make in `App.js`
+            and `AppNavbar.js` will be permanent.
 
-            # Acceptance Criteria:
+            The reason for the placeholder code is that we can't really test the
+            changes to `App.js` and `AppNavbar.js` until at least some placeholder 
+            component for the pages exists, and we can't really test the new pages unless they 
+            are routed to in the app.  The placeholder solves this ["chicken/egg" problem](https://en.wikipedia.org/wiki/Chicken_or_the_egg).
+            
+            # Acceptance Criteria
+            
             - [ ] On the main navigation bar, there is a link to `${{env.name}}`
-                  that takes the user to the `${{env.name}}IndexPage` page (a placeholder for
-                  now) at the url `/${{env.frontend_url}}`.
-            - [ ] The `${{env.name}}IndexPage` page has a link to
-                  the `${{env.name}}CreatePage` page (a placeholder for now) at the 
-                  url `/${{env.frontend_url}}/create`.
-            - [ ] The `${{env.name}}IndexPage` page (a placeholder for now) has a link to
-                  the `${{env.name}}EditPage` page (a placeholder for now) at the 
-                  url `/${{env.frontend_url}}/edit/1`.
+                  that takes the user to the `${{env.name}}IndexPage` page (a placeholder for now) 
+                  at the url `/${{env.frontend_url}}`.
+            - [ ] The `${{env.name}}IndexPage` page has a link to the `${{env.name}}CreatePage` page 
+                  at the url `/${{env.frontend_url}}/create`.
+            - [ ] The `${{env.name}}IndexPage` page has a link to the `${{env.name}}EditPage` page 
+                  at the url `/${{env.frontend_url}}/edit/1`.
 
             # Implementation Steps    
              
@@ -501,15 +492,13 @@ jobs:
                   there is page that allows the user to create a new ${{env.name}} record.
 
             - [ ] When you enter data into the form and click the submit button,
-                  if the data is valid,
-                  the data is sent to the server, a new ${{env.name}} record is created,
-                  and the user is routed to the `/${{env.frontend_url}}` route for the 
-                  `${{env.name}}IndexPage` page.
+                  if the data is valid, the data is sent to the server, 
+                  a new ${{env.name}} record is created,and the user is routed to the 
+                  `/${{env.frontend_url}}` route for the `${{env.name}}IndexPage` page.
 
             - [ ] When you enter data into the form and click the submit button,
-                  if the data is not valid,
-                  appropriate error messages are displayed, the data is NOT sent to the server, a new ${{env.name}} record is NOT
-                  created,
+                  if the data is not valid,appropriate error messages are displayed, 
+                  the data is NOT sent to the server, a new ${{env.name}} record is NOT created,
                   and the user remains on the `${{env.frontend_url}}/create` page.
 
             - [ ] When you submit valid data to the page and click submit, a new valid database
@@ -607,21 +596,16 @@ jobs:
                   be sure that your frontend code is calling the correct backend endpoints.
 
             - [ ] Modify the `${{env.name}}IndexPage`, replacing the placeholder
-                  content with content 
-                  modelled after 
-                  the files `RestaurantIndexPage.js`
+                  content with content modelled after the files `RestaurantIndexPage.js`
                   and/or `UCSBDatesIndexPage.js`.  Be sure to get the API endpoint names correct for your `${{env.name}}` table.
 
             - [ ] Modify `${{env.name}}IndexPage.tests.js`  replacing the placeholder
-                  content with content 
-                  modelled after 
-                  the files `RestaurantIndexPage.tests.js`
+                  content with content modelled after the files `RestaurantIndexPage.tests.js`
                   and/or `UCSBDatesIndexPage.tests.js`. Be sure to get the API endpoint names correct for your `${{env.name}}` table.
 
             - [ ] Under `frontend/src/stories/pages/${{env.name}}/` create a file
                   called `${{env.name}}IndexPage.stories.js` modelled after 
-                  the files `RestaurantIndexPage.stories.js`
-                  and `UCSBDatesIndexPage.stories.js`.
+                  the files `RestaurantIndexPage.stories.js` and `UCSBDatesIndexPage.stories.js`.
 
       - name: Edit Page
         uses: dacbd/create-issue-action@main
@@ -643,7 +627,7 @@ jobs:
 
             # Acceptance Criteria:
 
-            - [ ] When the user navigates to `/${{env.frontend_url}}/edit/{{id}}` where `{{id}}` 
+            - [ ] When the user navigates to `/${{env.frontend_url}}/edit/:id` where `:id` 
                   is the `id` field of a valid record in the table, the page will be populated
                   with data from that row of the database, and will be able to edit fields
                   from that database record.
