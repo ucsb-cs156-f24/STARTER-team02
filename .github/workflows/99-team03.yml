@@ -2,7 +2,8 @@ name: 99 - Create Issues for team03
 
 env:
   ASN_LINK: https://ucsb-cs156.github.io/m23/lab/team03
-  MAP: "{ \"UCSBDiningCommonsMenuItem\": \"diningcommonsmenuitem\", \"UCSBOrganization\": \"ucsborganization\", \"RecommendationRequest\": \"recommendationrequest\", \"MenuItemReview\": \"menuitemreview\", \"HelpRequest\": \"helprequest\", \"Articles\": \"articles\" }"
+  FRONTEND_URL: "{ \"UCSBDiningCommonsMenuItem\": \"diningcommonsmenuitem\", \"UCSBOrganization\": \"ucsborganization\", \"RecommendationRequest\": \"recommendationrequest\", \"MenuItemReview\": \"menuitemreview\", \"HelpRequest\": \"helprequest\", \"Articles\": \"articles\" }"
+  FIXTURES: "{ \"UCSBDiningCommonsMenuItem\": \"ucsbDiningCommonsMenuItem\", \"UCSBOrganization\": \"ucsbOrganization\", \"RecommendationRequest\": \"recommendationRequest\", \"MenuItemReview\": \"menuItemReview\", \"HelpRequest\": \"helpRequest\", \"Articles\": \"articles\" }"
 on:
   workflow_dispatch:
 jobs:
@@ -128,10 +129,6 @@ jobs:
             ## Details
 
             See the README.md file in the repo for details.
-  
-  
-   
-
    
       - name: Submit for Grading
         uses: dacbd/create-issue-action@main
@@ -211,6 +208,7 @@ jobs:
         uses: dacbd/create-issue-action@main
         env:
           name: ${{ matrix.api }}
+          fixtures: ${{ fromJSON(env.FIXTURES)[matrix.api] }}
         with:
           token: ${{ github.token }}
           title: Create fixtures for ${{env.name}}
@@ -224,7 +222,7 @@ jobs:
             # Acceptance Criteria:
 
             - [ ] In the frontend directory `/frontend/src/main/fixtures` there is a
-                  file called `${{env.name}}Fixtures.js` that contains Javascript fixtures
+                  file called `${{env.fixtures}}Fixtures.js` that contains Javascript fixtures
                   for the database table that is similar to the `restaurantFixtures.js` 
                   and `ucsbDatesFixtures.js` files in the same directory.
                   file in the example.
@@ -331,7 +329,6 @@ jobs:
                   `frontend/src/stories/components/Restaurants/RestaurantForm.stories.js`
                   and `frontend/src/stories/components/UCSBDates/UCSBDatesForm.stories.js`.
 
-
             Notes
 
             * It is not necessary, for *this* issue, that the form be linked to a
@@ -404,6 +401,7 @@ jobs:
         uses: dacbd/create-issue-action@main
         env:
           name: ${{ matrix.api }}
+          frontend_url: ${{ fromJSON(env.FRONTEND_URL)[matrix.api] }}
         with:
           token: ${{ github.token }}
           title: Copy Placeholders for `${{env.name}}` pages; add to App.js/AppNavbar.js
@@ -419,7 +417,7 @@ jobs:
                   you are adding to the app.  These placeholder components
                   are temporary, but they are necessary so that you can 
                   add routes to the pages in `frontend/src/App.js` and add
-                  a link to the `/${{env.name}}` name in to the navbar in
+                  a link to the `/${{env.frontend_url}}` name in to the navbar in
                   in `frontend/src/components/AppNavbar.js`.
 
                   Note that the contents of the placeholder pages and tests
@@ -432,10 +430,13 @@ jobs:
             # Acceptance Criteria:
             - [ ] On the main navigation bar, there is a link to `${{env.name}}`
                   that takes the user to the `${{env.name}}IndexPage` page (a placeholder for
-                  now).
+                  now) at the url `/${{env.frontend_url}}`.
+            - [ ] The `${{env.name}}IndexPage` page has a link to
+                  the `${{env.name}}CreatePage` page (a placeholder for now) at the 
+                  url `/${{env.frontend_url}}/create`.
             - [ ] The `${{env.name}}IndexPage` page (a placeholder for now) has a link to
-                  the `${{env.name}}CreatePage` page and the `${{env.name}}EditPage` page
-                  (also both placeholders for now).
+                  the `${{env.name}}EditPage` page (a placeholder for now) at the 
+                  url `/${{env.frontend_url}}/edit/1`.
 
             # Implementation Steps    
              
@@ -480,8 +481,9 @@ jobs:
                   `UCSBDates`, and the `Placeholder`.   
                   
                   Copy/paste this code,
-                  changing `restaurants` to  `${{env.name}}` wherever it appears
-                  (but using lowercase when appropriate).
+                  changing:
+                  * `Restaurant` to  `${{env.name}}` 
+                  * `/restaurants` to `/${{env.frontend_url}}` 
 
                   ```js
                   {
@@ -505,8 +507,9 @@ jobs:
                   look similar to this code that establishes the link for `Restaurants`.
 
                   Copy/paste this code,
-                  changing `restaurants` to  `${{env.name}}` wherever it appears
-                  (but using lowercase when appropriate).
+                  changing:
+                  * `/restaurants` to  `/${{env.frontend_url}}` 
+                  * `Restaurants` to `${{env.name}}`
 
                   ```js
                   {
@@ -525,6 +528,8 @@ jobs:
         uses: dacbd/create-issue-action@main
         env:
           name: ${{ matrix.api }}
+          frontend_url: ${{ fromJSON(env.FRONTEND_URL)[matrix.api] }}
+
         with:
           token: ${{ github.token }}
           title: Create Page for `${{env.name}}` plus tests and stories
@@ -539,13 +544,13 @@ jobs:
 
             # Acceptance Criteria:
 
-            - [ ] When you navigate to `${{env.name}}/create` in the URL bar, 
+            - [ ] When you navigate to `/${{env.frontend_url}}/create` in the URL bar, 
                   there is page that allows the user to create a new ${{env.name}} record.
 
             - [ ] When you enter data into the form and click the submit button,
                   if the data is valid,
                   the data is sent to the server, a new ${{env.name}} record is created,
-                  and the user is routed to the `/${{env.name}}` route for the 
+                  and the user is routed to the `/${{env.frontend_url}}` route for the 
                   `${{env.name}}IndexPage` page.
 
             - [ ] When you enter data into the form and click the submit button,
@@ -554,7 +559,7 @@ jobs:
                   
                   the data is NOT sent to the server, a new ${{env.name}} record is NOT
                   created,
-                  and the user remains on the `${{env.name}}/create` page.
+                  and the user remains on the `${{env.frontend_url}}/create` page.
 
                   - [ ] When you submit valid data to the page and click submit, a new valid database
                   entry is stored in the database.  (You can verify this by using the swagger
@@ -568,11 +573,20 @@ jobs:
 
             # Implementation Details
 
+            - [ ] Before starting, refamiliarize yourself with the backend CRUD API endpoints for 
+                  `${{env.name}}` by looking at the swagger page.  You are going to be copy/pasting
+                  code from the `Restaurant` and `UCSBDates` components. Those use backend api endpoints
+                  that are similar to the ones for `${{env.name}}`, but not identical.  You will need
+                  to know the exact name of the API endpoints for `${{env.name}}` in order to
+                  be sure that your frontend code is calling the correct backend endpoints.
+
             - [ ] In `${{env.name}}CreatePage.js`, replace the code from 
                   `PlaceholderCreatePage.js` with code modelled after 
                   the files `frontend/src/main/pages/Restaurants/RestaurantCreatePage.js`
                   and/or `frontend/src/main/pages/UCSBDates/UCSBDatesCreatePage.js`
                   that is appropriate to your `${{env.name}}` table.
+
+                  Be sure to get the API endpoint names correct for your `${{env.name}}` table.
 
             - [ ] In `${{env.name}}CreatePage.test.js`, replace the code from 
                   `PlaceholderCreatePage.test.js` with code modelled after 
@@ -580,96 +594,18 @@ jobs:
                   and/or `UCSBDatesCreatePage.test.js`
                   appropriate to your `${{env.name}}` table.
 
+                  Be sure to get the API endpoint names correct for your `${{env.name}}` table.
+
             - [ ] Under `/frontend/src/stories/pages/${{env.name}}/` create a file
                   called `${{env.name}}CreatePage.stories.js` modelled after 
                   the files `frontend/src/stories/pages/Restaurants/RestaurantCreatePage.stories.js`
                   and/or `frontend/src/stories/pages/UCSBDates/UCSBDatesCreatePage.stories.js`.
-                    
-                    
-            
-
-            
-      - name: Edit Page
-        uses: dacbd/create-issue-action@main
-        env:
-          name: ${{ matrix.api }}
-        with:
-          token: ${{ github.token }}
-          title: Edit Page for `${{env.name}}` plus tests and stories
-
-          body: |
-
-            # Dependencies
-
-            Complete the following issues first:
-            * Create fixtures for ${{env.name}}
-            * Form Component for ${{env.name}}  
-            * Copy Placeholders for `${{env.name}}` pages; add to App.js/AppNavbar.js
-
-
-            # Acceptance Criteria:
-
-            # Implementation Details
-
-            - [ ] Under `/frontend/src/main/pages/${{env.name}}/` there is a file
-                  called `${{env.name}}EditPage` modelled after 
-                  the files `frontend/src/main/pages/Restaurants/RestaurantEditPage.js`
-                  and `frontend/src/main/pages/UCSBDates/UCSBDatesEditPage.js`
-
-            - [ ] Under `/frontend/src/test/pages/${{env.name}}/` there is a file
-                  called `${{env.name}}EditPage.tests.js` modelled after 
-                  the files `frontend/src/test/pages/Restaurants/RestaurantEditPage.tests.js`
-                  and `frontend/src/test/pages/UCSBDates/UCSBDatesEditPage.tests.js`.
-
-            - [ ] Under `/frontend/src/stories/pages/${{env.name}}/` there is a file
-                  called `${{env.name}}EditPage.stories.js` modelled after 
-                  the files `frontend/src/stories/pages/Restaurants/RestaurantEditPage.stories.js`
-                  and `frontend/src/stories/pages/UCSBDates/UCSBDatesEditPage.stories.js`.
-                    
-            - [ ] The PR description where the code addressing this issue is submitted contains
-                  a screenshot of the new page (since this is a frontend change).
-
-            - [ ] The PR description where the code addressing this issue is submitted contains
-                  a link to the published storybook for the PR, linking directly to the story 
-                  for the new `${{env.name}}EditPage` component.
-
-            - [ ] The page is added to `frontend/src/main/App.js` so that the page can be 
-                  accessed via the appropriate path (e.g. `/${{env.name}}/edit/{{id}}`)
-
-            - [ ] When the user navigates to `/${{env.name}}/edit/{{id}}` where `{{id}}` 
-                  is the `id` field of a valid record in the table, the page will be populated
-                  with data from that row of the database, and will be able to edit fields
-                  from that database record.
-
-            - [ ] Valid changes made on the page are saved to the database when the user clicks
-                  the submit button.
-            - [ ] Changes made on the page are NOT saved when the page contains invalid data; instead,
-                  appropriate error messages are shown.
-            - [ ] Changes made on the page are NOT saved when the user clicks the cancel button.      
-
-            # Notes
-
-            * It is not necessary, for this issue, to add the new page into the Navbar.
-              We'll add all of the features to the Navbar in a separate issue, to avoid having
-              to come back to the Navbar over and over again as we add new features.
-
-            * It is not uncommon to add a new feature to the app that is not yet available
-              in the navbar if the intention is to roll the feature out to users at a later 
-              date, *provided that* the feature is fully functional and tested.  
-              
-            * This doesn't apply here, but for future reference: in cases where a new page
-              is only *partiallly* functional, it should be merged into the `main` branch
-              only with a configurable [feature toggle](https://en.wikipedia.org/wiki/Feature_toggle).
-              A feature toggle can be used to "turn off" the feature in the production *deployment*,
-              even though the code to implement it has been integrated into the main branch already. 
-              This is a common practice in software development, and is also sometimes referred to as
-              a *feature flag*.
 
       - name: Index Page
         uses: dacbd/create-issue-action@main
         env:
           name: ${{ matrix.api }}
-          endpoint: ${{ fromJSON(env.MAP)[matrix.api] }}
+          frontend_url: ${{ fromJSON(env.FRONTEND_URL)[matrix.api] }}
         with:
           token: ${{ github.token }}
           title: Index Page for `${{env.name}}` plus tests and stories
@@ -685,7 +621,7 @@ jobs:
 
             # Acceptance Criteria:
 
-            - [ ] When the user navigates to `/${{env.endpoint}}` (i.e. the frontend endpoint for ${{env.name}}) the page will be populated
+            - [ ] When the user navigates to `/${{env.frontend_url}}` the page will be populated
                   with data all rows in the database, and the user will be able to see
                   all of the data in the table.
 
@@ -716,11 +652,20 @@ jobs:
 
             # Implementation Details
 
+            - [ ] Before starting, refamiliarize yourself with the backend CRUD API endpoints for 
+                  `${{env.name}}` by looking at the swagger page.  You are going to be copy/pasting
+                  code from the `Restaurant` and `UCSBDates` components. Those use backend api endpoints
+                  that are similar to the ones for `${{env.name}}`, but not identical.  You will need
+                  to know the exact name of the API endpoints for `${{env.name}}` in order to
+                  be sure that your frontend code is calling the correct backend endpoints.
+
             - [ ] Modify the `${{env.name}}IndexPage`, replacing the placeholder
                   content with content 
                   modelled after 
                   the files `frontend/src/main/pages/Restaurants/RestaurantIndexPage.js`
                   and/or `frontend/src/main/pages/UCSBDates/UCSBDatesIndexPage.js`
+
+                  Be sure to get the API endpoint names correct for your `${{env.name}}` table.
 
             - [ ] Modify `${{env.name}}IndexPage.tests.js`  replacing the placeholder
                   content with content 
@@ -728,7 +673,75 @@ jobs:
                   the files `frontend/src/test/pages/Restaurants/RestaurantIndexPage.tests.js`
                   and/or `frontend/src/test/pages/UCSBDates/UCSBDatesIndexPage.tests.js`.
 
+                  Be sure to get the API endpoint names correct for your `${{env.name}}` table.
+
             - [ ] Under `/frontend/src/stories/pages/${{env.name}}/` create a file
                   called `${{env.name}}IndexPage.stories.js` modelled after 
                   the files `frontend/src/stories/pages/Restaurants/RestaurantIndexPage.stories.js`
                   and `frontend/src/stories/pages/UCSBDates/UCSBDatesIndexPage.stories.js`.
+
+      - name: Edit Page
+        uses: dacbd/create-issue-action@main
+        env:
+          name: ${{ matrix.api }}
+          frontend_url: ${{ fromJSON(env.FRONTEND_URL)[matrix.api] }}
+          
+        with:
+          token: ${{ github.token }}
+          title: Edit Page for `${{env.name}}` plus tests and stories
+          body: |
+      
+            # Dependencies
+
+            Complete the following issues first:
+            * Create fixtures for ${{env.name}}
+            * Form Component for ${{env.name}}  
+            * Copy Placeholders for `${{env.name}}` pages; add to App.js/AppNavbar.js
+
+            # Acceptance Criteria:
+
+            - [ ] When the user navigates to `/${{env.frontend_url}}/edit/{{id}}` where `{{id}}` 
+                  is the `id` field of a valid record in the table, the page will be populated
+                  with data from that row of the database, and will be able to edit fields
+                  from that database record.
+
+            - [ ] Valid changes made on the page are saved to the database when the user clicks
+                  the submit button.
+            - [ ] Changes made on the page are NOT saved when the page contains invalid data; instead,
+                  appropriate error messages are shown.
+            - [ ] Changes made on the page are NOT saved when the user clicks the cancel button,
+                  and the user is routed back to the previous page they were on (like the "back button").     
+
+            - [ ] The PR description where the code addressing this issue is submitted contains
+                  a screenshot of the new page (since this is a frontend change).
+
+            - [ ] The PR description where the code addressing this issue is submitted contains
+                  a link to the published storybook for the PR, linking directly to the story 
+                  for the new `${{env.name}}EditPage` component.
+
+            # Implementation Details
+
+            - [ ] Before starting, refamiliarize yourself with the backend CRUD API endpoints for 
+                  `${{env.name}}` by looking at the swagger page.  You are going to be copy/pasting
+                  code from the `Restaurant` and `UCSBDates` components. Those use backend api endpoints
+                  that are similar to the ones for `${{env.name}}`, but not identical.  You will need
+                  to know the exact name of the API endpoints for `${{env.name}}` in order to
+                  be sure that your frontend code is calling the correct backend endpoints.
+
+            - [ ] Replace the placeholder content in `${{env.name}}EditPage.js`
+                  with appropriate content from `RestaurantEditPage.js` and/or
+                  `UCSBDatesEditPage.js`
+
+                  Be sure to get the API endpoint names correct for your `${{env.name}}` table.
+            
+            - [ ] Replace the placeholder content in `${{env.name}}EditPage.test.js`
+                  with appropriate content from `RestaurantEditPage.test.js` and/or
+                  `UCSBDatesEditPage.test.js`
+
+                  Be sure to get the API endpoint names correct for your `${{env.name}}` table.
+
+            - [ ] Under `/frontend/src/stories/pages/${{env.name}}/` create a file
+                  called `${{env.name}}EditPage.stories.js` modelled after 
+                  the files `frontend/src/stories/pages/Restaurants/RestaurantEditPage.stories.js`
+                  and `frontend/src/stories/pages/UCSBDates/UCSBDatesEditPage.stories.js`.
+                  
