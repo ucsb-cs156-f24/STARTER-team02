@@ -669,7 +669,7 @@ jobs:
         uses: dacbd/create-issue-action@main
         env:
           name: ${{ matrix.api }}
-          endpoint: ${{ fromJSON(env.MAP) }}
+          endpoint: ${{ fromJSON(env.MAP)[matrix.api] }}
         with:
           token: ${{ github.token }}
           title: Index Page for `${{env.name}}` plus tests and stories
