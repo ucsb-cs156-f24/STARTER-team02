@@ -16,7 +16,7 @@ jest.mock('react-router-dom', () => ({
 describe("RestaurantForm tests", () => {
     const queryClient = new QueryClient();
 
-    const expectedHeaders = ["Name","Description"];
+    const expectedHeaders = ["Name", "Description"];
     const testId = "RestaurantForm";
 
     test("renders correctly with no initialContents", async () => {
@@ -33,7 +33,7 @@ describe("RestaurantForm tests", () => {
         expectedHeaders.forEach((headerText) => {
             const header = screen.getByText(headerText);
             expect(header).toBeInTheDocument();
-          });
+        });
 
     });
 
@@ -72,6 +72,31 @@ describe("RestaurantForm tests", () => {
         fireEvent.click(cancelButton);
 
         await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith(-1));
+    });
+
+    test("that the correct validations are performed", async () => {
+        render(
+            <QueryClientProvider client={queryClient}>
+                <Router>
+                    <RestaurantForm />
+                </Router>
+            </QueryClientProvider>
+        );
+
+        expect(await screen.findByText(/Create/)).toBeInTheDocument();
+        const submitButton = screen.getByText(/Create/);
+        fireEvent.click(submitButton);
+
+        await waitFor(() => expect(screen.getByText(/Name is required/)).toBeInTheDocument());
+        expect(screen.getByText(/Description is required/)).toBeInTheDocument();
+
+        const nameInput = screen.getByTestId(`${testId}-name`);
+        fireEvent.change(nameInput, { target: { value: "a".repeat(31) } });
+        fireEvent.click(submitButton);
+
+        await waitFor(() => {
+            expect(screen.getByText(/Max length 30 characters/)).toBeInTheDocument();
+        });
     });
 
 });

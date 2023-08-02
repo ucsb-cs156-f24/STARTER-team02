@@ -87,7 +87,7 @@ describe("RestaurantEditPage tests", () => {
 
         const queryClient = new QueryClient();
     
-        test.only("Is populated with the data provided", async () => {
+        test("Is populated with the data provided", async () => {
 
             render(
                 <QueryClientProvider client={queryClient}>

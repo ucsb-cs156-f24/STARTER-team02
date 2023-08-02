@@ -19,9 +19,7 @@ function RestaurantForm({ initialContents, submitAction, buttonLabel = "Create" 
 
     const testIdPrefix = "RestaurantForm";
 
-    console.log("initialContents: ", initialContents);
     return (
-
         <Form onSubmit={handleSubmit(submitAction)}>
 
             {initialContents && (
@@ -47,10 +45,10 @@ function RestaurantForm({ initialContents, submitAction, buttonLabel = "Create" 
                     isInvalid={Boolean(errors.name)}
                     {...register("name", {
                         required: "Name is required.",
-                        // maxLength : {
-                        //     value: 30,
-                        //     message: "Max length 30 characters"
-                        // }
+                        maxLength : {
+                            value: 30,
+                            message: "Max length 30 characters"
+                        }
                     })}
                 />
                 <Form.Control.Feedback type="invalid">
