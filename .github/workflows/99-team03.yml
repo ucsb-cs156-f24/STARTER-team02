@@ -160,6 +160,34 @@ jobs:
     
       - uses: actions/checkout@v3
 
+      - name: Backend Controller and Tests
+        uses: dacbd/create-issue-action@main
+        env:
+          name: ${{ matrix.api }}
+        with:
+            token: ${{ github.token }}
+            title: Copy backend controller and tests for ${{env.name}} from team02
+            body: |
+
+                  # Dependencies
+
+                  None; this issue should be done first before other issues for the
+                  ${{env.name}} table
+
+                  # Acceptance Criteria:
+                  
+                  - [ ] In the backend directory `src/main/java/edu/ucsb/cs156/example/controllers` 
+                        there is a
+                        file called `${{env.name}}Controller.java` that you copied
+                        from your `team02` repo.   This contains the API for CRUD operations on the
+                        database table.
+                  - [ ] In the backend directory  `src/test/java/edu/ucsb/cs156/example/controllers` 
+                        there is a
+                        file called `${{env.name}}ControllerTests.java` that you copied
+                        from your `team02` repo.   This file has tests for the
+                        controller.
+
+
       - name: Fixtures
         uses: dacbd/create-issue-action@main
         env:
@@ -465,7 +493,7 @@ jobs:
 
             Optional:
 
-            * Edit Page for ${{env.name}} (if you want to be able to edit records from the index page).
+            * Complete the Edit Page for ${{env.name}} first (if you want to be able to edit records from the index page).
               If it is not completed first, then clicking the edit button should try to navigate to 
               where the edit page would be, but it will not be there yet.
 
@@ -517,16 +545,9 @@ jobs:
                   URL if it is not.)
             
 
-            - [ ] When the index page is accessed by an admin user, the edit button will
-                  navigate to the URL for the edit page for that record.  (The page should display
-                  if the issue to implement it is already completed, or a blank page with the correct
-                  URL if it is not.)
-
-            - [ ] Valid changes made on the page are saved to the database when the user clicks
-                  the submit button.
-            - [ ] Changes made on the page are NOT saved when the page contains invalid data; instead,
-                  appropriate error messages are shown.
-            - [ ] Changes made on the page are NOT saved when the user clicks the cancel button.      
+            - [ ] When the index page is accessed by an admin user, the delete button will
+                  call the endpoint to delete the record from the database, and then refresh
+                  the page.  The refreshed page will not show the deleted record.
 
             # Notes
 
