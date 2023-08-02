@@ -669,7 +669,7 @@ jobs:
         uses: dacbd/create-issue-action@main
         env:
           name: ${{ matrix.api }}
-          endpoint: ${{ fromJSON(env.MAP)[env.name] }}
+          endpoint: ${{ fromJSON(env.MAP) }}
         with:
           token: ${{ github.token }}
           title: Index Page for `${{env.name}}` plus tests and stories
@@ -685,7 +685,7 @@ jobs:
 
             # Acceptance Criteria:
 
-            - [ ] When the user navigates to `/${{env.endpoint}}` the page will be populated
+            - [ ] When the user navigates to `/${{env.endpoint}}` (i.e. the frontend endpoint for ${{env.name}}) the page will be populated
                   with data all rows in the database, and the user will be able to see
                   all of the data in the table.
 
