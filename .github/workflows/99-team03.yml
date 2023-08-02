@@ -393,7 +393,8 @@ jobs:
         with:
           token: ${{ github.token }}
           title: Copy Placeholders for `${{env.name}}` pages; add to App.js/AppNavbar.js
-
+          body: |
+          
             # Dependencies
 
             None: can be done in parallel with other issues
