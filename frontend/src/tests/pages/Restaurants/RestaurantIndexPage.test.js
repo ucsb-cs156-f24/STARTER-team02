@@ -143,6 +143,10 @@ describe("RestaurantIndexPage tests", () => {
 
         await waitFor(() => { expect(mockToast).toBeCalledWith("Restaurant with id 1 was deleted") });
 
+        await waitFor(() => { expect(axiosMock.history.delete.length).toBe(1); });
+        expect(axiosMock.history.delete[0].url).toBe("/api/restaurants");
+        expect(axiosMock.history.delete[0].url).toBe("/api/restaurants");
+        expect(axiosMock.history.delete[0].params).toEqual({ id: 2 });
     });
 
 });
