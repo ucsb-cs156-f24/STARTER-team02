@@ -185,27 +185,18 @@ jobs:
                   available in Swagger (following the criteria from team02)
 
             # Implementation Details:
-            - [ ] In the backend directory `src/main/java/edu/ucsb/cs156/example/entities` 
-                  there is a
-                  file called `${{env.name}}.java` that you created
-                  in your `team02` repo.   Copy this into your team03 repo.
-            - [ ] In the backend directory `src/main/java/edu/ucsb/cs156/example/repositorires` 
-                  there is a
-                  file called `${{env.name}}Repository.java` that you created
-                  in your `team02` repo.   Copy this into your team03 repo.
-
-            - [ ] In the backend directory `src/main/java/edu/ucsb/cs156/example/controllers` 
-                  there is a
-                  file called `${{env.name}}Controller.java` that you copied
-                  from your `team02` repo.   This contains the API for CRUD operations on the
-                  database table.
-            - [ ] In the backend directory  `src/test/java/edu/ucsb/cs156/example/controllers` 
-                  there is a
-                  file called `${{env.name}}ControllerTests.java` that you copied
-                  from your `team02` repo.   This file has tests for the
-                  controller.
-            - [ ] Visit swagger and make sure everything still works.
-
+            - [ ] Find `${{env.name}}.java` in your team02 project in the directory 
+                  `src/main/java/edu/ucsb/cs156/example/entities` 
+                  and copy it into your team03 project in the same directory.
+            - [ ] Do the same for  `${{env.name}}Repository.java` from the directory
+                  `src/main/java/edu/ucsb/cs156/example/repositorires`
+            - [ ] Do the same for `${{env.name}}Controller.java` from the directory
+                  `src/main/java/edu/ucsb/cs156/example/controllers`
+            - [ ] Do the same for `${{env.name}}ControllerTests.java` from the directory
+                  `src/test/java/edu/ucsb/cs156/example/controllers`          
+            - [ ] With these files in place, visit swagger and make sure 
+                  the CRUD operations for `${{env.name}}` are working properly.
+         
       - name: Fixtures
         uses: dacbd/create-issue-action@main
         env:
@@ -280,8 +271,7 @@ jobs:
 
             - [ ] Under `frontend/src/main/components/${{env.name}}/` there is a file
                   called `${{env.name}}Form` modelled after 
-                  the files `RestaurantForm.js`
-                  and `UCSBDatesForm.js`
+                  the files `RestaurantForm.js` and/or `UCSBDatesForm.js`
 
             - [ ] Change the form fields so that they correspond to 
                   the form fields of your database record.  If there are 
@@ -293,9 +283,7 @@ jobs:
                   (e.g. on dates, time values, numeric values with restricted ranges etc.).
                   You can use regular expressions for this, or any of the other validations
                   features of `react-query-form`, using the `register` feature, documented here:
-
-                  * <https://www.react-hook-form.com/api/useform/register/>
-
+                  <https://www.react-hook-form.com/api/useform/register/>. 
                   Consult both the `Restaurant` and `UCSBDates` examples for guidance.
 
             - [ ] The form should take a prop called `initialContents` which is either 
@@ -323,7 +311,7 @@ jobs:
 
             Notes
 
-            * It is not necessary, for *this* issue, that the form be linked to a
+            * For *this* issue, it is not necessary that the form be linked to a
               page that connects it to the backend; that will be done in a later issue.
 
             * This issue illustrates how it is possible to create at least part of the frontend
@@ -376,7 +364,7 @@ jobs:
                     
             Notes
 
-            * It is not necessary, for *this* issue, that the table be linked to a
+            * For *this* issue, tt is not necessary that the table be linked to a
               page that connects it to the backend; that will be done in a later issue.
 
             * This issue illustrates how it is possible to create at least part of the frontend
@@ -427,44 +415,65 @@ jobs:
              
             - [ ] Under `frontend/src/main/pages/${{env.name}}/` create three files
                   called `${{env.name}}CreatePage.js`, `${{env.name}}EditPage.js`, `${{env.name}}IndexPage.js`, modelled after 
-                  `PlaceholderCreatePage.js`, `PlaceholderEditPage.js`, `PlaceholderIndexPage.js`. 
-                  The only line you need to change in those three files is this line (or the corresponding one in each file), changing `Placeholder` to `${{env.name}}`:
-                  ```js
-                  export default function PlaceholderCreatePage() {
-                  ```
-
-            - [ ] Under `frontend/src/tests/pages/${{env.name}}/` create three files called `${{env.name}}CreatePage.test.js`, `${{env.name}}EditPage.test.js`, `${{env.name}}IndexPage.test.js`  modelled after `PlaceholderCreatePage.test.js`, `PlaceholderEditPage.test.js`, `PlaceholderIndexPage.test.js`. The only change that should be needed is the name of the component being imported.
+                  `PlaceholderCreatePage.js`, `PlaceholderEditPage.js`, `PlaceholderIndexPage.js`.
+                  The only change that should be needed is the name of the component
+                  (see "Notes" below)
+                  
+            - [ ] Under `frontend/src/tests/pages/${{env.name}}/` create three files called `${{env.name}}CreatePage.test.js`, `${{env.name}}EditPage.test.js`, `${{env.name}}IndexPage.test.js`  modelled after `PlaceholderCreatePage.test.js`, `PlaceholderEditPage.test.js`, `PlaceholderIndexPage.test.js`. The only change that should be needed is the name of the component 
+                  being imported.
 
             - [ ] In `frontend/src/App.js`, there is a section of code that establishes the routes to the pages for the `${{env.name}}` components that looks similar to the ones for `Restaurants`, `UCSBDates`, and the `Placeholder`.  Copy/paste this code, changing, `Restaurant` to  `${{env.name}}`, and `/restaurants` to `/${{env.frontend_url}}` 
-                  ```js
-                  {
-                        hasRole(currentUser, "ROLE_USER") && (
-                          <>
-                            <Route exact path="/restaurants" element={<RestaurantIndexPage />} />
-                          </>
-                        )
-                  }
-                  {
-                        hasRole(currentUser, "ROLE_ADMIN") && (
-                          <>
-                            <Route exact path="/restaurants/edit/:id" element={<RestaurantEditPage />} />
-                            <Route exact path="/restaurants/create" element={<RestaurantCreatePage />} />
-                          </>
-                        )
-                  }
-                  ```
-
+                  
             - [ ] In `frontend/src/main/components/Nav/AppNavbar.js`,add a section of code that establishes the navbar link for `${{env.name}}`.  It should look similar to this code that establishes the link for `Restaurants`. Copy/paste this code, changing `/restaurants` to  `/${{env.frontend_url}}`, and `Restaurants` to `${{env.name}}`
-                  ```js
-                  {
-                        hasRole(currentUser, "ROLE_USER") && (
-                          <>
-                            <Nav.Link as={NavLink} to="/restaurants">Restaurants</Nav.Link>
-                          </>
-                        )
-                  }
-                  ```
+                 
             - [ ] Fire up the app on localhost and make sure that you can navigate to the pages for ${{env.name}}.  You should see pages similar to the ones at the `Placeholder` link on the navbar.
+
+            # Notes
+
+            The changes you will need to make from the examples are minimal.
+
+            In the three page components, typically you will only need to change the 
+            name of the default export, changing `Placeholder` to `${{env.name}}`
+
+            
+            ```js
+            export default function PlaceholderCreatePage() {
+            ```
+
+            In `App.js`, you will need to:
+            * Add import statements for the three page components
+            * Copy/paste the section of code below, changing `/restaurants`  to `/${{env.frontend_url}}` and `Restaurant` to `${{env.name}}`
+                                 
+            ```js
+            {
+                  hasRole(currentUser, "ROLE_USER") && (
+                    <>
+                      <Route exact path="/restaurants" element={<RestaurantIndexPage />} />
+                    </>
+                  )
+            }
+            {
+                  hasRole(currentUser, "ROLE_ADMIN") && (
+                    <>
+                      <Route exact path="/restaurants/edit/:id" element={<RestaurantEditPage />} />
+                      <Route exact path="/restaurants/create" element={<RestaurantCreatePage />} />
+                    </>
+                  )
+            }
+            ```
+
+            In `AppNavbar.js`, copy/paste this section of code, and change  `/restaurants` to `/${{env.frontend_url}}` and `Restaurants` to `${{env.name}}`:
+
+            ```js
+            {
+                  hasRole(currentUser, "ROLE_USER") && (
+                    <>
+                      <Nav.Link as={NavLink} to="/restaurants">Restaurants</Nav.Link>
+                    </>
+                  )
+            }
+            ```
+
 
       - name: Create Page
         uses: dacbd/create-issue-action@main
@@ -518,17 +527,16 @@ jobs:
                   to know the exact name of the API endpoints for `${{env.name}}` in order to
                   be sure that your frontend code is calling the correct backend endpoints.
 
-            - [ ] In `${{env.name}}CreatePage.js`, replace the code from `PlaceholderCreatePage.js` with code modelled after 
-                  the files `RestaurantCreatePage.js` and/or `UCSBDatesCreatePage.js`
+            - [ ] In `${{env.name}}CreatePage.js`, replace the code from `PlaceholderCreatePage.js` 
+                  with code modelled after the files `RestaurantCreatePage.js` and/or `UCSBDatesCreatePage.js`
                   that is appropriate to your `${{env.name}}` table. Be sure to get the API endpoint names correct for your `${{env.name}}` table.
 
-            - [ ] In `${{env.name}}CreatePage.test.js`, replace the code from `PlaceholderCreatePage.test.js` with code modelled after 
-                  the files `RestaurantCreatePage.test.js` and/or `UCSBDatesCreatePage.test.js`
+            - [ ] In `${{env.name}}CreatePage.test.js`, replace the code from `PlaceholderCreatePage.test.js` 
+                  with code modelled after  the files `RestaurantCreatePage.test.js` and/or `UCSBDatesCreatePage.test.js`
                   appropriate to your `${{env.name}}` table.  Be sure to get the API endpoint names correct for your `${{env.name}}` table.
 
-            - [ ] Under `frontend/src/stories/pages/${{env.name}}/` create a file
-                  called `${{env.name}}CreatePage.stories.js` modelled after 
-                  the files `RestaurantCreatePage.stories.js` and/or `UCSBDatesCreatePage.stories.js`.
+            - [ ] Under `frontend/src/stories/pages/${{env.name}}/` create a file called `${{env.name}}CreatePage.stories.js` 
+                  modelled after the files `RestaurantCreatePage.stories.js` and/or `UCSBDatesCreatePage.stories.js`.
 
       - name: Index Page
         uses: dacbd/create-issue-action@main
