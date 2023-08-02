@@ -87,7 +87,7 @@ describe("RestaurantForm tests", () => {
         const submitButton = screen.getByText(/Create/);
         fireEvent.click(submitButton);
 
-        await waitFor(() => expect(screen.getByText(/Name is required/)).toBeInTheDocument());
+        await screen.findByText(/Name is required/);
         expect(screen.getByText(/Description is required/)).toBeInTheDocument();
 
         const nameInput = screen.getByTestId(`${testId}-name`);
