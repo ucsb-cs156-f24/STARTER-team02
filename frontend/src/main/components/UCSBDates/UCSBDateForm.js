@@ -2,7 +2,7 @@ import { Button, Form, Row, Col } from 'react-bootstrap';
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
-function UCSBDateForm({ initialUCSBDate, submitAction, buttonLabel = "Create" }) {
+function UCSBDateForm({ initialContents, submitAction, buttonLabel = "Create" }) {
 
     // Stryker disable all
     const {
@@ -10,7 +10,7 @@ function UCSBDateForm({ initialUCSBDate, submitAction, buttonLabel = "Create" })
         formState: { errors },
         handleSubmit,
     } = useForm(
-        { defaultValues: initialUCSBDate || {}, }
+        { defaultValues: initialContents || {}, }
     );
     // Stryker restore all
 
@@ -32,7 +32,7 @@ function UCSBDateForm({ initialUCSBDate, submitAction, buttonLabel = "Create" })
 
             <Row>
 
-                {initialUCSBDate && (
+                {initialContents && (
                     <Col>
                         <Form.Group className="mb-3" >
                             <Form.Label htmlFor="id">Id</Form.Label>
@@ -41,7 +41,7 @@ function UCSBDateForm({ initialUCSBDate, submitAction, buttonLabel = "Create" })
                                 id="id"
                                 type="text"
                                 {...register("id")}
-                                value={initialUCSBDate.id}
+                                value={initialContents.id}
                                 disabled
                             />
                         </Form.Group>
