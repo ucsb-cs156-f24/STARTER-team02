@@ -327,7 +327,7 @@ jobs:
             * Quickly test coverage locally: `npm run coverage`
             * Check linting locally: `npx eslint --fix .`
             * Check mutation coverage locally (slow): `npx stryker run`
-            * Check mutation coverage of single file (faster): `npx stryker run -m "frontend/src/main/components/${{env.name}}/${{env.name}}Form.js`
+            * Check mutation coverage of single file (faster): `npx stryker run -m src/main/components/${{env.name}}/${{env.name}}Form.js`
 
 
       - name: Table Component
@@ -387,7 +387,7 @@ jobs:
             * Quickly test coverage locally: `npm run coverage`
             * Check linting locally: `npx eslint --fix .`
             * Check mutation coverage locally (slow): `npx stryker run`
-            * Check mutation coverage of single file (faster): `npx stryker run -m "frontend/src/main/components/${{env.name}}/${{env.name}}Form.js`
+            * Check mutation coverage of single file (faster): `npx stryker run -m src/main/components/${{env.name}}/${{env.name}}Form.js`
       
 
       - name: Copy Placeholder pages; add to App.js/AppNavbar.js
@@ -500,7 +500,7 @@ jobs:
             * Quickly test coverage locally: `npm run coverage`
             * Check linting locally: `npx eslint --fix .`
             * Check mutation coverage locally (slow): `npx stryker run`
-            * Check mutation coverage of single file (faster): `npx stryker run -m "frontend/src/main/components/Nav/AppNavbar.js`
+            * Check mutation coverage of single file (faster): `npx stryker run -m src/main/components/Nav/AppNavbar.js`
             
 
       - name: Create Page
@@ -573,7 +573,7 @@ jobs:
             * Quickly test coverage locally: `npm run coverage`
             * Check linting locally: `npx eslint --fix .`
             * Check mutation coverage locally (slow): `npx stryker run`
-            * Check mutation coverage of single file (faster): `npx stryker run -m "frontend/src/main/pages/${{env.name}}/${{env.name}}CreatePage.js`
+            * Check mutation coverage of single file (faster): `npx stryker run -m src/main/pages/${{env.name}}/${{env.name}}CreatePage.js`
                         
       - name: Index Page
         uses: dacbd/create-issue-action@main
@@ -652,7 +652,7 @@ jobs:
             * Quickly test coverage locally: `npm run coverage`
             * Check linting locally: `npx eslint --fix .`
             * Check mutation coverage locally (slow): `npx stryker run`
-            * Check mutation coverage of single file (faster): `npx stryker run -m "frontend/src/main/pages/${{env.name}}/${{env.name}}IndexPage.js`
+            * Check mutation coverage of single file (faster): `npx stryker run -m src/main/pages/${{env.name}}/${{env.name}}IndexPage.js`
                             
       - name: Edit Page
         uses: dacbd/create-issue-action@main
@@ -721,5 +721,5 @@ jobs:
             * Quickly test coverage locally: `npm run coverage`
             * Check linting locally: `npx eslint --fix .`
             * Check mutation coverage locally (slow): `npx stryker run`
-            * Check mutation coverage of single file (faster): `npx stryker run -m "frontend/src/main/pages/${{env.name}}/${{env.name}}EditPage.js`
+            * Check mutation coverage of single file (faster): `npx stryker run -m src/main/pages/${{env.name}}/${{env.name}}EditPage.js`
                         
