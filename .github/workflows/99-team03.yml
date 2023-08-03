@@ -4,7 +4,7 @@ env:
   ASN_LINK: https://ucsb-cs156.github.io/m23/lab/team03
   FRONTEND_URL: "{ \"UCSBDiningCommonsMenuItem\": \"diningcommonsmenuitem\", \"UCSBOrganization\": \"ucsborganization\", \"RecommendationRequest\": \"recommendationrequest\", \"MenuItemReview\": \"menuitemreview\", \"HelpRequest\": \"helprequest\", \"Articles\": \"articles\" }"
   FIXTURES: "{ \"UCSBDiningCommonsMenuItem\": \"ucsbDiningCommonsMenuItem\", \"UCSBOrganization\": \"ucsbOrganization\", \"RecommendationRequest\": \"recommendationRequest\", \"MenuItemReview\": \"menuItemReview\", \"HelpRequest\": \"helpRequest\", \"Articles\": \"articles\" }"
-  REPO_FILE: https://github.com/${{github.repository_owner}}/${{github.repository}}/blob/main
+  REPO_FILE: https://github.com/${{github.repository}}/blob/main
 on:
   workflow_dispatch:
 jobs:
@@ -21,7 +21,7 @@ jobs:
           title: Add table to README.md
           body: |
             # Acceptance Criteria:
-            - [ ] The README.md has a table at the top like the one shown below
+            - [ ] The [`README.md`](${{env.REPO_FILE}}/README.md) file has a table at the top like the one shown below
                   indicating which team member is initially taking on
                   which database table, and which is unassigned. Note that each team member may take on a *different* table
                   from the one they took on for team02, or the same one.
@@ -53,7 +53,7 @@ jobs:
 
             # Details
 
-            For more details, see the file <${{env.REPO_FILE}}/docs/github-pages.md> in the repo.
+            For more details, see the file [`/docs/github-pages.md`](${{env.REPO_FILE}}/docs/github-pages.md) in the repo.
 
       - name: Set up Team prod deployment
         uses: dacbd/create-issue-action@main
@@ -80,7 +80,7 @@ jobs:
 
             # Details
 
-            See the file <${{env.REPO_FILE}}/docs/dokku.md> in the repo for details.
+            See the file [`/docs/dokku.md`](${{env.REPO_FILE}}/docs/dokku.md) in the repo for details.
 
       - name: Set up Team qa deployment
         uses: dacbd/create-issue-action@main
@@ -109,8 +109,8 @@ jobs:
 
             # Details
 
-            See the file <${{env.REPO_FILE}}/docs/dokku.md> in the repo for details;
-            you'll need to adapt these for the qa instance.
+            See the file[`/docs/dokku.md`](${{env.REPO_FILE}}/docs/dokku.md) in the repo for details;
+            you'll need to adapt these instructions for the qa instance.
             
             The QA (quality assurance) instance starts with the main branch, but later on, you will 
             be able to deploy any branch to this instance. 
@@ -131,7 +131,7 @@ jobs:
 
             ## Details
 
-            See the [README.md](${{env.REPO_FILE}}/README.md) file in the repo for details.
+            See the [`README.md`](${{env.REPO_FILE}}/README.md) file in the repo for details.
    
       - name: Submit for Grading
         uses: dacbd/create-issue-action@main
@@ -145,7 +145,7 @@ jobs:
 
             ## Details
 
-            See the assignment description at ${{env.ASN_LINK}} for details.
+            See the assignment description at <`${{env.ASN_LINK}}`> for details.
 
   createIssues:
     needs: [createOneOffIssues]
