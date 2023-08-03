@@ -309,8 +309,8 @@ jobs:
             - [ ] Under `frontend/src/test/components/${{env.name}}/` create a file called `${{env.name}}Form.tests.js` modelled after the files `RestaurantForm.tests.js` and `UCSBDatesForm.tests.js`.
 
             - [ ] Under `frontend/src/stories/components/${{env.name}}/` create a file called `${{env.name}}Form.stories.js` modelled after the files `RestaurantForm.stories.js` and `UCSBDatesForm.stories.js`.
-
-            Notes
+                  
+            # Notes
 
             * For *this* issue, it is not necessary that the form be linked to a
               page that connects it to the backend; that will be done in a later issue.
@@ -320,6 +320,15 @@ jobs:
 
             * It also illustrates how we can create a component that can be reused, in this
               case for both creating and editing a database record.
+            
+            Reminders (all from `frontend` directory):
+            * To run storybook locally: `npm run storybook`.
+            * To run tests locally: `npm test`.
+            * Quickly test coverage locally: `npm run coverage`
+            * Check linting locally: `npx eslint --fix .`
+            * Check mutation coverage locally (slow): `npx stryker run`
+            * Check mutation coverage of single file (faster): `npx stryker run -m "frontend/src/main/components/${{env.name}}/${{env.name}}Form.js`
+
 
       - name: Table Component
         uses: dacbd/create-issue-action@main
@@ -363,13 +372,23 @@ jobs:
             - [ ] Under `frontend/src/stories/components/${{env.name}}/` create a file called `${{env.name}}Table.stories.js`,
                   modelled after the files `RestaurantTable.stories.js` and `UCSBDatesTable.stories.js`.
                     
-            Notes
+            # Notes
 
             * For *this* issue, tt is not necessary that the table be linked to a
               page that connects it to the backend; that will be done in a later issue.
 
             * This issue illustrates how it is possible to create at least part of the frontend
               for a feature even if/when the backend is not yet complete.
+
+            # Reminders (all from `frontend` directory):
+
+            * To run storybook locally: `npm run storybook`.
+            * To run tests locally: `npm test`.
+            * Quickly test coverage locally: `npm run coverage`
+            * Check linting locally: `npx eslint --fix .`
+            * Check mutation coverage locally (slow): `npx stryker run`
+            * Check mutation coverage of single file (faster): `npx stryker run -m "frontend/src/main/components/${{env.name}}/${{env.name}}Form.js`
+      
 
       - name: Copy Placeholder pages; add to App.js/AppNavbar.js
         uses: dacbd/create-issue-action@main
@@ -474,7 +493,15 @@ jobs:
                   )
             }
             ```
-
+            # Reminders (all from `frontend` directory):
+                  
+            * To run storybook locally: `npm run storybook`.
+            * To run tests locally: `npm test`.
+            * Quickly test coverage locally: `npm run coverage`
+            * Check linting locally: `npx eslint --fix .`
+            * Check mutation coverage locally (slow): `npx stryker run`
+            * Check mutation coverage of single file (faster): `npx stryker run -m "frontend/src/main/components/Nav/AppNavbar.js`
+            
 
       - name: Create Page
         uses: dacbd/create-issue-action@main
@@ -539,6 +566,15 @@ jobs:
             - [ ] Under `frontend/src/stories/pages/${{env.name}}/` create a file called `${{env.name}}CreatePage.stories.js` 
                   modelled after the files `RestaurantCreatePage.stories.js` and/or `UCSBDatesCreatePage.stories.js`.
 
+            # Reminders (all from `frontend` directory):
+                  
+            * To run storybook locally: `npm run storybook`.
+            * To run tests locally: `npm test`.
+            * Quickly test coverage locally: `npm run coverage`
+            * Check linting locally: `npx eslint --fix .`
+            * Check mutation coverage locally (slow): `npx stryker run`
+            * Check mutation coverage of single file (faster): `npx stryker run -m "frontend/src/main/pages/${{env.name}}/${{env.name}}CreatePage.js`
+                        
       - name: Index Page
         uses: dacbd/create-issue-action@main
         env:
@@ -609,6 +645,15 @@ jobs:
                   called `${{env.name}}IndexPage.stories.js` modelled after 
                   the files `RestaurantIndexPage.stories.js` and `UCSBDatesIndexPage.stories.js`.
 
+            # Reminders (all from `frontend` directory):
+                  
+            * To run storybook locally: `npm run storybook`.
+            * To run tests locally: `npm test`.
+            * Quickly test coverage locally: `npm run coverage`
+            * Check linting locally: `npx eslint --fix .`
+            * Check mutation coverage locally (slow): `npx stryker run`
+            * Check mutation coverage of single file (faster): `npx stryker run -m "frontend/src/main/pages/${{env.name}}/${{env.name}}IndexPage.js`
+                            
       - name: Edit Page
         uses: dacbd/create-issue-action@main
         env:
@@ -668,4 +713,13 @@ jobs:
             - [ ] Under `frontend/src/stories/pages/${{env.name}}/` create a file
                   called `${{env.name}}EditPage.stories.js` modelled after 
                   the files `RestaurantEditPage.stories.js` and/or `UCSBDatesEditPage.stories.js`.
+            
+            # Reminders (all from `frontend` directory):
                   
+            * To run storybook locally: `npm run storybook`.
+            * To run tests locally: `npm test`.
+            * Quickly test coverage locally: `npm run coverage`
+            * Check linting locally: `npx eslint --fix .`
+            * Check mutation coverage locally (slow): `npx stryker run`
+            * Check mutation coverage of single file (faster): `npx stryker run -m "frontend/src/main/pages/${{env.name}}/${{env.name}}EditPage.js`
+                        
