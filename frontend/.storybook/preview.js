@@ -12,11 +12,8 @@ export const parameters = {
 }
 
 const currentUrl = window.location.href;
-console.log(".storybook/preview.js: currentUrl=",currentUrl);
-
 const isLocalhost = currentUrl.startsWith("http://localhost:6006/");
-
-const mockServiceWorkerUrl = isLocalhost ? "mockServiceWorker.js" : "https://" + window.location.hostname + "/storybook/mockServiceWorker.js";
+const mockServiceWorkerUrl = isLocalhost ? "mockServiceWorker.js" : "https://" + window.location.hostname + "/mockServiceWorker.js";
 
 initialize(
   {
