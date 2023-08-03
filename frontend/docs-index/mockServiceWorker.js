@@ -23,7 +23,7 @@ self.addEventListener('message', async function (event) {
   const clientId = event.source.id
 
   if (!clientId || !self.clients) {
-    return
+    returnhttps://storybook.js.org/docs
   }
 
   const client = await self.clients.get(clientId)

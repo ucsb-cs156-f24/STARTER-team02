@@ -15,6 +15,9 @@ const Template = () => <HomePage />;
 export const LoggedOut = Template.bind({});
 LoggedOut.parameters = {
     msw: [
+        rest.get('/api/currentUser', (_req, res, ctx) => {
+            return res(ctx.status(403));
+        }),
         rest.get('/api/systemInfo', (_req, res, ctx) => {
             return res(ctx.json(systemInfoFixtures.showingNeither));
         }),

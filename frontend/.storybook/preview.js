@@ -11,7 +11,20 @@ export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
 }
 
-initialize();
+const currentUrl = window.location.href;
+console.log(".storybook/preview.js: currentUrl=",currentUrl);
+
+const isLocalhost = currentUrl.startsWith("http://localhost:6006/");
+
+const mockServiceWorkerUrl = isLocalhost ? "mockServiceWorker.js" : "https://" + window.location.hostname + "/storybook/mockServiceWorker.js";
+
+initialize(
+  {
+    serviceWorker: {
+      url: mockServiceWorkerUrl
+    }
+  }
+);
 
 const queryClient = new QueryClient();
 
