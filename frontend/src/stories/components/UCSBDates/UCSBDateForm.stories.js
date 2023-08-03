@@ -1,5 +1,4 @@
 import React from 'react';
-
 import UCSBDateForm from "main/components/UCSBDates/UCSBDateForm"
 import { ucsbDatesFixtures } from 'fixtures/ucsbDatesFixtures';
 
@@ -15,17 +14,23 @@ const Template = (args) => {
     )
 };
 
-export const Default = Template.bind({});
+export const Create = Template.bind({});
 
-Default.args = {
-    submitText: "Create",
-    submitAction: () => { console.log("Submit was clicked"); }
+Create.args = {
+    buttonLabel: "Create",
+    submitAction: (data) => {
+        console.log("Submit was clicked with data: ", data); 
+        window.alert("Submit was clicked with data: " + JSON.stringify(data));
+   }
 };
 
-export const Show = Template.bind({});
+export const Update = Template.bind({});
 
-Show.args = {
-    ucsbDate: ucsbDatesFixtures.oneDate,
-    submitText: "",
-    submitAction: () => { }
+Update.args = {
+    initialContents: ucsbDatesFixtures.oneDate,
+    buttonLabel: "Update",
+    submitAction: (data) => {
+        console.log("Submit was clicked with data: ", data); 
+        window.alert("Submit was clicked with data: " + JSON.stringify(data));
+   }
 };

@@ -29,7 +29,7 @@ describe("UCSBDateForm tests", () => {
 
         render(
             <Router  >
-                <UCSBDateForm initialUCSBDate={ucsbDatesFixtures.oneDate} />
+                <UCSBDateForm initialContents={ucsbDatesFixtures.oneDate} />
             </Router>
         );
         await screen.findByTestId(/UCSBDateForm-id/);

@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom'
 import { useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
-export default function UCSBDatesCreatePage() {
+export default function UCSBDatesCreatePage({storybook=false}) {
 
   const objectToAxiosParams = (ucsbDate) => ({
     url: "/api/ucsbdates/post",
@@ -33,7 +33,7 @@ export default function UCSBDatesCreatePage() {
     mutation.mutate(data);
   }
 
-  if (isSuccess) {
+  if (isSuccess && !storybook) {
     return <Navigate to="/ucsbdates" />
   }
 

@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom'
 import { useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
-export default function RestaurantCreatePage() {
+export default function RestaurantCreatePage({storybook=false}) {
 
   const objectToAxiosParams = (restaurant) => ({
     url: "/api/restaurants/post",
@@ -32,7 +32,7 @@ export default function RestaurantCreatePage() {
     mutation.mutate(data);
   }
 
-  if (isSuccess) {
+  if (isSuccess && !storybook) {
     return <Navigate to="/restaurants" />
   }
 

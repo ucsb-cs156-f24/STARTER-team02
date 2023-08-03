@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom'
 import { useBackend, useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
-export default function UCSBDatesEditPage() {
+export default function UCSBDatesEditPage({storybook=false}) {
   let { id } = useParams();
 
   const { data: ucsbDate, _error, _status } =
@@ -52,7 +52,7 @@ export default function UCSBDatesEditPage() {
     mutation.mutate(data);
   }
 
-  if (isSuccess) {
+  if (isSuccess && !storybook) {
     return <Navigate to="/ucsbdates" />
   }
 
@@ -61,7 +61,7 @@ export default function UCSBDatesEditPage() {
       <div className="pt-2">
         <h1>Edit UCSBDate</h1>
         {
-          ucsbDate && <UCSBDateForm initialUCSBDate={ucsbDate} submitAction={onSubmit} buttonLabel="Update" />
+          ucsbDate && <UCSBDateForm initialContents={ucsbDate} submitAction={onSubmit} buttonLabel="Update" />
         }
       </div>
     </BasicLayout>
