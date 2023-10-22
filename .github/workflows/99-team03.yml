@@ -21,10 +21,9 @@ jobs:
           title: Add table to README.md
           body: |
             # Acceptance Criteria:
-            - [ ] The [`README.md`](${{env.REPO_FILE}}/README.md) file has a table at the top like the one shown below
+            - [ ] The README.md has a table at the top like the one shown below
                   indicating which team member is initially taking on
-                  which database table, and which is unassigned. Note that each team member may take on a *different* table
-                  from the one they took on for team02, or the same one.
+                  which database table, and which is unassigned.
                   
                   ```
                   | Table                       | Team Member  | Github Id     |
@@ -36,9 +35,6 @@ jobs:
                   | `HelpRequest`               | Danielle     | danielle      |
                   | `Articles`                  | Eddie        | eddydp        |
                   ```
-
-            - [ ] The Issues for the unassigned db table(s) have been closed
-                  and removed from the project Kanban board.
 
       - name: Set up GitHub Pages
         uses: dacbd/create-issue-action@main
@@ -53,8 +49,8 @@ jobs:
 
             # Details
 
-            For more details, see the file [`/docs/github-pages.md`](${{env.REPO_FILE}}/docs/github-pages.md) in the repo.
-
+            See the file  [`docs/github-pages.md`](/ucsb-cs156-f23/STARTER-team03/blob/main/docs/github-pages.md) in the repo for details
+      
       - name: Set up Team prod deployment
         uses: dacbd/create-issue-action@main
         with:
@@ -74,13 +70,12 @@ jobs:
             - [ ] The main branch is deployed on Dokku at, for example,
                   <https://team03.dokku-xx.cs.ucsb.edu> (substituting your
                   own Dokku instances for xx).
-            - [ ] Everyone on the team, and the instructor and TAs, 
-                  are all able to login with OAuth and see that they have
-                  admin privileges.
+            - [ ] Everyone on the team, and the instructor and TAs, are all able to 
+                  login with OAuth and see that they have admin privileges.
 
             # Details
 
-            See the file [`/docs/dokku.md`](${{env.REPO_FILE}}/docs/dokku.md) in the repo for details.
+            See the file  [`docs/dokku.md`](/ucsb-cs156-f23/STARTER-team03/blob/main/docs/dokku.md) in the repo for details.
 
       - name: Set up Team qa deployment
         uses: dacbd/create-issue-action@main
@@ -102,21 +97,19 @@ jobs:
             - [ ] The main branch is deployed on Dokku at, for example,
                   <https://team03-qa.dokku-xx.cs.ucsb.edu> (substituting your
                   own Dokku instances for xx).
-            - [ ] Everyone on the team, and the instructor and TAs, 
-                  are all able to login with OAuth and see that they have
-                  admin privileges.
+            - [ ] Everyone on the team, and the instructor and TAs, are all able to 
+                  login with OAuth and see that they have admin privileges.
                   
-
+           
             # Details
 
-            See the file[`/docs/dokku.md`](${{env.REPO_FILE}}/docs/dokku.md) in the repo for details;
-            you'll need to adapt these instructions for the qa instance.
-            
-            The QA (quality assurance) instance starts with the main branch, but later on, you will 
-            be able to deploy any branch to this instance. 
-            
-            You typically do this when you have a PR that is being code reviewed.  You can use 
-            the your team's Slack channel to coordinate who is deploying what to QA at any given time.
+            Set up a separate Dokku instance for QA.  Adapt the instructions from 
+            the file [`docs/dokku.md`](/ucsb-cs156-f23/STARTER-team03/blob/main/docs/dokku.md) in the repo.  The QA (quality assurance) instance
+            starts with the main branch, but later on, you will be able to deploy
+            any branch to this instance. You typically do this when you have a PR
+            that is being code reviewed.  You can use the your team's Slack channel
+            to coordinate who is deploying what to QA at any given time.
+
 
       - name: Adjust links in README.md
         uses: dacbd/create-issue-action@main
@@ -125,27 +118,36 @@ jobs:
           title: Adjust title and links in README.md
           body: |
             ## Acceptance criteria
-            - [ ] The title of the README.md file is changed from `STARTER-team03` to the name of the app (e.g. `team03-m23-9am-4`)
+            - [ ] The title of the README.md file is changed from `STARTER-team03` to the name of the app (e.g. `team03-f23-6pm-4`)
             - [ ] The README.md file is updated with links to the prod and qa instances on dokku.
             - [ ] The README.md file is updated with any other links as specified in the instructions.
-
+            
             ## Details
-
-            See the [`README.md`](${{env.REPO_FILE}}/README.md) file in the repo for details.
+            
+            See the README.md file in the repo for details.
+  
    
       - name: Submit for Grading
         uses: dacbd/create-issue-action@main
         with:
           token: ${{ github.token }}
-          title: Submit for Grading
+          title:  Submit for Grading
           body: |
+
+            This issue should be the very *last* one that the team drags into the "done" column;
+            it signifies that the sprint is complete, and that the project is ready for the
+            staff to review it for a grade.
+
             ## Acceptance criteria
-
+  
+            - [ ] All PRs have been code reviewed and merged to main
+            - [ ] All issues are in the done column 
+            - [ ] The `main` branch (after all PRs merged) has been reployed to the dokku instance with the <tt>dokku git:sync team03 <i>url</i> main</tt> and `dokku ps:rebuild team03 ` commands
             - [ ] The assignment has been submitted on Canvas
-
+            
             ## Details
-
-            See the assignment description at <`${{env.ASN_LINK}}`> for details.
+            
+            See the assignment description at ${{env.ASN_LINK}} for details.
 
   createIssues:
     needs: [createOneOffIssues]
@@ -166,6 +168,46 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Create personal dokku dev deployment
+        uses: dacbd/create-issue-action@main
+        env:
+          name: ${{ matrix.api }}
+        with:
+          token: ${{ github.token }}
+          title: "${{env.name}} - Create personal dokku dev deployment"
+          body: |
+
+            # Dependencies
+
+            None: The team member that takes on ${{env.name}} should start with this issue.
+
+            # Overview
+
+            The team member that takes on ${{env.name}} as their database table
+            should use this issue to track creating their personal dokku
+            deployment.
+            
+            # Acceptance Criteria:
+            - [ ] An app named `team03-YOURGITHUBID-dev` is created on this team's dokku server, where
+                  `YOURGITHUBID` is your github id.
+
+            - [ ] An database is configured for that app (see: <https://ucsb-cs156.github.io/topics/dokku/postgres_database.html>)
+            - [ ] HTTPS is configured for that app (see: <https://ucsb-cs156.github.io/topics/dokku/enabling_https.html>)
+            - [ ] The ADMIN_EMAILS are configured for that app.
+                  * You should find the ones you need in a pinned post on your team's Slack channel.
+                  * Instructions for configuring the variable are here: <https://ucsb-cs156.github.io/topics/dokku/environment_variables.html>
+            - [ ] Google OAuth is configured for that app.
+                  * Instructions for configuring OAuth credentials are here: <https://ucsb-cs156.github.io/topics/oauth/oauth_google_setup.html>
+                  * Then you need to use the instructions here to configure the environment variables `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`: <https://ucsb-cs156.github.io/topics/dokku/environment_variables.html>
+            - [ ] Everyone on the team, and the instructor and TAs, are all able to 
+                  login with OAuth and see that they have admin privileges.
+            - [ ] Initially, the `main` branch is deployed and works properly (later, you will deploy your own branches to this 
+                  instance as you test them before merging.)     
+            # What to do next
+
+            Next, work on "Copy files for Backend CRUD API `${{env.name}}` from team02"
+
+
       - name: Backend CRUD API
         uses: dacbd/create-issue-action@main
         env:
@@ -177,8 +219,7 @@ jobs:
 
             # Dependencies
 
-            None; this issue should be done first before other issues for the
-            ${{env.name}} table
+            Do the "Create personal dokku dev deployment" issue first.
 
             # Acceptance Criteria:
 
@@ -197,7 +238,33 @@ jobs:
                   `src/test/java/edu/ucsb/cs156/example/controllers`          
             - [ ] With these files in place, visit swagger and make sure 
                   the CRUD operations for `${{env.name}}` are working properly.
-         
+            
+            # What to do next
+
+            ** Make a PR**: When you've met all of the acceptance criteria, do a PR for this branch,
+            being sure to enter a [reasonable title](https://ucsb-cs156.github.io/topics/pull_requests.html#pr-titles)
+            and [description](https://ucsb-cs156.github.io/topics/pull_requests.html#pr-descriptions).
+
+            In the description, include the text "Closes #n" where `n` is the number of
+            this issue.
+
+            Then ask for a team member to review your PR.
+
+            Finally: drag this issue from "In Progress" to "In Review".
+      
+            ** Review Others' PRs**: Next, see if there are any PRs that need to be code reviewed and merged.  Unless you are the
+            first person on your team to complete a PR, there likely is at least one.
+            See: 
+            * [General Code Review Advice](https://ucsb-cs156.github.io/topics/code_reviews/)
+            * [Performin Code Reviews on Github](https://ucsb-cs156.github.io/topics/code_reviews/code_reviews_github.html)
+
+            ** Start your next issue **: Then, find the issue for "Create fixtures for `${{env.name}}`" on the Kanban board in the ToDo column.
+            
+            * Assign it to yourself
+            * Drag into "In Progress"
+            * Create a new branch, starting from the branch for the issue you just finished.
+            * Start on the new issue.
+
       - name: Fixtures
         uses: dacbd/create-issue-action@main
         env:
@@ -221,6 +288,30 @@ jobs:
                   and `ucsbDatesFixtures.js` files in the same directory.
             - [ ] Each example should correspond to the JSON format of an object returned by 
                   the GET API endpoint from team02 for the `${{env.name}}` database table object.
+
+            # What to do next
+
+            ** Make a PR**: When you've met all of the acceptance criteria, do a PR for this branch,
+            being sure to enter a [reasonable title](https://ucsb-cs156.github.io/topics/pull_requests.html#pr-titles)
+            and [description](https://ucsb-cs156.github.io/topics/pull_requests.html#pr-descriptions).
+
+            In the description, include the text "Closes #n" where `n` is the number of
+            this issue.
+
+            Then ask for a team member to review your PR, and drag this issue from "In Progress" to "In Review".
+      
+            ** Review Others' PRs**: Next, see if there are any PRs that need to be code reviewed and merged.  Unless you are the
+            first person on your team to complete a PR, there likely is at least one.
+            See: 
+            * [General Code Review Advice](https://ucsb-cs156.github.io/topics/code_reviews/)
+            * [Performin Code Reviews on Github](https://ucsb-cs156.github.io/topics/code_reviews/code_reviews_github.html)
+
+            ** Start your next issue **: Then, find the issue for "Form Component for `${{env.name}}` plus tests" on the Kanban board in the ToDo column.
+            
+            * Assign it to yourself
+            * Drag into "In Progress"
+            * Create a new branch, starting from the branch for the issue you just finished.
+            * Start on the new issue.
 
       - name: Form Component
         uses: dacbd/create-issue-action@main
@@ -328,6 +419,16 @@ jobs:
             * Check linting locally: `npx eslint --fix .`
             * Check mutation coverage locally (slow): `npx stryker run`
             * Check mutation coverage of single file (faster): `npx stryker run -m src/main/components/${{env.name}}/${{env.name}}Form.js`
+ 
+            # What to do next
+
+            Do a PR, following all of the usual steps (title, description, `Closes #n` text,
+            dragging issue to "In Review", requesting reviewers).
+
+            Check to see if any fellow team members PRs need to be reviewed.
+            
+            Then, assign yourself the issue "Table Component for `${{env.name}}` plus tests"
+            following all the usual steps (assign to self, drag to "In Progress", start new branch.)
 
 
       - name: Table Component
@@ -388,7 +489,18 @@ jobs:
             * Check linting locally: `npx eslint --fix .`
             * Check mutation coverage locally (slow): `npx stryker run`
             * Check mutation coverage of single file (faster): `npx stryker run -m src/main/components/${{env.name}}/${{env.name}}Form.js`
-      
+
+            # What to do next
+
+            Do a PR, following all of the usual steps (title, description, `Closes #n` text,
+            dragging issue to "In Review", requesting reviewers).
+
+            Check to see if any fellow team members PRs need to be reviewed.
+            
+            Then, assign yourself the issue "Copy Placeholders for `${{env.name}}` pages; add to App.js/AppNavbar.js"
+
+            Follow all the usual steps (assign to self, drag to "In Progress", start new branch.)
+
 
       - name: Copy Placeholder pages; add to App.js/AppNavbar.js
         uses: dacbd/create-issue-action@main
@@ -502,6 +614,12 @@ jobs:
             * Check mutation coverage locally (slow): `npx stryker run`
             * Check mutation coverage of single file (faster): `npx stryker run -m src/main/components/Nav/AppNavbar.js`
             
+            # What to do next
+
+            * Do a PR (following the usual steps).
+            * Check for other PRs 
+            * Start work on "Create Page for `${{env.name}}` plus tests and stories" (following the usual steps for a new issue)
+
 
       - name: Create Page
         uses: dacbd/create-issue-action@main
@@ -574,7 +692,13 @@ jobs:
             * Check linting locally: `npx eslint --fix .`
             * Check mutation coverage locally (slow): `npx stryker run`
             * Check mutation coverage of single file (faster): `npx stryker run -m src/main/pages/${{env.name}}/${{env.name}}CreatePage.js`
-                        
+
+            # What to do next
+
+            * Do a PR (following the usual steps).
+            * Check for other PRs 
+            * Start work on "Index Page for `${{env.name}}` plus tests and stories"(following the usual steps for a new issue)
+            
       - name: Index Page
         uses: dacbd/create-issue-action@main
         env:
@@ -653,7 +777,13 @@ jobs:
             * Check linting locally: `npx eslint --fix .`
             * Check mutation coverage locally (slow): `npx stryker run`
             * Check mutation coverage of single file (faster): `npx stryker run -m src/main/pages/${{env.name}}/${{env.name}}IndexPage.js`
-                            
+
+            # What to do next
+
+            * Do a PR (following the usual steps).
+            * Check for other PRs 
+            * Start work on "Edit Page for `${{env.name}}` plus tests and stories" (following the usual steps for a new issue)
+                         
       - name: Edit Page
         uses: dacbd/create-issue-action@main
         env:
@@ -722,4 +852,11 @@ jobs:
             * Check linting locally: `npx eslint --fix .`
             * Check mutation coverage locally (slow): `npx stryker run`
             * Check mutation coverage of single file (faster): `npx stryker run -m src/main/pages/${{env.name}}/${{env.name}}EditPage.js`
-                        
+
+            # What to do next
+
+            When you are done with this issue, you are finished with the frontend CRUD
+            operations for `${{env.name}}`.  Now, please give your full attention to 
+            helping others on your team to complete the sprint, so that the team
+            is ready to submit on Canvas by the deadline.
+            
