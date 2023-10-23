@@ -205,8 +205,18 @@ jobs:
                   instance as you test them before merging.)     
             # What to do next
 
-            Next, work on "Copy files for Backend CRUD API `${{env.name}}` from team02"
-
+            Next:
+            * Drag the issue for "${{env.name}} - Create personal dokku dev deployment" directly into the "Done" column (we don't do code review on setup tasks like this one.)
+            * Locate the issue: "Copy files for Backend CRUD API `${{env.name}}` from team02" on the Kanban board.
+            * Assign that issue to yourself
+            * Drag it into the "In Progress" column.
+            * Start a new branch.  The new branch name is something like `xy-${{env.name}}-backend`
+              <pre>
+              git fetch
+              git checkout main
+              git pull origin main
+              git checkout -b <i>your-branch-name</i>
+              </pre>
 
       - name: Backend CRUD API
         uses: dacbd/create-issue-action@main
