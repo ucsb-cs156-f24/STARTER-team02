@@ -1,6 +1,7 @@
 name: 99 - Create Issues for team03
 
 env:
+  GH_TOKEN: ${{ github.token }}
   ASN_LINK: https://ucsb-cs156.github.io/f23/lab/team03
   FRONTEND_URL: "{ \"UCSBDiningCommonsMenuItem\": \"diningcommonsmenuitem\", \"UCSBOrganization\": \"ucsborganization\", \"RecommendationRequest\": \"recommendationrequest\", \"MenuItemReview\": \"menuitemreview\", \"HelpRequest\": \"helprequest\", \"Articles\": \"articles\" }"
   FIXTURES: "{ \"UCSBDiningCommonsMenuItem\": \"ucsbDiningCommonsMenuItem\", \"UCSBOrganization\": \"ucsbOrganization\", \"RecommendationRequest\": \"recommendationRequest\", \"MenuItemReview\": \"menuItemReview\", \"HelpRequest\": \"helpRequest\", \"Articles\": \"articles\" }"
@@ -196,6 +197,7 @@ jobs:
       - name: Delete Label for ${{ matrix.api }}
         continue-on-error: true
         env:
+          token: ${{ github.token }}
           name: ${{ matrix.api }}
           color: ${{ fromJSON(env.LABEL_COLOR)[matrix.api] }}
         run: |
@@ -206,6 +208,7 @@ jobs:
               /repos/${{github.repository}}/labels/${{env.name}} 
       - name: Create Label
         env:
+          token: ${{ github.token }}
           name: ${{ matrix.api }}
           color: ${{ fromJSON(env.LABEL_COLOR)[matrix.api] }}
         run: |
