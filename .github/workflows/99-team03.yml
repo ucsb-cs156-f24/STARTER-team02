@@ -278,6 +278,7 @@ jobs:
           name: ${{ matrix.api }}
         with:
           token: ${{ github.token }}
+          labels: "${{env.name}}"
           title: Copy files for Backend CRUD API `${{env.name}}` from team02
           body: |
 
