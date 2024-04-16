@@ -1,8 +1,8 @@
 # STARTER-team03
 
-Instructions: <https://ucsb-cs156.github.io/f23/lab/team03.html>
+Instructions: <https://ucsb-cs156.github.io/s24/lab/team03.html>
 
-TODO: change heading above to your repo name, e.g. `# team03-f23-9am-4`
+TODO: change heading above to your repo name, e.g. `# team03-s24-4pm-4`
 
 TODO: Add a link to the deployed Dokku app for your team here, e.g.
 
