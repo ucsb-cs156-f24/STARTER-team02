@@ -6,6 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.Builder;
 import lombok.AccessLevel;
 
+/**
+ * This is a model class that represents system information.
+ * 
+ * This class is used to provide information about the system to the frontend.
+ */
 
 @Data
 @AllArgsConstructor
@@ -14,4 +19,5 @@ import lombok.AccessLevel;
 public class SystemInfo {
   private Boolean springH2ConsoleEnabled;
   private Boolean showSwaggerUILink;
+  private String oauthLogin;
 }
