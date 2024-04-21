@@ -21,6 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+/**
+ * This is a REST controller for Restaurants
+ */
+
 @Tag(name = "Restaurants")
 @RequestMapping("/api/restaurants")
 @RestController
@@ -29,6 +33,10 @@ public class RestaurantsController extends ApiController {
     @Autowired
     RestaurantRepository restaurantRepository;
 
+    /**
+     * This method returns a list of all restaurants.
+     * @return a list of all restaurants
+     */
     @Operation(summary = "List all restaurants")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
@@ -37,6 +45,11 @@ public class RestaurantsController extends ApiController {
         return restaurants;
     }
 
+    /**
+     * This method returns a single restaurant.
+     * @param id id of the restaurant to get
+     * @return a single restaurant
+     */
     @Operation(summary = "Get a single restaurant")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("")
@@ -48,6 +61,12 @@ public class RestaurantsController extends ApiController {
         return restaurant;
     }
 
+    /**
+     * This method creates a new restaurant. Accessible only to users with the role "ROLE_ADMIN".
+     * @param name name of the restaurant
+     * @param description description of the restaurant
+     * @return the save restaurant (with it's id field set by the database)
+     */
     @Operation(summary = "Create a new restaurant")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
@@ -63,6 +82,11 @@ public class RestaurantsController extends ApiController {
         return savedrestaurant;
     }
 
+    /**
+     * Deletes a restaurant. Accessible only to users with the role "ROLE_ADMIN".
+     * @param id id of the restaurant to delete
+     * @return a message indicating that the restaurant was deleted
+     */
     @Operation(summary = "Delete a Restaurant")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("")
@@ -75,6 +99,12 @@ public class RestaurantsController extends ApiController {
         return genericMessage("Restaurant with id %s deleted".formatted(id));
     }
 
+    /**
+     * Update a single restaurant. Accessible only to users with the role "ROLE_ADMIN".
+     * @param id id of the restaurant to update
+     * @param incoming the new restaurant contents
+     * @return the updated restaurant object
+     */
     @Operation(summary = "Update a single restaurant")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("")

@@ -4,6 +4,10 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.servers.Server;
 
+/**
+ * The `OpenAPIConfig` class is annotated with OpenAPI definitions including information about the API
+ * and server configuration.
+ */
 @OpenAPIDefinition(
   info = @Info(
   title = "UCSB CMPSC 156 f23, team03",
