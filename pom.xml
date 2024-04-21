@@ -199,6 +199,7 @@
             <exclude>**/${app.packagePath}/controllers/FrontendProxyController.*</exclude>
             <exclude>**/${app.packagePath}/services/CurrentUserServiceImpl.*</exclude>
             <exclude>**/${app.packagePath}/ExampleApplication.*</exclude>
+            <exclude>**/edu/ucsb/cs156/example/services/wiremock/*</exclude>
           </excludes>
         </configuration>
         <executions>
@@ -285,8 +286,13 @@
             <param>${app.package}.services.CurrentUserServiceImpl</param>
             <param>${app.package}.ExampleApplication</param>
             <param>${app.package}.config.SecurityConfig</param>
+            <param>edu.ucsb.cs156.example.services.wiremock.WiremockService</param>
+            <param>edu.ucsb.cs156.example.services.wiremock.WiremockServiceDummy</param>
+            <param>edu.ucsb.cs156.example.services.wiremock.WiremockServiceImpl</param>
           </excludedClasses>
-          <excludedTestClasses></excludedTestClasses>
+          <excludedTestClasses>
+            <param>edu.ucsb.cs156.example.web.*</param>
+          </excludedTestClasses>
           <outputFormats>
             <outputFormat>HTML</outputFormat>
             <outputFormat>CSV</outputFormat>
