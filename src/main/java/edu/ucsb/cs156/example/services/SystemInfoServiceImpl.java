@@ -7,8 +7,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Service;
 
-// This class relies on property values
-// For hints on testing, see: https://www.baeldung.com/spring-boot-testing-configurationproperties
+/**
+ * This is a service for getting information about the system.
+ * 
+ * This class relies on property values. For hints on testing, see: <a href="https://www.baeldung.com/spring-boot-testing-configurationproperties">https://www.baeldung.com/spring-boot-testing-configurationproperties</a>
+ * 
+ */
 
 @Slf4j
 @Service("systemInfo")
@@ -21,10 +25,19 @@ public class SystemInfoServiceImpl extends SystemInfoService {
   @Value("${app.showSwaggerUILink:false}")
   private boolean showSwaggerUILink;
 
+  @Value("${app.oauth.login:/oauth2/authorization/google}")
+  private String oauthLogin;
+
+  /**
+   * This method returns the system information.
+   * @see edu.ucsb.cs156.example.models.SystemInfo
+   * @return the system information
+   */
   public SystemInfo getSystemInfo() {
     SystemInfo si = SystemInfo.builder()
     .springH2ConsoleEnabled(this.springH2ConsoleEnabled)
     .showSwaggerUILink(this.showSwaggerUILink)
+    .oauthLogin(this.oauthLogin)
     .build();
   log.info("getSystemInfo returns {}",si);
   return si;

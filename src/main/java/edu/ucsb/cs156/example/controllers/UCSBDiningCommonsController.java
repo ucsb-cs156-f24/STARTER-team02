@@ -22,6 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+/**
+ * This is a REST controller for UCSBDiningCommons
+ */
+
 @Tag(name = "UCSBDiningCommons")
 @RequestMapping("/api/ucsbdiningcommons")
 @RestController
@@ -31,6 +35,10 @@ public class UCSBDiningCommonsController extends ApiController {
     @Autowired
     UCSBDiningCommonsRepository ucsbDiningCommonsRepository;
 
+    /**
+     * THis method returns a list of all ucsbdiningcommons.
+     * @return a list of all ucsbdiningcommons
+     */
     @Operation(summary= "List all ucsb dining commons")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
@@ -39,6 +47,11 @@ public class UCSBDiningCommonsController extends ApiController {
         return commons;
     }
 
+    /**
+     * This method returns a single diningcommons.
+     * @param code code of the diningcommons
+     * @return a single diningcommons
+     */
     @Operation(summary= "Get a single commons")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("")
@@ -50,6 +63,17 @@ public class UCSBDiningCommonsController extends ApiController {
         return commons;
     }
 
+    /**
+     * This method creates a new diningcommons. Accessible only to users with the role "ROLE_ADMIN".
+     * @param code code of the diningcommons
+     * @param name name of the diningcommons
+     * @param hasSackMeal whether or not the commons has sack meals
+     * @param hasTakeOutMeal whether or not the commons has take out meals
+     * @param hasDiningCam whether or not the commons has a dining cam
+     * @param latitude latitude of the commons
+     * @param longitude logitude of the commons
+     * @return the save diningcommons
+     */
     @Operation(summary= "Create a new commons")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
@@ -78,6 +102,11 @@ public class UCSBDiningCommonsController extends ApiController {
         return savedCommons;
     }
 
+    /**
+     * Delete a diningcommons. Accessible only to users with the role "ROLE_ADMIN".
+     * @param code code of the commons
+     * @return a message indiciating the commons was deleted
+     */
     @Operation(summary= "Delete a UCSBDiningCommons")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("")
@@ -90,6 +119,12 @@ public class UCSBDiningCommonsController extends ApiController {
         return genericMessage("UCSBDiningCommons with id %s deleted".formatted(code));
     }
 
+    /**
+     * Update a single diningcommons. Accessible only to users with the role "ROLE_ADMIN".
+     * @param code code of the diningcommons
+     * @param incoming the new commons contents
+     * @return the updated commons object
+     */
     @Operation(summary= "Update a single commons")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("")

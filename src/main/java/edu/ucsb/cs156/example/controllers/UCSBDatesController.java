@@ -27,6 +27,10 @@ import javax.validation.Valid;
 
 import java.time.LocalDateTime;
 
+/**
+ * This is a REST controller for UCSBDates
+ */
+
 @Tag(name = "UCSBDates")
 @RequestMapping("/api/ucsbdates")
 @RestController
@@ -36,6 +40,11 @@ public class UCSBDatesController extends ApiController {
     @Autowired
     UCSBDateRepository ucsbDateRepository;
 
+    /**
+     * List all UCSB dates
+     * 
+     * @return an iterable of UCSBDate
+     */
     @Operation(summary= "List all ucsb dates")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
@@ -44,6 +53,12 @@ public class UCSBDatesController extends ApiController {
         return dates;
     }
 
+    /**
+     * Get a single date by id
+     * 
+     * @param id the id of the date
+     * @return a UCSBDate
+     */
     @Operation(summary= "Get a single date")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("")
@@ -55,6 +70,14 @@ public class UCSBDatesController extends ApiController {
         return ucsbDate;
     }
 
+    /**
+     * Create a new date
+     * 
+     * @param quarterYYYYQ  the quarter in the format YYYYQ
+     * @param name          the name of the date
+     * @param localDateTime the date
+     * @return the saved ucsbdate
+     */
     @Operation(summary= "Create a new date")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
@@ -79,6 +102,12 @@ public class UCSBDatesController extends ApiController {
         return savedUcsbDate;
     }
 
+    /**
+     * Delete a UCSBDate
+     * 
+     * @param id the id of the date to delete
+     * @return a message indicating the date was deleted
+     */
     @Operation(summary= "Delete a UCSBDate")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("")
@@ -91,6 +120,13 @@ public class UCSBDatesController extends ApiController {
         return genericMessage("UCSBDate with id %s deleted".formatted(id));
     }
 
+    /**
+     * Update a single date
+     * 
+     * @param id       id of the date to update
+     * @param incoming the new date
+     * @return the updated date object
+     */
     @Operation(summary= "Update a single date")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("")

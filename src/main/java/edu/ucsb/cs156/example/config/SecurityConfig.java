@@ -37,6 +37,10 @@ import edu.ucsb.cs156.example.entities.User;
 import edu.ucsb.cs156.example.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * The `SecurityConfig` class in Java configures web security with OAuth2 login, CSRF protection, and
+ * role-based authorization based on user email addresses.
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -49,6 +53,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Autowired
   UserRepository userRepository;
 
+  /**
+   * The `configure` method in this Java code configures various security settings for an HTTP request,
+   * including authorization, exception handling, OAuth2 login, CSRF protection, and logout behavior.
+   * 
+   * @param http injected HttpSecurity object (injected by Spring framework)
+   */
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests(authorize -> authorize
@@ -64,6 +74,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .logoutSuccessUrl("/"));
   }
 
+  /**
+   * The `configure` method is used to configure web security in Java, specifically ignoring requests
+   * to the "/h2-console/**" path.
+   * 
+   * @param web injected by Spring Framework
+   */
   @Override
   public void configure(WebSecurity web) throws Exception {
     web.ignoring().antMatchers("/h2-console/**");
@@ -99,6 +115,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     };
   }
 
+  /**
+   * This method checks if the given email belongs to an admin user either from a predefined
+   * list or by querying the user repository.
+   * 
+   * @param email email address of the user
+   * @return whether the user with the given email is an admin
+   */
   public boolean getAdmin(String email) {
     if (adminEmails.contains(email)) {
       return true;

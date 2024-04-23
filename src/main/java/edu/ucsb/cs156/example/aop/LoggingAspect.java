@@ -14,6 +14,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
+/**
+ * This class is an Aspect that logs all invocations of controller methods that are annotated
+ * with {@code @RequestMapping}, {@code @GetMapping}, {@code @PostMapping}, {@code @PutMapping}, {@code @DeleteMapping},
+ * or {@code @PatchMapping}.
+ * 
+ * For more information on Aspect Oriented Programming (AOP)
+ * and AspectJ, including what a {@code JoinPoint} is, 
+ * refer to <a href="https://www.baeldung.com/aspectj">https://www.baeldung.com/aspectj</a> 
+ */
+
+
 @Slf4j
 @Aspect
 @Component
@@ -31,6 +42,12 @@ public class LoggingAspect {
   private ArrayList<String> stoplist = new ArrayList<String>(Arrays.asList(
       "edu.ucsb.cs156.example.controllers.FrontendProxyController"));
 
+  /**
+   * This method is called before any controller method that is annotated with
+   * {@code @RequestMapping}, {@code @GetMapping}, {@code @PostMapping}, {@code @PutMapping}, {@code @DeleteMapping},
+   * or {@code @PatchMapping}.
+   * @param joinPoint the join point (injected by Spring framework)
+   */
   @Before(pointcut)
   public void logControllers(JoinPoint joinPoint) {
     getCurrentHttpRequest().ifPresent(
@@ -43,6 +60,12 @@ public class LoggingAspect {
         });
   }
 
+  /**
+   * The function `getCurrentHttpRequest` returns an `Optional` containing the current
+   * `HttpServletRequest` if available.
+   * 
+   * @return An Optional object containing the current HttpServletRequest, if available.
+   */
   private static Optional<HttpServletRequest> getCurrentHttpRequest() {
     return Optional.ofNullable(RequestContextHolder.getRequestAttributes())
         .filter(ServletRequestAttributes.class::isInstance)

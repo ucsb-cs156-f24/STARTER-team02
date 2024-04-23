@@ -187,6 +187,22 @@ describe("AppNavbar tests", () => {
         expect(screen.queryByText("UCSBDates")).not.toBeInTheDocument();
     });
 
+    test("when oauthlogin undefined, default value is used", async () =>  {
+        const currentUser = currentUserFixtures.notLoggedIn;
+        const systemInfo = systemInfoFixtures.oauthLoginUndefined;
+
+       render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} systemInfo={systemInfo} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await screen.findByText("Log In");
+        expect(screen.getByText("Log In")).toHaveAttribute("href", "/oauth2/authorization/google");
+    });
+
 });
 
 
