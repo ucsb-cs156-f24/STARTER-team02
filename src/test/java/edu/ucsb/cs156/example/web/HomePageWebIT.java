@@ -23,7 +23,7 @@ import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertTha
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ActiveProfiles("integration")
-public class ITHomePage {
+public class HomePageWebIT {
     @Value("${app.playwright.headless:true}")
     private boolean runHeadless;
 

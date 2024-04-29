@@ -16,7 +16,7 @@ import edu.ucsb.cs156.example.WebTestCase;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ActiveProfiles("integration")
 @DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
-public class ITOauth extends WebTestCase {
+public class OauthWebIT extends WebTestCase {
     @Test
     public void regular_user_can_login_logout() throws Exception {
         setupUser(false);
