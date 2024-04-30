@@ -21,7 +21,8 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
 /**
  * This is a service for mocking authentication using wiremock
  * 
- * This class relies on property values. For hints on testing, see: <a href="https://www.baeldung.com/spring-boot-testing-configurationproperties">https://www.baeldung.com/spring-boot-testing-configurationproperties</a>
+ * This class relies on property values. For hints on testing, see: <a href=
+ * "https://www.baeldung.com/spring-boot-testing-configurationproperties">https://www.baeldung.com/spring-boot-testing-configurationproperties</a>
  * 
  */
 @Slf4j
@@ -34,6 +35,7 @@ public class WiremockServiceImpl extends WiremockService {
 
   /**
    * This method returns the wiremockServer
+   * 
    * @return the wiremockServer
    */
   public WireMockServer getWiremockServer() {
@@ -42,9 +44,10 @@ public class WiremockServiceImpl extends WiremockService {
 
   /**
    * This method sets up the necessary mocks for authentication
+   * 
    * @param s in an instance of a WireMockServer or WireMockExtension
    */
-  public static void setupOauthMocks(Stubbing s) {
+  public static void setupOauthMocks(Stubbing s, boolean isAdmin) {
 
     s.stubFor(get(urlPathMatching("/oauth/authorize.*"))
         .willReturn(aResponse()
@@ -61,25 +64,50 @@ public class WiremockServiceImpl extends WiremockService {
             okJson(
                 "{\"access_token\":\"{{randomValue length=20 type='ALPHANUMERIC'}}\",\"token_type\": \"Bearer\",\"expires_in\":\"3600\",\"scope\":\"https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email openid\"}")));
 
-    s.stubFor(get(urlPathMatching("/userinfo"))
-        .willReturn(aResponse()
-            .withStatus(200)
-            .withHeader("Content-Type", "application/json")
-            .withBody("{\"sub\":\"107126842018026740288\"" +
-                ",\"name\":\"Chris Gaucho\"" +
-                ",\"given_name\":\"Chris\"" +
-                ",\"family_name\":\"Gaucho\"" +
-                ", \"picture\":\"https://lh3.googleusercontent.com/a/ACg8ocJpOe2SqIpirdIMx7KTj1W4OQ45t6FwpUo40K2V2JON=s96-c\"" +
-                ", \"email\":\"cgaucho@ucsb.edu\"" +
-                ",\"email_verified\":true" +
-                ",\"locale\":\"en\"" +
-                ",\"hd\":\"ucsb.edu\"" +
-                "}")));
+    if (isAdmin) {
+      s.stubFor(get(urlPathMatching("/userinfo"))
+          .willReturn(aResponse()
+              .withStatus(200)
+              .withHeader("Content-Type", "application/json")
+              .withBody(
+                  """
+                      {
+                        "sub": "107126842018026740288",
+                        "name": "Admin GaucSho",
+                        "given_name": "Admin",
+                        "family_name": "Gaucho",
+                        "picture": "https://lh3.googleusercontent.com/a/ACg8ocJpOe2SqIpirdIMx7KTj1W4OQ45t6FwpUo40K2V2JON=s96-c",
+                        "email": "admingaucho@ucsb.edu",
+                        "email_verified": true,
+                        "locale": "en",
+                        "hd": "ucsb.edu"
+                      }
+                      """)));
+    } else {
+      s.stubFor(get(urlPathMatching("/userinfo"))
+          .willReturn(aResponse()
+              .withStatus(200)
+              .withHeader("Content-Type", "application/json")
+              .withBody(
+                  """
+                      {
+                        "sub": "107126842018026740288",
+                        "name": "Chris Gaucho",
+                        "given_name": "Chris",
+                        "family_name": "Gaucho",
+                        "picture": "https://lh3.googleusercontent.com/a/ACg8ocJpOe2SqIpirdIMx7KTj1W4OQ45t6FwpUo40K2V2JON=s96-c",
+                        "email": "cgaucho@ucsb.edu",
+                        "email_verified": true,
+                        "locale": "en",
+                        "hd": "ucsb.edu"
+                      }
+                      """)));
+    }
 
   }
 
   /**
-   * This method initializes the WireMockServer 
+   * This method initializes the WireMockServer
    */
   public void init() {
     log.info("WiremockServiceImpl.init() called");
@@ -88,7 +116,7 @@ public class WiremockServiceImpl extends WiremockService {
         .port(8090) // No-args constructor will start on port
         .extensions(new ResponseTemplateTransformer(true)));
 
-    setupOauthMocks(wireMockServer);
+    setupOauthMocks(wireMockServer, true);
 
     wireMockServer.start();
 
