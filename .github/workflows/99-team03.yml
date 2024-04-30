@@ -2,7 +2,7 @@ name: 99 - Create Issues for team03
 
 env:
   GH_TOKEN: ${{ github.token }}
-  ASN_LINK: https://ucsb-cs156.github.io/f23/lab/team03
+  ASN_LINK: https://ucsb-cs156.github.io/s24/lab/team03
   FRONTEND_URL: "{ \"UCSBDiningCommonsMenuItem\": \"diningcommonsmenuitem\", \"UCSBOrganization\": \"ucsborganization\", \"RecommendationRequest\": \"recommendationrequest\", \"MenuItemReview\": \"menuitemreview\", \"HelpRequest\": \"helprequest\", \"Articles\": \"articles\" }"
   FIXTURES: "{ \"UCSBDiningCommonsMenuItem\": \"ucsbDiningCommonsMenuItem\", \"UCSBOrganization\": \"ucsbOrganization\", \"RecommendationRequest\": \"recommendationRequest\", \"MenuItemReview\": \"menuItemReview\", \"HelpRequest\": \"helpRequest\", \"Articles\": \"articles\" }"
   LABEL_COLOR: "{ \"UCSBDiningCommonsMenuItem\": \"ff0000\", \"UCSBOrganization\": \"00ff00\", \"RecommendationRequest\": \"0000ff\", \"MenuItemReview\": \"ff00ff\", \"HelpRequest\": \"ffff00\", \"Articles\": \"00ffff\" }"
@@ -72,7 +72,7 @@ jobs:
 
             # Details
 
-            See the file  [`docs/github-pages.md`](/ucsb-cs156-f23/STARTER-team03/blob/main/docs/github-pages.md) in the repo for details
+            See the file  [`docs/github-pages.md`](/ucsb-cs156-s24/STARTER-team03/blob/main/docs/github-pages.md) in the repo for details
       
       - name: Set up Team prod deployment
         uses: dacbd/create-issue-action@main
@@ -99,7 +99,7 @@ jobs:
 
             # Details
 
-            See the file  [`docs/dokku.md`](/ucsb-cs156-f23/STARTER-team03/blob/main/docs/dokku.md) in the repo for details.
+            See the file  [`docs/dokku.md`](/ucsb-cs156-s24/STARTER-team03/blob/main/docs/dokku.md) in the repo for details.
 
       - name: Set up Team qa deployment
         uses: dacbd/create-issue-action@main
@@ -129,7 +129,7 @@ jobs:
             # Details
 
             Set up a separate Dokku instance for QA.  Adapt the instructions from 
-            the file [`docs/dokku.md`](/ucsb-cs156-f23/STARTER-team03/blob/main/docs/dokku.md) in the repo.  The QA (quality assurance) instance
+            the file [`docs/dokku.md`](/ucsb-cs156-s24/STARTER-team03/blob/main/docs/dokku.md) in the repo.  The QA (quality assurance) instance
             starts with the main branch, but later on, you will be able to deploy
             any branch to this instance. You typically do this when you have a PR
             that is being code reviewed.  You can use the your team's Slack channel
@@ -144,7 +144,7 @@ jobs:
           labels: "setup"
           body: |
             ## Acceptance criteria
-            - [ ] The title of the README.md file is changed from `STARTER-team03` to the name of the app (e.g. `team03-f23-6pm-4`)
+            - [ ] The title of the README.md file is changed from `STARTER-team03` to the name of the app (e.g. `team03-s24-6pm-4`)
             - [ ] The README.md file is updated with links to the prod and qa instances on dokku.
             - [ ] The README.md file is updated with any other links as specified in the instructions.
             
