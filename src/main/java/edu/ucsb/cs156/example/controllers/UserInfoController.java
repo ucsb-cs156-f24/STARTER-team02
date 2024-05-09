@@ -1,8 +1,6 @@
 package edu.ucsb.cs156.example.controllers;
 
-import edu.ucsb.cs156.example.entities.User;
 import edu.ucsb.cs156.example.models.CurrentUser;
-import edu.ucsb.cs156.example.services.CurrentUserService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
