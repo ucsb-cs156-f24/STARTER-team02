@@ -1,18 +1,17 @@
 package edu.ucsb.cs156.example.entities;
 
-import java.time.LocalDateTime;
-
-import javax.persistence.Entity;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-/** 
+import java.time.LocalDateTime;
+
+/**
  * This is a JPA entity that represents a UCSBDate, i.e. an entry
  * that comes from the UCSB API for academic calendar dates.
  */
@@ -28,6 +27,6 @@ public class UCSBDate {
   private long id;
 
   private String quarterYYYYQ;
-  private String name;  
+  private String name;
   private LocalDateTime localDateTime;
 }
