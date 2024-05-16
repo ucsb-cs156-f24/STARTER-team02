@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f24/STARTER-team03
 owner: ucsb-cs156-f24
 repo_name: STARTER-team03
-pull_requests: [{"author":{"id":"MDQ6VXNlcjE2Mzg3MjY0","is_bot":false,"login":"TheNewJavaman","name":"Gabriel Pizarro"},"headRefName":"spring-boot-3","number":1,"title":"Spring Boot 3","url":"https://github.com/ucsb-cs156-f24/STARTER-team03/pull/1"}]
+pull_requests: [{"author":{"id":"MDQ6VXNlcjExMTkwMTc=","is_bot":false,"login":"pconrad","name":"Phill Conrad"},"headRefName":"pc-spring-boot-3","number":3,"title":"DRAFT PR - test whether changes to spring-boot-3 branch fix the tests","url":"https://github.com/ucsb-cs156-f24/STARTER-team03/pull/3"},{"author":{"id":"MDQ6VXNlcjExMTkwMTc=","is_bot":false,"login":"pconrad","name":"Phill Conrad"},"headRefName":"pc-spring-boot-3","number":2,"title":"Fix failing tests in spring-boot-3 branch","url":"https://github.com/ucsb-cs156-f24/STARTER-team03/pull/2"},{"author":{"id":"MDQ6VXNlcjE2Mzg3MjY0","is_bot":false,"login":"TheNewJavaman","name":"Gabriel Pizarro"},"headRefName":"spring-boot-3","number":1,"title":"Spring Boot 3","url":"https://github.com/ucsb-cs156-f24/STARTER-team03/pull/1"}]
