@@ -292,6 +292,7 @@
           </excludedClasses>
           <excludedTestClasses>
             <param>edu.ucsb.cs156.example.web.*</param>
+            <param>edu.ucsb.cs156.example.integration.*</param>
           </excludedTestClasses>
           <outputFormats>
             <outputFormat>HTML</outputFormat>
