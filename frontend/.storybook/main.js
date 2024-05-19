@@ -20,7 +20,7 @@ module.exports = {
     options: {}
   },
 
-  staticDirs: ["../public", "../static"],
+  staticDirs: ["../public"],
 
   docs: {},
 
