@@ -15,6 +15,8 @@ import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
+import com.microsoft.playwright.options.AriaRole;
+
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
@@ -36,6 +38,9 @@ public class SwaggerWebIT {
 
         BrowserContext context = browser.newContext();
         page = context.newPage();
+
+        String url = String.format("http://localhost:%d/swagger-ui/index.html", port);
+        page.navigate(url);
     }
 
     @AfterEach
@@ -45,9 +50,6 @@ public class SwaggerWebIT {
 
     @Test
     public void swagger_page_can_be_loaded() throws Exception {
-        String url = String.format("http://localhost:%d/swagger-ui/index.html", port);
-        page.navigate(url);
-
         assertThat(page.getByText("Swagger: UCSB CMPSC 156 team03"))
                 .isVisible();
 
@@ -55,6 +57,33 @@ public class SwaggerWebIT {
                 .isVisible();
 
         assertThat(page.getByText("H2 Console (only on localhost)"))
+                .isVisible();
+    }
+
+    /**
+     * This test checks that the Swagger page has a few of then endpoints for the
+     * UCSBDiningCommons API.
+     * It is probably not necessary to test all controllers or endpoints; we are
+     * mainly checking that
+     * swagger is appropriate configured and operational. Presumably, if one
+     * controller's
+     * endpoints are present, then all controllers' endpoints are present. Think of
+     * it as
+     * a kind of "smoke test" to make sure that Swagger is working, rather than
+     * a comprehensive test of the Swagger page.
+     */
+    @Test
+    public void swagger_page_has_endpoints_for_UCSBDiningCommons() throws Exception {
+
+
+        assertThat(
+                page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("UCSBDiningCommons").setExact(true)))
+                .isVisible();
+
+        assertThat(page.getByText("Get a single commons"))
+                .isVisible();
+
+        assertThat(page.getByText("Update a single commons"))
                 .isVisible();
     }
 
