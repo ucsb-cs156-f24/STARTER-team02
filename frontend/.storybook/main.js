@@ -20,6 +20,8 @@ module.exports = {
     options: {}
   },
 
+  staticDirs: ["../public", "../static"],
+
   docs: {},
 
   typescript: {
