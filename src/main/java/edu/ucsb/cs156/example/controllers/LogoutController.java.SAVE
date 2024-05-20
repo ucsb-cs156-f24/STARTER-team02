@@ -1,0 +1,43 @@
+package edu.ucsb.cs156.example.controllers;
+
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * This is the logout controller
+ */
+
+@Tag(name="Logout Controller")
+@RestController
+@Slf4j
+public class LogoutController extends ApiController {
+ 
+  private SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+
+  /**
+   * This method logs out the current user.
+   * @param authentication the current user's authentication
+   * @param request the HTTP request
+   * @param response the HTTP response
+   * @return a redirect to the home page
+   */
+
+  @Operation(summary= "Logout")
+  @PostMapping("/logout")
+  public String performLogout(Authentication authentication, HttpServletRequest request, HttpServletResponse response) {
+      log.info("performLogout called");
+      this.logoutHandler.logout(request, response, authentication);
+      return "redirect:/";
+  }
+
+}

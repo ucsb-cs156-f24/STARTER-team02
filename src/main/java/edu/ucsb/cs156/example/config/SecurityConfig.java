@@ -28,7 +28,8 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * The `SecurityConfig` class in Java configures web security with OAuth2 login, CSRF protection, and
+ * The `SecurityConfig` class in Java configures web security with OAuth2 login,
+ * CSRF protection, and
  * role-based authorization based on user email addresses.
  */
 @Configuration
@@ -44,29 +45,53 @@ public class SecurityConfig {
   UserRepository userRepository;
 
   /**
-   * The `filterChain` method in this Java code configures various security settings for an HTTP request,
-   * including authorization, exception handling, OAuth2 login, CSRF protection, and logout behavior.
+   * The `filterChain` method in this Java code configures various security
+   * settings for an HTTP request,
+   * including authorization, exception handling, OAuth2 login, CSRF protection,
+   * and logout behavior.
    * 
    * @param http injected HttpSecurity object (injected by Spring framework)
    */
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
-        .exceptionHandling(handling -> handling.authenticationEntryPoint(new Http403ForbiddenEntryPoint()))
-        .oauth2Login(oauth2 -> oauth2.userInfoEndpoint(userInfo -> userInfo.userAuthoritiesMapper(this.userAuthoritiesMapper())))
-        .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
-        .logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/"));
+    // http
+    // .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
+    // //.exceptionHandling(handling -> handling.authenticationEntryPoint(new
+    // Http403ForbiddenEntryPoint()))
+    // .oauth2Login(
+    // oauth2 -> oauth2.userInfoEndpoint(userInfo ->
+    // userInfo.userAuthoritiesMapper(this.userAuthoritiesMapper()))
+    // // .logout(logout -> logout.logoutRequestMatcher(new
+    // AntPathRequestMatcher("/logout"))
+    // // .invalidateHttpSession(true)
+    // // .clearAuthentication(true)
+    // // .logoutSuccessUrl("/")
+    // .permitAll()
+    // )
+    // .csrf(csrf ->
+    // csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
+
+    http.authorizeHttpRequests(authorize -> authorize
+        .requestMatchers("/", "/h2-console/**", "/swagger-ui/**", "/oauth2/**", "/login/**").permitAll()
+        .anyRequest()
+        .fullyAuthenticated());
+    http.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
+    http.oauth2Login(oauth2 -> oauth2.userInfoEndpoint(userInfo -> userInfo.userAuthoritiesMapper(userAuthoritiesMapper())));
+    http.logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).invalidateHttpSession(true)
+        .clearAuthentication(true).logoutSuccessUrl("/").permitAll());
     return http.build();
   }
 
-  /**
-   * The `webSecurityCustomizer` method is used to configure web security in Java, specifically ignoring requests
-   * to the "/h2-console/**" path.
-   */
-  @Bean
-  public WebSecurityCustomizer webSecurityCustomizer() {
-    return web -> web.ignoring().requestMatchers("/h2-console/**");
-  }
+  // /**
+  // * The `webSecurityCustomizer` method is used to configure web security in
+  // Java,
+  // * specifically ignoring requests
+  // * to the "/h2-console/**" path.
+  // */
+  // @Bean
+  // public WebSecurityCustomizer webSecurityCustomizer() {
+  // return web -> web.ignoring().requestMatchers("/h2-console/**");
+  // }
 
   private GrantedAuthoritiesMapper userAuthoritiesMapper() {
     return (authorities) -> {
@@ -79,6 +104,8 @@ public class SecurityConfig {
         if (authority instanceof OAuth2UserAuthority oauth2UserAuthority) {
           Map<String, Object> userAttributes = oauth2UserAuthority.getAttributes();
           log.info("********** userAttributes={}", userAttributes);
+
+          mappedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
           String email = (String) userAttributes.get("email");
           if (getAdmin(email)) {
@@ -97,7 +124,8 @@ public class SecurityConfig {
   }
 
   /**
-   * This method checks if the given email belongs to an admin user either from a predefined
+   * This method checks if the given email belongs to an admin user either from a
+   * predefined
    * list or by querying the user repository.
    * 
    * @param email email address of the user

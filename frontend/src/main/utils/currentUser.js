@@ -12,6 +12,7 @@ export function useCurrentUser() {
       } catch (e) {
         console.error("Error getting roles: ", e);
       }
+      console.log("rolesList: ", rolesList);
       response.data = { ...response.data, rolesList: rolesList }
       return { loggedIn: true, root: response.data };
     } catch (e) {
@@ -23,10 +24,16 @@ export function useCurrentUser() {
   });
 }
 
+const getCSRFToken = async () => {
+  const response = await axios.get('/csrf');
+  axios.defaults.headers.post['X-CSRF-Token'] = response.data.CSRFToken;
+};
+
 export function useLogout() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const mutation = useMutation(async () => {
+    await getCSRFToken();
     await axios.post("/logout");
     await queryClient.resetQueries("current user", { exact: true });
     navigate("/");
