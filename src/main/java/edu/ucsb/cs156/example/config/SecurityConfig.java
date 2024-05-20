@@ -80,6 +80,8 @@ public class SecurityConfig {
           Map<String, Object> userAttributes = oauth2UserAuthority.getAttributes();
           log.info("********** userAttributes={}", userAttributes);
 
+          mappedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+
           String email = (String) userAttributes.get("email");
           if (getAdmin(email)) {
             mappedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
