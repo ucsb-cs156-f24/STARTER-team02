@@ -1,6 +1,5 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 team03,edu.ucsb.cs156.example.services,CurrentUserService,0,10,0,2,0,2,0,3,0,2
-team03,edu.ucsb.cs156.example.services,GrantedAuthoritiesService,0,21,0,0,0,7,0,3,0,3
 team03,edu.ucsb.cs156.example.services,SystemInfoService,0,3,0,0,0,1,0,1,0,1
 team03,edu.ucsb.cs156.example.services,SystemInfoServiceImpl,0,27,0,0,0,9,0,3,0,3
 team03,edu.ucsb.cs156.example.controllers,UserInfoController,0,6,0,0,0,2,0,2,0,2
