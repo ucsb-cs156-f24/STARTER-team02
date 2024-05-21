@@ -86,33 +86,6 @@ public class SecurityConfig {
         .logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/"));
     return http.build();
   }
-  // @Bean
-  // public SecurityFilterChain securityFilterChain(HttpSecurity http) throws
-  // Exception {
-  // http
-  // .csrf(csrf -> csrf
-  // .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
-  // .authorizeHttpRequests(auth -> auth
-  // .anyRequest().permitAll())
-  // .formLogin(formLogin -> formLogin
-  // .successHandler(new CustomAuthenticationSuccessHandler()));
-  // return http.build();
-  // }
-
-  // private static class CustomAuthenticationSuccessHandler extends
-  // SavedRequestAwareAuthenticationSuccessHandler {
-  // @Override
-  // public void onAuthenticationSuccess(HttpServletRequest request,
-  // HttpServletResponse response,
-  // Authentication authentication) throws ServletException, IOException {
-  // CsrfToken csrfToken = (CsrfToken)
-  // request.getAttribute(CsrfToken.class.getName());
-  // if (csrfToken != null) {
-  // response.setHeader("TTOTOTOTOTOTOKEN", csrfToken.getToken());
-  // }
-  // super.onAuthenticationSuccess(request, response, authentication);
-  // }
-  // }
 
   /**
    * The `webSecurityCustomizer` method is used to configure web security in Java,
@@ -209,7 +182,6 @@ final class SpaCsrfTokenRequestHandler extends CsrfTokenRequestAttributeHandler 
   }
 }
 
-@Slf4j
 final class CsrfCookieFilter extends OncePerRequestFilter {
 
   @Override
@@ -218,8 +190,6 @@ final class CsrfCookieFilter extends OncePerRequestFilter {
     CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
     // Render the token value to a cookie by causing the deferred token to be loaded
     csrfToken.getToken();
-    // log.warn("\u001b[31m********** csrfToken={}\u001b[0m" + csrfToken);
-
     filterChain.doFilter(request, response);
   }
 }
