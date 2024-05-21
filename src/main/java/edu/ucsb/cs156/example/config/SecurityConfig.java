@@ -26,6 +26,7 @@ import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.security.web.csrf.CsrfTokenRequestHandler;
@@ -73,15 +74,15 @@ public class SecurityConfig {
   // https://docs.spring.io/spring-security/reference/servlet/exploits/csrf.html#csrf-integration-javascript-spa
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http.csrf(csrf -> csrf
-        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-        .csrfTokenRequestHandler(new SpaCsrfTokenRequestHandler()))
-        .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+    http
         .exceptionHandling(handling -> handling.authenticationEntryPoint(new Http403ForbiddenEntryPoint()))
         .oauth2Login(
             oauth2 -> oauth2.userInfoEndpoint(userInfo -> userInfo.userAuthoritiesMapper(this.userAuthoritiesMapper())))
-        // .csrf(Customizer.withDefaults())
-
+        .csrf(csrf -> csrf
+            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+            .csrfTokenRequestHandler(new SpaCsrfTokenRequestHandler()))
+        .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
+        .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
         .logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/"));
     return http.build();
   }
@@ -208,6 +209,7 @@ final class SpaCsrfTokenRequestHandler extends CsrfTokenRequestAttributeHandler 
   }
 }
 
+@Slf4j
 final class CsrfCookieFilter extends OncePerRequestFilter {
 
   @Override
@@ -216,6 +218,7 @@ final class CsrfCookieFilter extends OncePerRequestFilter {
     CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
     // Render the token value to a cookie by causing the deferred token to be loaded
     csrfToken.getToken();
+    // log.warn("\u001b[31m********** csrfToken={}\u001b[0m" + csrfToken);
 
     filterChain.doFilter(request, response);
   }
