@@ -165,12 +165,12 @@ INTEGRATION=true HEADLESS=false mvn test-compile failsafe:integration-test
 To run a particular integration test (e.g. only `HomePageWebIT.java`) use `-Dit.test=ClassName`, for example:
 
 ```
-INTEGRATION=true mvn test-compile failsafe:integration-test -Dit.test=HomePageWebIt
+INTEGRATION=true mvn test-compile failsafe:integration-test -Dit.test=HomePageWebIT
 ```
 
 or to see it run live:
 ```
-INTEGRATION=true HEADLESS=false mvn test-compile failsafe:integration-test -Dit.test=HomePageWebIt
+INTEGRATION=true HEADLESS=false mvn test-compile failsafe:integration-test -Dit.test=HomePageWebIT
 ```
 
 Integration tests are any methods labelled with `@Test` annotation, that are under the `/src/test/java` hierarchy, and have names starting with `IT` (specifically capital I, capital T).
@@ -181,5 +181,4 @@ Unless you want a particular integration test to *also* be run when you type `mv
 
 Note that while `mvn test` is typically sufficient to run tests, we have found that if you haven't compiled the test code yet, running `mvn failsafe:integration-test` may not actually run any of the tests.
 
-To run a single integration test (e.g. only `HomePageWebIT.java`) use `-Dit.test=ClassName`, for example:
 
