@@ -2,24 +2,34 @@ package edu.ucsb.cs156.example.config;
 
 import edu.ucsb.cs156.example.entities.User;
 import edu.ucsb.cs156.example.repositories.UserRepository;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.server.csrf.CsrfToken;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -28,7 +38,8 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * The `SecurityConfig` class in Java configures web security with OAuth2 login, CSRF protection, and
+ * The `SecurityConfig` class in Java configures web security with OAuth2 login,
+ * CSRF protection, and
  * role-based authorization based on user email addresses.
  */
 @Configuration
@@ -44,23 +55,58 @@ public class SecurityConfig {
   UserRepository userRepository;
 
   /**
-   * The `filterChain` method in this Java code configures various security settings for an HTTP request,
-   * including authorization, exception handling, OAuth2 login, CSRF protection, and logout behavior.
+   * The `filterChain` method in this Java code configures various security
+   * settings for an HTTP request,
+   * including authorization, exception handling, OAuth2 login, CSRF protection,
+   * and logout behavior.
    * 
    * @param http injected HttpSecurity object (injected by Spring framework)
+   *             //
    */
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+    http.csrf(csrf -> csrf
+        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+        .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
         .exceptionHandling(handling -> handling.authenticationEntryPoint(new Http403ForbiddenEntryPoint()))
-        .oauth2Login(oauth2 -> oauth2.userInfoEndpoint(userInfo -> userInfo.userAuthoritiesMapper(this.userAuthoritiesMapper())))
-        .csrf(csrf -> csrf.disable())
+        .oauth2Login(
+            oauth2 -> oauth2.userInfoEndpoint(userInfo -> userInfo.userAuthoritiesMapper(this.userAuthoritiesMapper())))
+        // .csrf(Customizer.withDefaults())
+
         .logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/"));
     return http.build();
   }
+  // @Bean
+  // public SecurityFilterChain securityFilterChain(HttpSecurity http) throws
+  // Exception {
+  // http
+  // .csrf(csrf -> csrf
+  // .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+  // .authorizeHttpRequests(auth -> auth
+  // .anyRequest().permitAll())
+  // .formLogin(formLogin -> formLogin
+  // .successHandler(new CustomAuthenticationSuccessHandler()));
+  // return http.build();
+  // }
+
+  // private static class CustomAuthenticationSuccessHandler extends
+  // SavedRequestAwareAuthenticationSuccessHandler {
+  // @Override
+  // public void onAuthenticationSuccess(HttpServletRequest request,
+  // HttpServletResponse response,
+  // Authentication authentication) throws ServletException, IOException {
+  // CsrfToken csrfToken = (CsrfToken)
+  // request.getAttribute(CsrfToken.class.getName());
+  // if (csrfToken != null) {
+  // response.setHeader("TTOTOTOTOTOTOKEN", csrfToken.getToken());
+  // }
+  // super.onAuthenticationSuccess(request, response, authentication);
+  // }
+  // }
 
   /**
-   * The `webSecurityCustomizer` method is used to configure web security in Java, specifically ignoring requests
+   * The `webSecurityCustomizer` method is used to configure web security in Java,
+   * specifically ignoring requests
    * to the "/h2-console/**" path.
    */
   @Bean
@@ -99,7 +145,8 @@ public class SecurityConfig {
   }
 
   /**
-   * This method checks if the given email belongs to an admin user either from a predefined
+   * This method checks if the given email belongs to an admin user either from a
+   * predefined
    * list or by querying the user repository.
    * 
    * @param email email address of the user
