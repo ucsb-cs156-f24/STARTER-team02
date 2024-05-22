@@ -11,7 +11,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.2.5</version>
+    <version>3.1.1</version>
   </parent>
 
   <!-- (2) <groupId/> -->
@@ -135,11 +135,12 @@
       <version>2.0.1.Final</version>
     </dependency>
 
+    <!-- Spring Doc for Spring Boot 3 https://springdoc.org/ -->
     <dependency>
       <groupId>org.springdoc</groupId>
-      <artifactId>springdoc-openapi-ui</artifactId>
-      <version>1.7.0</version>
-   </dependency>
+      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+      <version>2.5.0</version>
+    </dependency>
 
   </dependencies>
 
@@ -157,7 +158,8 @@
         <version>3.0.0-M5</version>
         <configuration>
           <!-- Activate the use of TCP to transmit events to the plugin -->
-          <forkNode implementation="org.apache.maven.plugin.surefire.extensions.SurefireForkNodeFactory"/>
+          <forkNode
+            implementation="org.apache.maven.plugin.surefire.extensions.SurefireForkNodeFactory" />
         </configuration>
       </plugin>
 
@@ -198,6 +200,7 @@
             <exclude>**/${app.packagePath}/controllers/FrontendController.*</exclude>
             <exclude>**/${app.packagePath}/controllers/FrontendProxyController.*</exclude>
             <exclude>**/${app.packagePath}/services/CurrentUserServiceImpl.*</exclude>
+            <exclude>**/${app.packagePath}/services/GrantedAuthoritiesService.*</exclude>
             <exclude>**/${app.packagePath}/ExampleApplication.*</exclude>
             <exclude>**/edu/ucsb/cs156/example/services/wiremock/*</exclude>
           </excludes>
@@ -286,9 +289,12 @@
             <param>${app.package}.services.CurrentUserServiceImpl</param>
             <param>${app.package}.ExampleApplication</param>
             <param>${app.package}.config.SecurityConfig</param>
+            <param>${app.package}.config.SpaCsrfTokenRequestHandler</param>
+            <param>${app.package}.config.CsrfCookieFilter</param>
             <param>edu.ucsb.cs156.example.services.wiremock.WiremockService</param>
             <param>edu.ucsb.cs156.example.services.wiremock.WiremockServiceDummy</param>
             <param>edu.ucsb.cs156.example.services.wiremock.WiremockServiceImpl</param>
+            <param>${app.package}.services.GrantedAuthoritiesService</param>
           </excludedClasses>
           <excludedTestClasses>
             <param>edu.ucsb.cs156.example.web.*</param>
@@ -378,8 +384,8 @@
             <artifactId>frontend-maven-plugin</artifactId>
             <version>1.12.1</version>
             <configuration>
-                <workingDirectory>frontend</workingDirectory>
-                <installDirectory>${project.build.directory}</installDirectory>
+              <workingDirectory>frontend</workingDirectory>
+              <installDirectory>${project.build.directory}</installDirectory>
             </configuration>
             <executions>
               <execution>
@@ -410,26 +416,26 @@
                 </configuration>
               </execution>
             </executions>
-              </plugin>
-              <plugin>
-              <artifactId>maven-antrun-plugin</artifactId>
-              <version>3.0.0</version>
-              <executions>
-                <execution>
-                  <phase>generate-resources</phase>
-                  <configuration>
-                    <target>
-                      <copy todir="${project.build.outputDirectory}/public">
-                        <fileset dir="${project.basedir}/frontend/build" />
-                      </copy>
-                    </target>
-                  </configuration>
-                  <goals>
-                    <goal>run</goal>
-                  </goals>
-                </execution>
-              </executions>
-            </plugin>
+          </plugin>
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>3.0.0</version>
+            <executions>
+              <execution>
+                <phase>generate-resources</phase>
+                <configuration>
+                  <target>
+                    <copy todir="${project.build.outputDirectory}/public">
+                      <fileset dir="${project.basedir}/frontend/build" />
+                    </copy>
+                  </target>
+                </configuration>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
         </plugins>
       </build>
     </profile>
