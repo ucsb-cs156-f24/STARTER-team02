@@ -182,3 +182,24 @@ Unless you want a particular integration test to *also* be run when you type `mv
 Note that while `mvn test` is typically sufficient to run tests, we have found that if you haven't compiled the test code yet, running `mvn failsafe:integration-test` may not actually run any of the tests.
 
 
+## Partial pitest runs
+
+This repo has support for partial pitest runs
+
+For example, to run pitest on just one class, use:
+
+```
+mvn pitest:mutationCoverage -DtargetClasses=edu.ucsb.cs156.example.controllers.RestaurantsController
+```
+
+To run pitest on just one package, use:
+
+```
+mvn pitest:mutationCoverage -DtargetClasses=edu.ucsb.cs156.example.controllers.*
+```
+
+To run full mutation test coverage, as usual, use:
+
+```
+mvn pitest:mutationCoverage
+```
