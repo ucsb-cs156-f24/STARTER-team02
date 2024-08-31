@@ -1,34 +1,30 @@
-import React from "react";
-import { useTable, useSortBy } from 'react-table'
+import { useTable, useSortBy } from "react-table";
 import { Table, Button } from "react-bootstrap";
 
 export default function OurTable({ columns, data, testid = "testid" }) {
-
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-  } = useTable({ columns, data }, useSortBy)
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable({ columns, data }, useSortBy);
 
   return (
-    <Table {...getTableProps()} striped bordered hover >
+    <Table {...getTableProps()} striped bordered hover>
       <thead>
-        {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
+        {headerGroups.map((headerGroup, i) => (
+          <tr
+            {...headerGroup.getHeaderGroupProps()}
+            data-testid={`${testid}-header-group-${i}`}
+            // Stryker disable next-line StringLiteral : React key property not exposed in dom
+            key={`${testid}-header-group-${i}`}
+          >
+            {headerGroup.headers.map((column) => (
               <th
                 {...column.getHeaderProps(column.getSortByToggleProps())}
                 data-testid={`${testid}-header-${column.id}`}
+                // Stryker disable next-line StringLiteral : React key property not exposed in dom
+                key={`${testid}-header-${column.id}`}
               >
-                {column.render('Header')}
+                {column.render("Header")}
                 <span data-testid={`${testid}-header-${column.id}-sort-carets`}>
-                  {column.isSorted
-                    ? column.isSortedDesc
-                      ? ' 🔽'
-                      : ' 🔼'
-                    : ''}
+                  {column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : ""}
                 </span>
               </th>
             ))}
@@ -36,26 +32,35 @@ export default function OurTable({ columns, data, testid = "testid" }) {
         ))}
       </thead>
       <tbody {...getTableBodyProps()}>
-        {rows.map(row => {
-          prepareRow(row)
+        {rows.map((row) => {
+          prepareRow(row);
+          const rowTestId = `${testid}-row-${row.index}`;
           return (
-            <tr {...row.getRowProps()}>
+            <tr
+              {...row.getRowProps()}
+              data-testid={rowTestId}
+              // Stryker disable next-line StringLiteral : React key property not exposed in dom
+              key={rowTestId}
+            >
               {row.cells.map((cell, _index) => {
+                const testId = `${testid}-cell-row-${cell.row.index}-col-${cell.column.id}`;
                 return (
                   <td
                     {...cell.getCellProps()}
-                    data-testid={`${testid}-cell-row-${cell.row.index}-col-${cell.column.id}`}
+                    data-testid={testId}
+                    // Stryker disable next-line StringLiteral : React key property not exposed in dom
+                    key={testId}
                   >
-                    {cell.render('Cell')}
+                    {cell.render("Cell")}
                   </td>
-                )
+                );
               })}
             </tr>
-          )
+          );
         })}
       </tbody>
     </Table>
-  )
+  );
 }
 
 // The callback function for ButtonColumn should have the form
@@ -65,8 +70,8 @@ export default function OurTable({ columns, data, testid = "testid" }) {
 // Documented here: https://react-table.tanstack.com/docs/api/useTable#cell-properties
 // Typically, you want cell.row.values, which is where you can get the individual
 //   fields of the object representing the row in the table.
-// Example: 
-//   const deleteCallback = (cell) => 
+// Example:
+//   const deleteCallback = (cell) =>
 //      toast(`Delete Callback called on id: ${cell.row.values.id} name: ${cell.row.values.name}`);
 
 // Add it to table like this:
@@ -95,7 +100,7 @@ export function ButtonColumn(label, variant, callback, testid) {
       >
         {label}
       </Button>
-    )
-  }
+    ),
+  };
   return column;
 }

@@ -1,29 +1,17 @@
+import "../src/index.css";
 import "bootstrap/dist/css/bootstrap.css";
 import 'react-toastify/dist/ReactToastify.css';
-import "../src/index.css";
-import { initialize, mswDecorator } from 'msw-storybook-addon';
 
+import { initialize, mswLoader } from 'msw-storybook-addon'
 
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
-
-export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
-}
-
-const currentUrl = window.location.href;
-const isLocalhost = currentUrl.startsWith("http://localhost:6006/");
-const mockServiceWorkerUrl = isLocalhost ? "mockServiceWorker.js" : "https://" + window.location.hostname + "/mockServiceWorker.js";
-
-initialize(
-  {
-    serviceWorker: {
-      url: mockServiceWorkerUrl
-    }
-  }
-);
+import { ToastContainer } from "react-toastify";
 
 const queryClient = new QueryClient();
+
+// Initialize MSW
+initialize()
 
 // Per https://storybook.js.org/docs/react/writing-stories/decorators#context-for-mocking
 // Here, we provide the context needed for some of the components,
@@ -33,12 +21,24 @@ export const decorators = [
   (Story) => (
     <QueryClientProvider client={queryClient}>
       <MemoryRouter>
+        <ToastContainer />
         <Story />
       </MemoryRouter>
     </QueryClientProvider>
-  ),
-  mswDecorator, // provide the MSW decorator globally
+  )
 ];
 
+/** @type { import('@storybook/react').Preview } */
+const preview = {
+  parameters: {
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i,
+      },
+    },
+  },
+  loaders: [mswLoader]
+};
 
-
+export default preview;

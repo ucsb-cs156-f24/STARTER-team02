@@ -1,40 +1,39 @@
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import UCSBDateForm from "main/components/UCSBDates/UCSBDateForm";
-import { Navigate } from 'react-router-dom'
+import { Navigate } from "react-router-dom";
 import { useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
-export default function UCSBDatesCreatePage({storybook=false}) {
-
+export default function UCSBDatesCreatePage({ storybook = false }) {
   const objectToAxiosParams = (ucsbDate) => ({
     url: "/api/ucsbdates/post",
     method: "POST",
     params: {
       quarterYYYYQ: ucsbDate.quarterYYYYQ,
       name: ucsbDate.name,
-      localDateTime: ucsbDate.localDateTime
-    }
+      localDateTime: ucsbDate.localDateTime,
+    },
   });
 
   const onSuccess = (ucsbDate) => {
     toast(`New ucsbDate Created - id: ${ucsbDate.id} name: ${ucsbDate.name}`);
-  }
+  };
 
   const mutation = useBackendMutation(
     objectToAxiosParams,
-     { onSuccess }, 
-     // Stryker disable next-line all : hard to set up test for caching
-     ["/api/ucsbdates/all"]
-     );
+    { onSuccess },
+    // Stryker disable next-line all : hard to set up test for caching
+    ["/api/ucsbdates/all"],
+  );
 
-  const { isSuccess } = mutation
+  const { isSuccess } = mutation;
 
   const onSubmit = async (data) => {
     mutation.mutate(data);
-  }
+  };
 
   if (isSuccess && !storybook) {
-    return <Navigate to="/ucsbdates" />
+    return <Navigate to="/ucsbdates" />;
   }
 
   return (
@@ -43,8 +42,7 @@ export default function UCSBDatesCreatePage({storybook=false}) {
         <h1>Create New UCSBDate</h1>
 
         <UCSBDateForm submitAction={onSubmit} />
-
       </div>
     </BasicLayout>
-  )
+  );
 }

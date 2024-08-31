@@ -6,9 +6,10 @@ export default function HomePage() {
       <div className="pt-2">
         <h1>Hello, world!</h1>
         <p>
-          This is a webapp containing a bunch of different Spring Boot/React examples.
+          This is a webapp containing a bunch of different Spring Boot/React
+          examples.
         </p>
       </div>
     </BasicLayout>
-  )
+  );
 }
