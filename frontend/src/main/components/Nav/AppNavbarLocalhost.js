@@ -17,9 +17,10 @@ export default function AppNavbarLocalhost({ url }) {
           <Navbar.Collapse className="justify-content-between">
             <Nav className="mr-auto text-center">
               <Nav.Item className="text-center">
-                <p>
+                <p data-testid="AppNavbarLocalhost-message1">
                   Running on <code>{url}</code> with no backend.
-                  <br />
+                </p>
+                <p data-testid="AppNavbarLocalhost-message2">
                   You probably want{" "}
                   <a href="http://localhost:8080">http://localhost:8080</a>{" "}
                   instead.

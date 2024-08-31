@@ -85,6 +85,12 @@ describe("AppNavbar tests", () => {
     );
 
     await screen.findByTestId("AppNavbarLocalhost");
+    expect(screen.getByTestId("AppNavbarLocalhost-message1").textContent).toBe(
+      "Running on http://localhost:3000/ with no backend.",
+    );
+    expect(screen.getByTestId("AppNavbarLocalhost-message2").textContent).toBe(
+      "You probably want http://localhost:8080 instead.",
+    );
   });
 
   test("renders the AppNavbarLocalhost when on http://127.0.0.1:3000", async () => {
