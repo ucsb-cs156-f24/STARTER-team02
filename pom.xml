@@ -50,6 +50,7 @@
     <mainClass>edu.ucsb.cs156.example.ExampleApplication</mainClass>
     <app.package>edu.ucsb.cs156.example</app.package>
     <app.packagePath>edu/ucsb/cs156/example</app.packagePath>
+    <targetClasses>${targetClasses:edu.ucsb.cs156.*}</targetClasses>
   </properties>
 
   <!-- (22) <dependencyManagement/> -->
@@ -277,7 +278,7 @@
           </historyOutputFile>
           <verbose>true</verbose>
           <targetClasses>
-            <param>edu.ucsb.cs156.*</param>
+            <param>${targetClasses}</param>
           </targetClasses>
           <targetTests>
             <param>edu.ucsb.cs156.*</param>
