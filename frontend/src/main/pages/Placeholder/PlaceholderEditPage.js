@@ -1,7 +1,6 @@
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 
 export default function PlaceholderEditPage() {
-
   // Stryker disable all : placeholder for future implementation
   return (
     <BasicLayout>
@@ -9,5 +8,5 @@ export default function PlaceholderEditPage() {
         <h1>Edit page not yet implemented</h1>
       </div>
     </BasicLayout>
-  )
+  );
 }
