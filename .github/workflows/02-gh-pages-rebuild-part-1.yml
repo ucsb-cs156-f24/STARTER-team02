@@ -20,7 +20,7 @@ jobs:
 
     steps:
     - name: Checkout local code to establish repo
-      uses: actions/checkout@v3.5.2
+      uses: actions/checkout@v4
     - name: Get Pull Requests from Github api
       id: get-prs
       run: |
@@ -45,7 +45,7 @@ jobs:
       destination: target/site/apidocs   
     steps:
     - name: Checkout local code to establish repo
-      uses: actions/checkout@v3.5.2
+      uses: actions/checkout@v4
     - name: Set up Java (version from .java-version file)
       uses: actions/setup-java@v3
       with:
@@ -70,7 +70,7 @@ jobs:
 
     steps:
     - name: Checkout local code to establish repo
-      uses: actions/checkout@v3.5.2
+      uses: actions/checkout@v4
 
     - name: Setup Node.js
       uses: actions/setup-node@v3.6.0
@@ -101,7 +101,7 @@ jobs:
       destination: target/site/jacoco  
 
     steps:
-    - uses: actions/checkout@v3.5.2
+    - uses: actions/checkout@v4
     - name: Set up Java (version from .java-version file)
       uses: actions/setup-java@v3
       with:
@@ -130,7 +130,7 @@ jobs:
       history_destination: target/pit-history
 
     steps:
-    - uses: actions/checkout@v3.5.2
+    - uses: actions/checkout@v4
     - name: Set up Java (version from .java-version file)
       uses: actions/setup-java@v3
       with:
@@ -191,7 +191,7 @@ jobs:
     - uses: szenius/set-timezone@v1.2
       with:
         timezoneLinux: "America/Los_Angeles"
-    - uses: actions/checkout@v3.5.2
+    - uses: actions/checkout@v4
       with: 
         fetch-depth: 2
     - name: Setup Node.js
@@ -222,7 +222,7 @@ jobs:
     - uses: szenius/set-timezone@v1.2
       with:
         timezoneLinux: "America/Los_Angeles"
-    - uses: actions/checkout@v3.5.2
+    - uses: actions/checkout@v4
       with: 
         fetch-depth: 2
     - name: Setup Node.js
@@ -284,7 +284,7 @@ jobs:
 
     steps:
     - name: Checkout repo
-      uses: actions/checkout@v3.5.2
+      uses: actions/checkout@v4
       with:
         ref: ${{ matrix.value.headRefName }}
         fetch-depth: 1
@@ -327,7 +327,7 @@ jobs:
         echo "matrix.value.headRefName:  ${{ matrix.value.headRefName }}"
 
     - name: Checkout repo
-      uses: actions/checkout@v3.5.2
+      uses: actions/checkout@v4
       with:
         ref: ${{ matrix.value.headRefName }}
         fetch-depth: 1
@@ -367,7 +367,7 @@ jobs:
 
     steps:
     - name: Checkout repo
-      uses: actions/checkout@v3.5.2
+      uses: actions/checkout@v4
       with:
         ref: ${{ matrix.value.headRefName }}
         fetch-depth: 1
@@ -408,7 +408,7 @@ jobs:
 
     steps:
     - name: Checkout repo
-      uses: actions/checkout@v3.5.2
+      uses: actions/checkout@v4
       with:
         ref: ${{ matrix.value.headRefName }}
         fetch-depth: 1
@@ -485,7 +485,7 @@ jobs:
 
     steps:
     - name: Checkout repo
-      uses: actions/checkout@v3.5.2
+      uses: actions/checkout@v4
       with:
         ref: ${{ matrix.value.headRefName }}
         fetch-depth: 1
@@ -536,7 +536,7 @@ jobs:
       with:
         timezoneLinux: "America/Los_Angeles"
     - name: Checkout repo
-      uses: actions/checkout@v3.5.2
+      uses: actions/checkout@v4
       with:
         ref: ${{ matrix.value.headRefName }}
         fetch-depth: 2
