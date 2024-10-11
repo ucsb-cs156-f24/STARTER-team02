@@ -34,7 +34,7 @@ public abstract class WebTestCase {
     public static void setupWireMock() {
         wireMockServer = new WireMockServer(options()
                 .port(8090)
-                .extensions(new ResponseTemplateTransformer(true)));
+                .globalTemplating(true));
 
         WiremockServiceImpl.setupOauthMocks(wireMockServer, false);
 

@@ -113,9 +113,7 @@ public class WiremockServiceImpl extends WiremockService {
     log.info("WiremockServiceImpl.init() called");
 
     WireMockServer wireMockServer = new WireMockServer(options()
-        .port(8090) // No-args constructor will start on port
-        .extensions(new ResponseTemplateTransformer(true)));
-
+        .port(8090).globalTemplating(true));
     setupOauthMocks(wireMockServer, true);
 
     wireMockServer.start();
