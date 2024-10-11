@@ -27,8 +27,8 @@ a team project.  Please help other team members to finish their work
 after completing your own.
 
 # Versions
-* Java: 17
-* node: 16.20.0
+* Java: 21
+* node: 20.17.0
 See [docs/versions.md](docs/versions.md) for more information on upgrading versions.
 
 # Brief overview of starter code 
