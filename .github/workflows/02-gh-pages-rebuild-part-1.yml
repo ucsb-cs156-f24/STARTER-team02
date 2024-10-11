@@ -56,7 +56,7 @@ jobs:
       run: mvn -DskipTests javadoc:javadoc
 
     - name: Upload to artifacts
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4
       with:
           name: javadoc
           path: ${{ env.destination }}
@@ -87,7 +87,7 @@ jobs:
         npx build-storybook --docs -o storybook_static -s public
 
     - name: Upload to artifacts
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4
       with:
           name: storybook
           path: ${{ env.destination }}
@@ -115,7 +115,7 @@ jobs:
       run: mvn -B test jacoco:report verify
 
     - name: Upload to artifacts
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4
       with:
           name: jacoco
           path: ${{ env.destination }}
@@ -169,13 +169,13 @@ jobs:
 
     - name: Upload Pitest History to Artifacts
       if: always() # always upload artifacts, even if tests fail
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4
       with:
         name: pitest-main-history.bin
         path: ${{ env.history_destination}}/history.bin
 
     - name: Upload to artifacts
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4
       with:
           name: pitest
           path: ${{ env.destination }}
@@ -207,7 +207,7 @@ jobs:
       working-directory: ./frontend
     - name: Upload jest coverage report to Artifacts
       if: always() # always upload artifacts, even if tests fail
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4
       with:
         name: coverage
         path: ${{ env.destination }}
@@ -257,14 +257,14 @@ jobs:
         npx stryker run --incremental --incrementalFile history/stryker-incremental-main.json
      
     - name: Upload stryker incremental file to Artifacts
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4
       with:
         name: stryker-incremental-main.json
         path: frontend/history
 
     - name: Upload report to Artifacts
       if: always() # always upload artifacts, even if tests fail
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4
       with:
         name: stryker
         path: frontend/reports/mutation/mutation.html
@@ -301,7 +301,7 @@ jobs:
  
     - name: Upload javadoc to Artifacts
       if: always() # always upload artifacts, even if tests fail
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4
       with:
         name: prs-${{ matrix.value.number }}-javadoc
         path: ${{ env.destination }}
@@ -349,7 +349,7 @@ jobs:
  
     - name: Upload Storybook to Artifacts
       if: always() # always upload artifacts, even if tests fail
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4
       with:
         name: prs-${{ matrix.value.number }}-storybook
         path: frontend/storybook_static_${{ matrix.value.number }} 
@@ -386,7 +386,7 @@ jobs:
       run: mvn -B test jacoco:report verify
  
     - name: Upload to artifacts
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4
       with:
           name: prs-${{ matrix.value.number }}-jacoco
           path: target/site/jacoco
@@ -458,13 +458,13 @@ jobs:
 
     - name: Upload Pitest History to Artifacts
       if: always() # always upload artifacts, even if tests fail
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4
       with:
         name: pitest-${{ matrix.value.number }}-history.bin
         path: ${{ env.history_destination}}/history.bin
 
     - name: Upload to artifacts
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4
       with:
           name: prs-${{ matrix.value.number }}-pitest
           path: ${{ env.destination }}
@@ -509,7 +509,7 @@ jobs:
       working-directory: ./frontend
       
     - name: Upload to artifacts
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4
       with:
         name: prs-${{ matrix.value.number }}-coverage
         path: ${{ env.destination }}
@@ -572,12 +572,12 @@ jobs:
       run: |
         npx stryker run --incremental --incrementalFile history/stryker-incremental-${{ matrix.value.number }}.json
     - name: Upload stryker incremental file to Artifacts
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4
       with:
         name: stryker-incremental-${{ matrix.value.number }}.json
         path: ${{ env.history_destination }}
     - name: Upload to artifacts
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4
       with:
         name: prs-${{ matrix.value.number }}-stryker
         path: ${{ env.destination }}/mutation.html
