@@ -1,4 +1,4 @@
-import { render, screen} from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
@@ -7,202 +7,224 @@ import AppNavbar from "main/components/Nav/AppNavbar";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 
 describe("AppNavbar tests", () => {
+  const queryClient = new QueryClient();
 
-    const queryClient = new QueryClient();
+  test("renders correctly for regular logged in user", async () => {
+    const currentUser = currentUserFixtures.userOnly;
+    const doLogin = jest.fn();
 
-    test("renders correctly for regular logged in user", async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar currentUser={currentUser} doLogin={doLogin} />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
 
-        const currentUser = currentUserFixtures.userOnly;
-        const doLogin = jest.fn();
+    await screen.findByText("Welcome, pconrad.cis@gmail.com");
+  });
 
-        render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <AppNavbar currentUser={currentUser} doLogin={doLogin} />
-                </MemoryRouter>
-            </QueryClientProvider>
-        );
+  test("renders correctly for admin user", async () => {
+    const currentUser = currentUserFixtures.adminUser;
+    const doLogin = jest.fn();
 
-        await screen.findByText("Welcome, pconrad.cis@gmail.com");
-    });
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar currentUser={currentUser} doLogin={doLogin} />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
 
-    test("renders correctly for admin user", async () => {
+    await screen.findByText("Welcome, phtcon@ucsb.edu");
+    const adminMenu = screen.getByTestId("appnavbar-admin-dropdown");
+    expect(adminMenu).toBeInTheDocument();
+  });
 
-        const currentUser = currentUserFixtures.adminUser;
-        const doLogin = jest.fn();
+  test("renders H2Console and Swagger links correctly", async () => {
+    const currentUser = currentUserFixtures.adminUser;
+    const systemInfo = systemInfoFixtures.showingBoth;
 
-        render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <AppNavbar currentUser={currentUser} doLogin={doLogin} />
-                </MemoryRouter>
-            </QueryClientProvider>
-        );
+    const doLogin = jest.fn();
 
-        await screen.findByText("Welcome, phtcon@ucsb.edu");
-        const adminMenu = screen.getByTestId("appnavbar-admin-dropdown");
-        expect(adminMenu).toBeInTheDocument();        
-    });
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar
+            currentUser={currentUser}
+            systemInfo={systemInfo}
+            doLogin={doLogin}
+          />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
 
-    test("renders H2Console and Swagger links correctly", async () => {
+    await screen.findByText("H2Console");
+    const swaggerMenu = screen.getByText("Swagger");
+    expect(swaggerMenu).toBeInTheDocument();
+  });
 
-        const currentUser = currentUserFixtures.adminUser;
-        const systemInfo = systemInfoFixtures.showingBoth;
+  test("renders the AppNavbarLocalhost when on http://localhost:3000", async () => {
+    const currentUser = currentUserFixtures.userOnly;
+    const systemInfo = systemInfoFixtures.showingBoth;
+    const doLogin = jest.fn();
 
-        const doLogin = jest.fn();
+    delete window.location;
+    window.location = new URL("http://localhost:3000");
 
-        render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogin={doLogin} />
-                </MemoryRouter>
-            </QueryClientProvider>
-        );
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar
+            currentUser={currentUser}
+            systemInfo={systemInfo}
+            doLogin={doLogin}
+          />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
 
-        await screen.findByText("H2Console");
-        const swaggerMenu = screen.getByText("Swagger");
-        expect(swaggerMenu).toBeInTheDocument();        
-    });
+    await screen.findByTestId("AppNavbarLocalhost");
+    expect(screen.getByTestId("AppNavbarLocalhost-message1").textContent).toBe(
+      "Running on http://localhost:3000/ with no backend.",
+    );
+    expect(screen.getByTestId("AppNavbarLocalhost-message2").textContent).toBe(
+      "You probably want http://localhost:8080 instead.",
+    );
+  });
 
+  test("renders the AppNavbarLocalhost when on http://127.0.0.1:3000", async () => {
+    const currentUser = currentUserFixtures.userOnly;
+    const systemInfo = systemInfoFixtures.showingBoth;
+    const doLogin = jest.fn();
 
+    delete window.location;
+    window.location = new URL("http://127.0.0.1:3000");
 
-    test("renders the AppNavbarLocalhost when on http://localhost:3000", async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar
+            currentUser={currentUser}
+            systemInfo={systemInfo}
+            doLogin={doLogin}
+          />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
 
-        const currentUser = currentUserFixtures.userOnly;
-        const systemInfo = systemInfoFixtures.showingBoth;
-        const doLogin = jest.fn();
+    await screen.findByTestId("AppNavbarLocalhost");
+  });
 
-        delete window.location
-        window.location = new URL('http://localhost:3000')
+  test("does NOT render the AppNavbarLocalhost when on localhost:8080", async () => {
+    const currentUser = currentUserFixtures.userOnly;
+    const systemInfo = systemInfoFixtures.showingBoth;
+    const doLogin = jest.fn();
 
-        render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogin={doLogin} />
-                </MemoryRouter>
-            </QueryClientProvider>
-        );
+    delete window.location;
+    window.location = new URL("http://localhost:8080");
 
-        await screen.findByTestId("AppNavbarLocalhost");
-    });
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar
+            currentUser={currentUser}
+            systemInfo={systemInfo}
+            doLogin={doLogin}
+          />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
 
-    test("renders the AppNavbarLocalhost when on http://127.0.0.1:3000", async () => {
+    await screen.findByTestId("AppNavbar");
+    expect(screen.queryByTestId(/AppNavbarLocalhost/i)).toBeNull();
+  });
 
-        const currentUser = currentUserFixtures.userOnly;
-        const systemInfo = systemInfoFixtures.showingBoth;
-        const doLogin = jest.fn();
+  test("renders the ucsbdates link correctly", async () => {
+    const currentUser = currentUserFixtures.userOnly;
+    const systemInfo = systemInfoFixtures.showingBoth;
 
-        delete window.location
-        window.location = new URL('http://127.0.0.1:3000')
+    const doLogin = jest.fn();
 
-        render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogin={doLogin} />
-                </MemoryRouter>
-            </QueryClientProvider>
-        );
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar
+            currentUser={currentUser}
+            systemInfo={systemInfo}
+            doLogin={doLogin}
+          />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
 
-        await screen.findByTestId("AppNavbarLocalhost");
-    });
+    await screen.findByText("UCSB Dates");
+    const link = screen.getByText("UCSB Dates");
+    expect(link).toBeInTheDocument();
+    expect(link.getAttribute("href")).toBe("/ucsbdates");
+  });
 
-    test("does NOT render the AppNavbarLocalhost when on localhost:8080", async () => {
+  test("renders the restaurants link correctly", async () => {
+    const currentUser = currentUserFixtures.userOnly;
+    const systemInfo = systemInfoFixtures.showingBoth;
 
-        const currentUser = currentUserFixtures.userOnly;
-        const systemInfo = systemInfoFixtures.showingBoth;
-        const doLogin = jest.fn();
+    const doLogin = jest.fn();
 
-        delete window.location
-        window.location = new URL('http://localhost:8080')
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar
+            currentUser={currentUser}
+            systemInfo={systemInfo}
+            doLogin={doLogin}
+          />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
 
-        render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogin={doLogin} />
-                </MemoryRouter>
-            </QueryClientProvider>
-        );
+    await screen.findByText("Restaurants");
+    const link = screen.getByText("Restaurants");
+    expect(link).toBeInTheDocument();
+    expect(link.getAttribute("href")).toBe("/restaurants");
+  });
 
-        await screen.findByTestId("AppNavbar");
-        expect(screen.queryByTestId(/AppNavbarLocalhost/i)).toBeNull();
-    });
+  test("Restaurant and UCSBDates links do NOT show when not logged in", async () => {
+    const currentUser = null;
+    const systemInfo = systemInfoFixtures.showingBoth;
+    const doLogin = jest.fn();
 
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar
+            currentUser={currentUser}
+            systemInfo={systemInfo}
+            doLogin={doLogin}
+          />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
 
-    test("renders the ucsbdates link correctly", async () => {
+    expect(screen.queryByText("Restaurants")).not.toBeInTheDocument();
+    expect(screen.queryByText("UCSBDates")).not.toBeInTheDocument();
+  });
 
-        const currentUser = currentUserFixtures.userOnly;
-        const systemInfo = systemInfoFixtures.showingBoth;
+  test("when oauthlogin undefined, default value is used", async () => {
+    const currentUser = currentUserFixtures.notLoggedIn;
+    const systemInfo = systemInfoFixtures.oauthLoginUndefined;
 
-        const doLogin = jest.fn();
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar currentUser={currentUser} systemInfo={systemInfo} />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
 
-        render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogin={doLogin} />
-                </MemoryRouter>
-            </QueryClientProvider>
-        );
-
-        await screen.findByText("UCSB Dates");
-        const link = screen.getByText("UCSB Dates");
-        expect(link).toBeInTheDocument();
-        expect(link.getAttribute("href")).toBe("/ucsbdates");
-    });
-
-    test("renders the restaurants link correctly", async () => {
-
-        const currentUser = currentUserFixtures.userOnly;
-        const systemInfo = systemInfoFixtures.showingBoth;
-
-        const doLogin = jest.fn();
-
-        render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogin={doLogin} />
-                </MemoryRouter>
-            </QueryClientProvider>
-        );
-
-        await screen.findByText("Restaurants");
-        const link = screen.getByText("Restaurants");
-        expect(link).toBeInTheDocument();
-        expect(link.getAttribute("href")).toBe("/restaurants");
-    });
-
-    test("Restaurant and UCSBDates links do NOT show when not logged in", async () => {
-        const currentUser = null;
-        const systemInfo = systemInfoFixtures.showingBoth;
-        const doLogin = jest.fn();
-
-        render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogin={doLogin} />
-                </MemoryRouter>
-            </QueryClientProvider>
-        );
-
-        expect(screen.queryByText("Restaurants")).not.toBeInTheDocument();
-        expect(screen.queryByText("UCSBDates")).not.toBeInTheDocument();
-    });
-
-    test("when oauthlogin undefined, default value is used", async () =>  {
-        const currentUser = currentUserFixtures.notLoggedIn;
-        const systemInfo = systemInfoFixtures.oauthLoginUndefined;
-
-       render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <AppNavbar currentUser={currentUser} systemInfo={systemInfo} />
-                </MemoryRouter>
-            </QueryClientProvider>
-        );
-
-        await screen.findByText("Log In");
-        expect(screen.getByText("Log In")).toHaveAttribute("href", "/oauth2/authorization/google");
-    });
-
+    await screen.findByText("Log In");
+    expect(screen.getByText("Log In")).toHaveAttribute(
+      "href",
+      "/oauth2/authorization/google",
+    );
+  });
 });
-
-
