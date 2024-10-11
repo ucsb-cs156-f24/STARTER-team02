@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>22/22</span>
+                <span class='fraction'>21/21</span>
             </div>
         
             
@@ -57,7 +57,7 @@
         <template id="filterTemplate">
             <div class="quiet">
                 Filter:
-                <input oninput="onInput()" type="search" id="fileSearch">
+                <input type="search" id="fileSearch">
             </div>
         </template>
     </div>
@@ -144,7 +144,13 @@
 <a name='L79'></a><a href='#L79'>79</a>
 <a name='L80'></a><a href='#L80'>80</a>
 <a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -172,8 +178,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">33x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">57x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">15x</span>
@@ -192,15 +199,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -208,17 +218,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">78x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">78x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">50x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">50x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -234,7 +246,7 @@ import { toast } from "react-toastify";
 //  queryKey ["/api/users","4"]  for "/api/users?id=4"
 &nbsp;
 // For axiosParameters
-//   
+//
 // {
 //     method: 'post',
 //     url: '/user/12345',
@@ -243,7 +255,7 @@ import { toast } from "react-toastify";
 //       lastName: 'Flintstone'
 //     }
 //  }
-// 
+//
 &nbsp;
 // GET Example:
 // useBackend(
@@ -253,59 +265,65 @@ import { toast } from "react-toastify";
 // );
 &nbsp;
 export function useBackend(queryKey, axiosParameters, initialData) {
-&nbsp;
-    return useQuery(queryKey, async () =&gt; {
-        try {
-            const response = await axios(axiosParameters);
-            return response.data;
-        } catch (e) {
-            const errorMessage = `Error communicating with backend via ${axiosParameters.method} on ${axiosParameters.url}`;
-            toast(errorMessage);
-            console.error(errorMessage, e);
-            throw e;
-        }
-    }, {
-        initialData
-    });
+  return useQuery(
+    queryKey,
+    async () =&gt; {
+      try {
+        const response = await axios(axiosParameters);
+        return response.data;
+      } catch (e) {
+        const errorMessage = `Error communicating with backend via ${axiosParameters.method} on ${axiosParameters.url}`;
+        toast(errorMessage);
+        console.error(errorMessage, e);
+        throw e;
+      }
+    },
+    {
+      initialData,
+    },
+  );
 }
 &nbsp;
 // const wrappedParams = async (params) =&gt;
 //   await ( await axios(params)).data;
 &nbsp;
-&nbsp;
 const reportAxiosError = (error) =&gt; {
-    console.error("Axios Error:", error);
-    toast(`Axios Error: ${error}`);
-    return null;
+  console.error("Axios Error:", error);
+  toast(`Axios Error: ${error}`);
+  return null;
 };
 &nbsp;
 const wrappedParams = async (params) =&gt; {
-    try {
-        return await (await axios(params)).data;
-    } catch (rejectedValue) {
-        reportAxiosError(rejectedValue);
-        throw rejectedValue;
-    }
+  try {
+    return await (
+      await axios(params)
+    ).data;
+  } catch (rejectedValue) {
+    reportAxiosError(rejectedValue);
+    throw rejectedValue;
+  }
 };
 &nbsp;
-export function useBackendMutation(objectToAxiosParams, useMutationParams, queryKey=null) {
-    const queryClient = useQueryClient();
+export function useBackendMutation(
+  objectToAxiosParams,
+  useMutationParams,
+  queryKey = null,
+) {
+  const queryClient = useQueryClient();
 &nbsp;
-    return useMutation((object) =&gt; wrappedParams(objectToAxiosParams(object)), {
-        onError: (data) =&gt; {
-            toast(`${data}`)
-        },
-        // Stryker disable all: Not sure how to set up the complex behavior needed to test this
-        onSettled: () =&gt; {
-            if (queryKey!==null)
-             queryClient.invalidateQueries(queryKey);
-        },
-        // Stryker restore all
-        retry: false,
-        ...useMutationParams
-    })
+  return useMutation((object) =&gt; wrappedParams(objectToAxiosParams(object)), {
+    onError: (data) =&gt; {
+      toast(`${data}`);
+    },
+    // Stryker disable all: Not sure how to set up the complex behavior needed to test this
+    onSettled: () =&gt; {
+      if (queryKey !== null) queryClient.invalidateQueries(queryKey);
+    },
+    // Stryker restore all
+    retry: false,
+    ...useMutationParams,
+  });
 }
-&nbsp;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -313,7 +331,7 @@ export function useBackendMutation(objectToAxiosParams, useMutationParams, query
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Thu Oct 10 2024 17:29:48 GMT-0700 (Pacific Daylight Time)
+                at 2024-10-11T00:35:14.474Z
             </div>
         <script src="../prettify.js"></script>
         <script>

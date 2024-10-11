@@ -57,7 +57,7 @@
         <template id="filterTemplate">
             <div class="quiet">
                 Filter:
-                <input oninput="onInput()" type="search" id="fileSearch">
+                <input type="search" id="fileSearch">
             </div>
         </template>
     </div>
@@ -107,7 +107,35 @@
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -117,20 +145,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -140,69 +157,61 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { useBackend } from 'main/utils/useBackend';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
+import { useBackend } from "main/utils/useBackend";
 &nbsp;
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import RestaurantTable from 'main/components/Restaurants/RestaurantTable';
-import { useCurrentUser , hasRole} from 'main/utils/currentUser'
-import { Button } from 'react-bootstrap';
+import RestaurantTable from "main/components/Restaurants/RestaurantTable";
+import { useCurrentUser, hasRole } from "main/utils/currentUser";
+import { Button } from "react-bootstrap";
 &nbsp;
 export default function RestaurantIndexPage() {
+  const currentUser = useCurrentUser();
 &nbsp;
-    const currentUser = useCurrentUser();
+  const {
+    data: restaurants,
+    error: _error,
+    status: _status,
+  } = useBackend(
+    // Stryker disable next-line all : don't test internal caching of React Query
+    ["/api/restaurants/all"],
+    { method: "GET", url: "/api/restaurants/all" },
+    // Stryker disable next-line all : don't test default value of empty list
+    [],
+  );
 &nbsp;
-    const { data: restaurants, error: _error, status: _status } =
-        useBackend(
-            // Stryker disable next-line all : don't test internal caching of React Query
-            ["/api/restaurants/all"],
-            { method: "GET", url: "/api/restaurants/all" },
-            // Stryker disable next-line all : don't test default value of empty list
-            []
-        );
-&nbsp;
-    const createButton = () =&gt; {
-        if (hasRole(currentUser, "ROLE_ADMIN")) {
-            return (
-                &lt;Button
-                    variant="primary"
-                    href="/restaurants/create"
-                    style={{ float: "right" }}
-                &gt;
-                    Create Restaurant
-                &lt;/Button&gt;
-            )
-        } 
+  const createButton = () =&gt; {
+    if (hasRole(currentUser, "ROLE_ADMIN")) {
+      return (
+        &lt;Button
+          variant="primary"
+          href="/restaurants/create"
+          style={{ float: "right" }}
+        &gt;
+          Create Restaurant
+        &lt;/Button&gt;
+      );
     }
+  };
 &nbsp;
-    return (
-        &lt;BasicLayout&gt;
-            &lt;div className="pt-2"&gt;
-                {createButton()}
-                &lt;h1&gt;Restaurants&lt;/h1&gt;
-                &lt;RestaurantTable restaurants={restaurants} currentUser={currentUser} /&gt;
-            &lt;/div&gt;
-        &lt;/BasicLayout&gt;
-    );
-}</pre></td></tr></table></pre>
+  return (
+    &lt;BasicLayout&gt;
+      &lt;div className="pt-2"&gt;
+        {createButton()}
+        &lt;h1&gt;Restaurants&lt;/h1&gt;
+        &lt;RestaurantTable restaurants={restaurants} currentUser={currentUser} /&gt;
+      &lt;/div&gt;
+    &lt;/BasicLayout&gt;
+  );
+}
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Thu Oct 10 2024 17:29:48 GMT-0700 (Pacific Daylight Time)
+                at 2024-10-11T00:35:14.474Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
