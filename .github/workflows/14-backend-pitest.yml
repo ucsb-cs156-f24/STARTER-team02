@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 10
 
     steps:
-    - uses: actions/checkout@v3.5.2
+    - uses: actions/checkout@v4
     - name: Figure out branch name
       id: get-branch-name
       run: | 
@@ -46,13 +46,13 @@ jobs:
       run: mvn pitest:mutationCoverage -DmutationThreshold=100 
     - name: Upload Pitest History to Artifacts
       if: always() # always upload artifacts, even if tests fail
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4
       with:
         name: pitest-${{env.branch_name}}-history.bin
         path: target/pit-history/history.bin
     - name: Upload Pitest to Artifacts
       if: always() # always upload artifacts, even if tests fail
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4
       with:
         name: pitest
         path: target/pit-reports/* 
