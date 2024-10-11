@@ -36,6 +36,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
+
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -94,7 +97,7 @@ public class SecurityConfig {
    */
   @Bean
   public WebSecurityCustomizer webSecurityCustomizer() {
-    return web -> web.ignoring().requestMatchers("/h2-console/**");
+    return web -> web.ignoring().requestMatchers(antMatcher("/h2-console/**"));
   }
 
   private GrantedAuthoritiesMapper userAuthoritiesMapper() {
