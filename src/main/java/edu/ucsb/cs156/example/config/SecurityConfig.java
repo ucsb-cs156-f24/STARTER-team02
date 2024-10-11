@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
@@ -28,7 +30,8 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * The `SecurityConfig` class in Java configures web security with OAuth2 login, CSRF protection, and
+ * The `SecurityConfig` class in Java configures web security with OAuth2 login,
+ * CSRF protection, and
  * role-based authorization based on user email addresses.
  */
 @Configuration
@@ -44,8 +47,10 @@ public class SecurityConfig {
   UserRepository userRepository;
 
   /**
-   * The `filterChain` method in this Java code configures various security settings for an HTTP request,
-   * including authorization, exception handling, OAuth2 login, CSRF protection, and logout behavior.
+   * The `filterChain` method in this Java code configures various security
+   * settings for an HTTP request,
+   * including authorization, exception handling, OAuth2 login, CSRF protection,
+   * and logout behavior.
    * 
    * @param http injected HttpSecurity object (injected by Spring framework)
    */
@@ -53,14 +58,21 @@ public class SecurityConfig {
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
         .exceptionHandling(handling -> handling.authenticationEntryPoint(new Http403ForbiddenEntryPoint()))
-        .oauth2Login(oauth2 -> oauth2.userInfoEndpoint(userInfo -> userInfo.userAuthoritiesMapper(this.userAuthoritiesMapper())))
-        .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
-        .logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/"));
+        .sessionManagement((session) -> session
+            .sessionCreationPolicy(SessionCreationPolicy.NEVER))
+        .oauth2Login(
+            oauth2 -> oauth2.userInfoEndpoint(userInfo -> userInfo.userAuthoritiesMapper(this.userAuthoritiesMapper())))
+        .csrf((csrf) -> csrf
+            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+        .logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+            .deleteCookies("JSESSIONID").invalidateHttpSession(true).clearAuthentication(true)
+            .logoutSuccessUrl("/"));
     return http.build();
   }
 
   /**
-   * The `webSecurityCustomizer` method is used to configure web security in Java, specifically ignoring requests
+   * The `webSecurityCustomizer` method is used to configure web security in Java,
+   * specifically ignoring requests
    * to the "/h2-console/**" path.
    */
   @Bean
@@ -99,7 +111,8 @@ public class SecurityConfig {
   }
 
   /**
-   * This method checks if the given email belongs to an admin user either from a predefined
+   * This method checks if the given email belongs to an admin user either from a
+   * predefined
    * list or by querying the user repository.
    * 
    * @param email email address of the user
