@@ -29,8 +29,10 @@ Each of these three steps is explained in more detail below.
 
 1. Login to the Google Developer Console at <https://console.cloud.google.com/>.
 
-2. Create a new project on the top left (or select the project you would like to create your OAuth app in)
+2. Create a new project on the top left (or select the project you would like to create your OAuth app in).
 
+   If you need help with creating a project, visit: <https://ucsb-cs156.github.io/topics/oauth/google_create_developer_project.html>]
+   
 2. On the upper left, there is a hamburger menu icon that provides a left navigation menu.
    
    * Look for `APIs and Services` then `Credentials`.
