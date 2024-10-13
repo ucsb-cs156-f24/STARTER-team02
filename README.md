@@ -1,15 +1,15 @@
-# STARTER-team03
+# STARTER-team02
 
-Instructions: <https://ucsb-cs156.github.io/s24/lab/team03.html>
+Instructions: <https://ucsb-cs156.github.io/f24/lab/team02.html>
 
-TODO: change heading above to your repo name, e.g. `# team03-s24-4pm-4`
+TODO: change heading above to your repo name, e.g. `# team02-f24-17`
 
 TODO: Add a link to the deployed Dokku app for your team here, e.g.
 
 Deployments:
 
-* Prod: <https://team03.dokku-17.cs.ucsb.edu>
-* QA: <https://team03-qa.dokku-17.cs.ucsb.edu>
+* Prod: <https://team02.dokku-17.cs.ucsb.edu>
+* QA: <https://team02-qa.dokku-17.cs.ucsb.edu>
 
 TODO: Fill in this table with correct information. 
 
@@ -126,7 +126,10 @@ Or add `/swagger-ui/index.html` to the URL of your dokku deployment.
 * This should put the storybook on http://localhost:6006
 * Additional stories are added under frontend/src/stories
 
-* For documentation on React Storybook, see: https://storybook.js.org/
+For documentation on React Storybook, see: 
+* <https://ucsb-cs156.github.io/topics/storybook/>
+* <https://ucsb-cs156.github.io/topics/chromatic/>
+* <https://storybook.js.org/>
 
 # SQL Database access
 
