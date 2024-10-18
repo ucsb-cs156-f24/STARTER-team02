@@ -158,6 +158,15 @@
 
   <build>
     <plugins>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <compilerArgument>-proc:full</compilerArgument>
+        </configuration>
+      </plugin>
+
       <!-- This fixes a problem as explained in this SO article:
       https://stackoverflow.com/a/61936537/13960329
       -->
