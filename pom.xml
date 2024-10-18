@@ -143,6 +143,13 @@
       <version>2.5.0</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/org.liquibase/liquibase-maven-plugin -->
+    <dependency>
+      <groupId>org.liquibase</groupId>
+      <artifactId>liquibase-maven-plugin</artifactId>
+      <version>4.29.2</version>
+    </dependency>
+
   </dependencies>
 
   <!-- (24) <repositories/> -->
