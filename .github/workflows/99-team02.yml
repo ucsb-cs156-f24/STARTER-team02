@@ -87,13 +87,13 @@ jobs:
             # Acceptance Criteria:
             - [ ] An app named `team02` is created on this team's dokku server.
             - [ ] An database is configured for that app (see: <https://ucsb-cs156.github.io/topics/dokku/postgres_database.html>)
-            - [ ] HTTPS is configured for that app (see: <https://ucsb-cs156.github.io/topics/dokku/enabling_https.html>)
             - [ ] The ADMIN_EMAILS are configured for that app.
                   * You should find the ones you need in a pinned post on your team's Slack channel.
                   * Instructions for configuring the variable are here: <https://ucsb-cs156.github.io/topics/dokku/environment_variables.html>
             - [ ] Google OAuth is configured for that app.
                   * Instructions for configuring OAuth credentials are here: <https://ucsb-cs156.github.io/topics/oauth/oauth_google_setup.html>
                   * Then you need to use the instructions here to configure the environment variables `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`: <https://ucsb-cs156.github.io/topics/dokku/environment_variables.html>
+            - [ ] HTTPS is configured for that app (see: <https://ucsb-cs156.github.io/topics/dokku/enabling_https.html>)
             - [ ] The main branch is deployed on Dokku at, for example,
                   <https://team02.dokku-xx.cs.ucsb.edu> (substituting your
                   own Dokku instances for xx).
@@ -115,7 +115,6 @@ jobs:
 
             - [ ] An app named `team02-qa` is created on this team's dokku server.
             - [ ] An database is configured for that app (see: <https://ucsb-cs156.github.io/topics/dokku/postgres_database.html>)
-            - [ ] HTTPS is configured for that app (see: <https://ucsb-cs156.github.io/topics/dokku/enabling_https.html>)
             - [ ] The ADMIN_EMAILS are configured for that app.
                   * You should find the ones you need in a pinned post on your team's Slack channel.
                   * Instructions for configuring the variable are here: <https://ucsb-cs156.github.io/topics/dokku/environment_variables.html>
@@ -127,6 +126,7 @@ jobs:
                   own Dokku instances for xx).
             - [ ] Everyone on the team, and the instructor and TAs, are all able to 
                   login with OAuth and see that they have admin privileges.
+            - [ ] HTTPS is configured for that app (see: <https://ucsb-cs156.github.io/topics/dokku/enabling_https.html>)
                   
            
             # Details
@@ -247,9 +247,7 @@ jobs:
             # Acceptance Criteria:
             - [ ] An app named `team02-YOURGITHUBID-dev` is created on this team's dokku server, where
                   `YOURGITHUBID` is your github id.
-
             - [ ] An database is configured for that app (see: <https://ucsb-cs156.github.io/topics/dokku/postgres_database.html>)
-            - [ ] HTTPS is configured for that app (see: <https://ucsb-cs156.github.io/topics/dokku/enabling_https.html>)
             - [ ] The ADMIN_EMAILS are configured for that app.
                   * You should find the ones you need in a pinned post on your team's Slack channel.
                   * Instructions for configuring the variable are here: <https://ucsb-cs156.github.io/topics/dokku/environment_variables.html>
@@ -260,6 +258,8 @@ jobs:
                   login with OAuth and see that they have admin privileges.
             - [ ] Initially, the `main` branch is deployed and works properly (later, you will deploy your own branches to this 
                   instance as you test them before merging.)     
+            - [ ] HTTPS is configured for that app (see: <https://ucsb-cs156.github.io/topics/dokku/enabling_https.html>)
+
             # What to do next
 
             Next:
@@ -303,30 +303,36 @@ jobs:
             - [ ] Do the same for `${{env.name}}Controller.java` from the directory
                   `src/main/java/edu/ucsb/cs156/example/controllers`
             - [ ] Do the same for `${{env.name}}ControllerTests.java` from the directory
-                  `src/test/java/edu/ucsb/cs156/example/controllers`          
+                  `src/test/java/edu/ucsb/cs156/example/controllers`   
+            - [ ] Do the same for your database migration file for $${{env.name}}, under `/src/main/resources/db/migration/changes`       
             - [ ] With these files in place, visit swagger and make sure 
                   the CRUD operations for `${{env.name}}` are working properly.
             
             # What to do next
 
-            ** Make a PR**: When you've met all of the acceptance criteria, do a PR for this branch,
+            **Make a PR**: When you've met all of the acceptance criteria, do a PR for this branch,
             being sure to enter a [reasonable title](https://ucsb-cs156.github.io/topics/pull_requests.html#pr-titles)
             and [description](https://ucsb-cs156.github.io/topics/pull_requests.html#pr-descriptions).
 
             In the description, include the text "Closes #n" where `n` is the number of
             this issue.
 
+            It is also helpful to include a screenshot of the Swagger endpoints so that
+            the person reviewing your PR knows what to test. It is helpful to 
+            deploy your branch to your dokku dev instance, and include a link to the 
+            swagger page on your dokku instance.
+
             Then ask for a team member to review your PR.
 
             Finally: drag this issue from "In Progress" to "In Review".
       
-            ** Review Others' PRs**: Next, see if there are any PRs that need to be code reviewed and merged.  Unless you are the
+            **Review Others' PRs**: Next, see if there are any PRs that need to be code reviewed and merged.  Unless you are the
             first person on your team to complete a PR, there likely is at least one.
             See: 
             * [General Code Review Advice](https://ucsb-cs156.github.io/topics/code_reviews/)
-            * [Performin Code Reviews on Github](https://ucsb-cs156.github.io/topics/code_reviews/code_reviews_github.html)
+            * [Performing Code Reviews on Github](https://ucsb-cs156.github.io/topics/code_reviews/code_reviews_github.html)
 
-            ** Start your next issue **: Then, find the issue for "Create fixtures for `${{env.name}}`" on the Kanban board in the ToDo column.
+            **Start your next issue**: Then, find the issue for "Create fixtures for `${{env.name}}`" on the Kanban board in the ToDo column.
             
             * Assign it to yourself
             * Drag into "In Progress"
@@ -360,7 +366,7 @@ jobs:
 
             # What to do next
 
-            ** Make a PR**: When you've met all of the acceptance criteria, do a PR for this branch,
+            **Make a PR**: When you've met all of the acceptance criteria, do a PR for this branch,
             being sure to enter a [reasonable title](https://ucsb-cs156.github.io/topics/pull_requests.html#pr-titles)
             and [description](https://ucsb-cs156.github.io/topics/pull_requests.html#pr-descriptions).
 
@@ -369,13 +375,13 @@ jobs:
 
             Then ask for a team member to review your PR, and drag this issue from "In Progress" to "In Review".
       
-            ** Review Others' PRs**: Next, see if there are any PRs that need to be code reviewed and merged.  Unless you are the
+            **Review Others' PRs**: Next, see if there are any PRs that need to be code reviewed and merged.  Unless you are the
             first person on your team to complete a PR, there likely is at least one.
             See: 
             * [General Code Review Advice](https://ucsb-cs156.github.io/topics/code_reviews/)
-            * [Performin Code Reviews on Github](https://ucsb-cs156.github.io/topics/code_reviews/code_reviews_github.html)
+            * [Performing Code Reviews on Github](https://ucsb-cs156.github.io/topics/code_reviews/code_reviews_github.html)
 
-            ** Start your next issue **: Then, find the issue for "Form Component for `${{env.name}}` plus tests" on the Kanban board in the ToDo column.
+            **Start your next issue**: Then, find the issue for "Form Component for `${{env.name}}` plus tests" on the Kanban board in the ToDo column.
             
             * Assign it to yourself
             * Drag into "In Progress"
