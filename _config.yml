@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f24/STARTER-team02
 owner: ucsb-cs156-f24
 repo_name: STARTER-team02
-pull_requests: [{"author":{"id":"MDQ6VXNlcjExMTkwMTc=","is_bot":false,"login":"pconrad","name":"Phill Conrad"},"headRefName":"pc-fix-storybook-github-action-in-workflow-02","number":23,"title":"pc - fix broken path in chromatic workflow in workflow 02","url":"https://github.com/ucsb-cs156-f24/STARTER-team02/pull/23"}]
+pull_requests: []
