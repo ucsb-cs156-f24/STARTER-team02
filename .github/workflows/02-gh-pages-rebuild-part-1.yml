@@ -340,7 +340,7 @@ jobs:
     if: ${{ needs.initialize.outputs.pull_requests != '[]' && needs.initialize.outputs.pull_requests != '' }}
 
     env:
-      destination: prs/${{ matrix.value.number }}/chromatic  
+      destination: frontend/prs/${{ matrix.value.number }}/chromatic  
 
     strategy:
       matrix:
@@ -387,7 +387,6 @@ jobs:
           echo "Chromatic build ID: ${{ steps.run_chromatic.outputs.storybookUrl }}"
 
     - name: Build redirect files
-      working-directory: frontend
       run: | # Create redirect files to redirect to the storybook online
           mkdir -p ${{ env.destination }}
           echo "<meta http-equiv=refresh content=0;url=${{steps.run_chromatic.outputs.storybookUrl}}>" > ${{ env.destination }}/index.html
