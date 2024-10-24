@@ -340,7 +340,7 @@ jobs:
     if: ${{ needs.initialize.outputs.pull_requests != '[]' && needs.initialize.outputs.pull_requests != '' }}
 
     env:
-      destination: chromatic_static_${{ matrix.value.number }}   
+      destination: prs/${{ matrix.value.number }}/chromatic  
 
     strategy:
       matrix:
@@ -389,9 +389,9 @@ jobs:
     - name: Build redirect files
       working-directory: frontend
       run: | # Create redirect files to redirect to the storybook online
-          mkdir -p chromatic_static_${{ matrix.value.number }}
-          echo "<meta http-equiv=refresh content=0;url=${{steps.run_chromatic.outputs.storybookUrl}}>" > chromatic_static_${{ matrix.value.number }}/index.html
-          echo "<meta http-equiv=refresh content=0;url=${{steps.run_chromatic.outputs.url}}>" > chromatic_static_${{ matrix.value.number }}/build.html
+          mkdir -p ${{ env.destination }}
+          echo "<meta http-equiv=refresh content=0;url=${{steps.run_chromatic.outputs.storybookUrl}}>" > ${{ env.destination }}/index.html
+          echo "<meta http-equiv=refresh content=0;url=${{steps.run_chromatic.outputs.url}}>" > ${{ env.destination }}/build.html
 
     - name: Upload Chromatic to artifacts
       uses: actions/upload-artifact@v4
