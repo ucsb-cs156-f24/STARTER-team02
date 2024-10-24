@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f24/STARTER-team02
 owner: ucsb-cs156-f24
 repo_name: STARTER-team02
-pull_requests: []
+pull_requests: [{"author":{"is_bot":true,"login":"app/dependabot"},"headRefName":"dependabot/npm_and_yarn/frontend/rollup-2.79.2","number":86,"title":"Bump rollup from 2.79.1 to 2.79.2 in /frontend","url":"https://github.com/ucsb-cs156-f24/STARTER-team02/pull/86"},{"author":{"is_bot":true,"login":"app/dependabot"},"headRefName":"dependabot/npm_and_yarn/frontend/http-proxy-middleware-2.0.7","number":85,"title":"Bump http-proxy-middleware from 2.0.6 to 2.0.7 in /frontend","url":"https://github.com/ucsb-cs156-f24/STARTER-team02/pull/85"}]
