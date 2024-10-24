@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f24/STARTER-team02
 owner: ucsb-cs156-f24
 repo_name: STARTER-team02
-pull_requests: []
+pull_requests: [{"author":{"id":"MDQ6VXNlcjExMTkwMTc=","is_bot":false,"login":"pconrad","name":"Phill Conrad"},"headRefName":"pc-f24-update-issues","number":24,"title":"pc - get issues ready for F24","url":"https://github.com/ucsb-cs156-f24/STARTER-team02/pull/24"}]
