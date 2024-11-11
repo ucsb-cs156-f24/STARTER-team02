@@ -324,8 +324,8 @@ jobs:
             $row = "| " + (LeftAlignText $assignee 17) + "|"
             foreach ($column in $columns) {
               $count = if ($assignees[$assignee].ContainsKey($column)) { "$($assignees[$assignee][$column])" } else { "0" }
-              $leftAlignedCount = printf "%-4s " $count
-              $row += " $leftAlignedCount|"
+              $leftAlignedCount = printf "%-4s" $count
+              $row += " $leftAlignedCount |"
             }
             $table += "$row`n"
           }
