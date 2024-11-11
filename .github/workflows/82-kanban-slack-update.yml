@@ -4,6 +4,8 @@ name: "82-kanban-slack-update.yml"
 # <https://ucsb-cs156.github.io/topics/github_actions/workflow_82.html>
 
 on:
+  schedule:
+    - cron: "0 17 * * *"  # Run at 9:00 AM PST / 5:00 PM UTC
   workflow_dispatch:  # Allows manual triggering
 
 env:
@@ -332,6 +334,7 @@ jobs:
 
           Write-Host "ASCII Table:`n$table"
           $table | Out-File ascii_table.txt
+          echo "ascii_table=${table}" >> $GITHUB_OUTPUT
 
       - name: Upload ASCII Table
         uses: actions/upload-artifact@v4
