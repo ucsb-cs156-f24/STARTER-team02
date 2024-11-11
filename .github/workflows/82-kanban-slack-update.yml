@@ -40,9 +40,7 @@ jobs:
           OWNER_PLUS_REPOSITORY=${{github.repository}}
           OWNER=${{ github.repository_owner }}
           REPOSITORY=${OWNER_PLUS_REPOSITORY/$OWNER\//}
-          PREFIX="${REPOSITORY: 7}"
-          echo "prefix=${PREFIX}" >> "$GITHUB_OUTPUT"
-          if [[ "$PREFIX" == "STARTER" ]]; then
+          if [[ "$REPOSITORY" == STARTER* ]]; then
             echo "This workflow should not run on a starter repository"
             echo "continue=false" >> "$GITHUB_OUTPUT"
           fi
