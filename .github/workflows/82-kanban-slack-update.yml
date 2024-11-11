@@ -369,7 +369,6 @@ jobs:
       #The ASCII table content is also printed for debugging purposes
       - name: Debug Environment Variables
         run: |
-          echo "access_token=${{ secrets.SLACK_BOT_USER_OAUTH_ACCESS_TOKEN }}"
           echo "TEAM_TO_CHANNEL: ${{ env.TEAM_TO_CHANNEL }}"
           echo "TEAM: ${{ env.TEAM }}"
           echo "ORG_NAME: ${{ env.ORG_NAME }}"
