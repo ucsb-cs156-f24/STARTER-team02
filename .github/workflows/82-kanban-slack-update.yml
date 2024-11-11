@@ -324,13 +324,8 @@ jobs:
             $row = "| " + (LeftAlignText $assignee 17) + "|"
             foreach ($column in $columns) {
               $count = if ($assignees[$assignee].ContainsKey($column)) { "$($assignees[$assignee][$column])" } else { "0" }
-              $spaces = switch ($count.Length) {
-                1 { "   " }  # 3 spaces for single digit
-                2 { "  " }   # 2 spaces for double digit
-                3 { " " }    # 1 space for triple digit
-                default { "" }  # No spaces for more than 3 digits
-              }
-              $leftAlignedCount = $spaces + (LeftAlignText $count 2)
+              $spaces = " " * (4 - [math]::Min($count.Length, 4))
+              $leftAlignedCount = printf "%s%s" $spaces $count
               $row += " $leftAlignedCount|"
             }
             $table += "$row`n"
@@ -338,7 +333,6 @@ jobs:
 
           Write-Host "ASCII Table:`n$table"
           $table | Out-File ascii_table.txt
-          echo "ascii_table=${table}" >> $GITHUB_OUTPUT
 
       - name: Upload ASCII Table
         uses: actions/upload-artifact@v4
