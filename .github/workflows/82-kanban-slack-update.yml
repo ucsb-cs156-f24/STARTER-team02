@@ -1,0 +1,52 @@
+name: "82-kanban-slack-update.yml"
+
+# Instructions to set up the workflow can be found here:
+# <https://ucsb-cs156.github.io/topics/github_actions/workflow_82.html>
+
+on:
+  workflow_dispatch:  # Allows manual triggering
+
+env:
+  PAT: ${{ secrets.PAT }}
+  TEAM_TO_CHANNEL: ${{vars.TEAM_TO_CHANNEL}}
+  TEAM: ${{ github.repository }}
+  ORG_NAME: ${{ github.repository_owner }}
+  COLUMNS: "Todo, In Progress, In Review, Done"
+  END_DATE: "2024-11-13"  # Set the end date for the workflow
+
+jobs:
+
+  # This job checks if the current date is before the END_DATE
+  check_date:
+    name: Check Date
+    runs-on: ubuntu-latest
+    outputs:
+      continue: ${{ steps.check_date.outputs.continue }}
+    steps:
+      - name: Check if current date is before END_DATE
+        id: check_date
+        run: |
+          current_date=$(date +%Y-%m-%d)
+          end_date="${{ env.END_DATE }}"
+          if [[ "$current_date" > "$end_date" ]]; then
+            echo "Current date is after $end_date. Stopping workflow."
+            echo "continue=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Current date is before $end_date. Continuing workflow."
+            echo "continue=true" >> "$GITHUB_OUTPUT"
+          fi
+          REPO=${{ github.repository }}
+          PREFIX="${REPO: 7}"
+          echo "prefix=${PREFIX}" >> "$GITHUB_OUTPUT"
+          if [[ "$PREFIX" == "STARTER" ]]; then
+            echo "This workflow should not run on a starter repository"
+            echo "continue=false" >> "$GITHUB_OUTPUT"
+          fi
+          if [[ -f "$GITHUB_OUTPUT" ]]; then
+            echo "Contents of $GITHUB_OUTPUT:"
+            cat "$GITHUB_OUTPUT"
+          fi
+  # This job extracts the team name from the repository name
+  # The team name is used to find the project ID for the team
+  # It does this by extracting the last 6 characters of the repository name
+  # Then sets the team name as an output for the next job
