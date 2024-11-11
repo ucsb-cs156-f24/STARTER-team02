@@ -37,8 +37,10 @@ jobs:
             echo "Current date is before $end_date. Continuing workflow."
             echo "continue=true" >> "$GITHUB_OUTPUT"
           fi
-          REPO=${{ github.repository }}
-          PREFIX="${REPO: 7}"
+          OWNER_PLUS_REPOSITORY=${{github.repository}}
+          OWNER=${{ github.repository_owner }}
+          REPOSITORY=${OWNER_PLUS_REPOSITORY/$OWNER\//}
+          PREFIX="${REPOSITORY: 7}"
           echo "prefix=${PREFIX}" >> "$GITHUB_OUTPUT"
           if [[ "$PREFIX" == "STARTER" ]]; then
             echo "This workflow should not run on a starter repository"
