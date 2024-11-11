@@ -37,10 +37,10 @@ jobs:
             echo "Current date is before $end_date. Continuing workflow."
             echo "continue=true" >> "$GITHUB_OUTPUT"
           fi
-          REPO=${{ github.repository }}
-          PREFIX="${REPO: 7}"
-          echo "prefix=${PREFIX}" >> "$GITHUB_OUTPUT"
-          if [[ "$PREFIX" == "STARTER" ]]; then
+          OWNER_PLUS_REPOSITORY=${{github.repository}}
+          OWNER=${{ github.repository_owner }}
+          REPOSITORY=${OWNER_PLUS_REPOSITORY/$OWNER\//}
+          if [[ "$REPOSITORY" == STARTER* ]]; then
             echo "This workflow should not run on a starter repository"
             echo "continue=false" >> "$GITHUB_OUTPUT"
           fi
@@ -326,7 +326,7 @@ jobs:
             $row = "| " + (LeftAlignText $assignee 17) + "|"
             foreach ($column in $columns) {
               $count = if ($assignees[$assignee].ContainsKey($column)) { "$($assignees[$assignee][$column])" } else { "0" }
-              $leftAlignedCount = printf "%-4s" $count
+              $leftAlignedCount = printf "%4s" $count
               $row += " $leftAlignedCount |"
             }
             $table += "$row`n"
