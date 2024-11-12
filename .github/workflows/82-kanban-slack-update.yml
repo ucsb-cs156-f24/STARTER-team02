@@ -4,6 +4,8 @@ name: "82-kanban-slack-update.yml"
 # <https://ucsb-cs156.github.io/topics/github_actions/workflow_82.html>
 
 on:
+  schedule:
+    - cron: "0 17 * * *"  # Run at 9:00 AM PST / 5:00 PM UTC
   workflow_dispatch:  # Allows manual triggering
 
 env:
@@ -35,10 +37,10 @@ jobs:
             echo "Current date is before $end_date. Continuing workflow."
             echo "continue=true" >> "$GITHUB_OUTPUT"
           fi
-          REPO=${{ github.repository }}
-          PREFIX="${REPO: 7}"
-          echo "prefix=${PREFIX}" >> "$GITHUB_OUTPUT"
-          if [[ "$PREFIX" == "STARTER" ]]; then
+          OWNER_PLUS_REPOSITORY=${{github.repository}}
+          OWNER=${{ github.repository_owner }}
+          REPOSITORY=${OWNER_PLUS_REPOSITORY/$OWNER\//}
+          if [[ "$REPOSITORY" == STARTER* ]]; then
             echo "This workflow should not run on a starter repository"
             echo "continue=false" >> "$GITHUB_OUTPUT"
           fi
@@ -46,7 +48,8 @@ jobs:
             echo "Contents of $GITHUB_OUTPUT:"
             cat "$GITHUB_OUTPUT"
           fi
-# This job extracts the team name from the repository name
+        
+  # This job extracts the team name from the repository name
   # The team name is used to find the project ID for the team
   # It does this by extracting the last 6 characters of the repository name
   # Then sets the team name as an output for the next job
@@ -334,8 +337,9 @@ jobs:
             $row = "| " + (LeftAlignText $assignee 17) + "|"
             foreach ($column in $columns) {
               $count = if ($assignees[$assignee].ContainsKey($column)) { "$($assignees[$assignee][$column])" } else { "0" }
-              $leftAlignedCount = printf "%-4s" $count
+              $leftAlignedCount = printf "%4s" $count
               $row += " $leftAlignedCount |"
+
             }
             $table += "$row`n"
           }
@@ -351,6 +355,7 @@ jobs:
 
           Write-Host "ASCII Table:`n$table"
           $table | Out-File ascii_table.txt
+          echo "ascii_table=${table}" >> $GITHUB_OUTPUT
 
       - name: Upload ASCII Table
         uses: actions/upload-artifact@v4
