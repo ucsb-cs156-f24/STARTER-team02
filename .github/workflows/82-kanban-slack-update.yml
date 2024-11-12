@@ -348,7 +348,7 @@ jobs:
           $unassignedRow = "| " + (LeftAlignText "UNASSIGNED" 17) + "|"
           foreach ($column in $columns) {
             $unassignedCount = $unassignedCounts[$column]
-            $leftAlignedUnassignedCount = printf "%-4s" $unassignedCount
+            $leftAlignedUnassignedCount = printf "%4s" $unassignedCount
             $unassignedRow += " $leftAlignedUnassignedCount |"
           }
           $table += "$unassignedRow`n"
